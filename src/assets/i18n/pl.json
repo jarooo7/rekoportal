@@ -1,0 +1,12 @@
+{
+    "global":{
+
+    },
+    "auth":{
+        "log": "Logowanie",
+        "register": "Rejestracja",
+        "login": "Zaloguj się",
+        "password": "Hasło",
+        "email": "Email"
+    }
+}

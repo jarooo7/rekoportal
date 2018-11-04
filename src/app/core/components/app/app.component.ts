@@ -9,9 +9,41 @@ import { environment } from '../../../../environments/environment';
 })
 export class AppComponent {
   title = 'rekoportal-frontend';
-  constructor( private translateService: TranslateService ) {
-    if (localStorage.getItem(environment.language) === 'en') {
-      translateService.setDefaultLang('en');
+  constructor(private translateService: TranslateService) {
+    if (localStorage.getItem(environment.language)) {
+      switch (localStorage.getItem(environment.language)) {
+        case 'en': {
+          translateService.setDefaultLang('en');
+          break;
+        }
+        case 'pl': {
+          translateService.setDefaultLang('pl');
+          break;
+        }
+        case 'ru': {
+          translateService.setDefaultLang('ru');
+          break;
+        }
+        case 'de': {
+          translateService.setDefaultLang('de');
+          break;
+        }
+        case 'sk': {
+          translateService.setDefaultLang('sk');
+          break;
+        }
+        case 'lt': {
+          translateService.setDefaultLang('lt');
+          break;
+        }
+        case 'fr': {
+          translateService.setDefaultLang('fr');
+          break;
+        }
+        default: {
+          translateService.setDefaultLang('pl');
+        }
+      }
     } else {
       translateService.setDefaultLang('pl');
     }

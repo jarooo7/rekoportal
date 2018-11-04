@@ -1,6 +1,6 @@
 {
     "global":{
-
+        "language":"Język"
     },
     "auth":{
         "log": "Logowanie",
@@ -12,5 +12,14 @@
     "validationError":{
         "email": "Wprowadź adres email",
         "required":"Uzupełnij pole"
+    },
+    "alert":{
+        "success":{
+            "welcom": "Witamy w RekoPortal"
+        },
+        "error":{
+            "notConect":"Problem z połaczeniem",
+            "userNotFound": "Niepoprawny email lub hasło"
+        }
     }
 }

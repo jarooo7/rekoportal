@@ -1,0 +1,12 @@
+{
+    "global":{
+        "language":"Sprache"
+    },
+    "auth":{
+        "log": "Anmelden",
+        "register": "Rejestracja",
+        "login": "Anmelden",
+        "password": "Passwort",
+        "email": "Email"
+    }
+}

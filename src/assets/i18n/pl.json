@@ -8,5 +8,9 @@
         "login": "Zaloguj się",
         "password": "Hasło",
         "email": "Email"
+    },
+    "validationError":{
+        "email": "Wprowadź adres email",
+        "required":"Uzupełnij pole"
     }
 }

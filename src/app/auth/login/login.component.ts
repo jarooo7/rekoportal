@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+
 
 enum FormControlNames {
   EMAIL_ADDRESS = 'email',
@@ -17,7 +20,9 @@ export class LoginComponent implements OnInit {
   formControlNames = FormControlNames;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private notifier: NotifierService
   ) { }
 
   ngOnInit() {
@@ -27,7 +32,13 @@ export class LoginComponent implements OnInit {
       [FormControlNames.PASSWORD]: ['', [Validators.required]]
     });
   }
-  onSubmit() {
-    console.log(this.loginForm.value);
+  public onSubmit( ) {
+    return this.http.post(environment.api + 'login', this.loginForm.value).subscribe(
+      () => this.showNotification('success', 'Zalogowałeś się'),
+      error =>  this.showNotification('error', error.error.message),
+    );
+  }
+  private showNotification( type: string, message: string ): void {
+    this.notifier.notify( type, message );
   }
 }

@@ -7,7 +7,15 @@
         "register": "Rejestracja",
         "login": "Zaloguj się",
         "password": "Hasło",
-        "email": "Email"
+        "email": "Email",
+        "registerText": "Jeśli nie posiadasz jeszcze konta",
+        "signUp": "Zarejestruj się",
+        "surname": "Nazwisko",
+        "name": "Imie",
+        "rePassword": "Powtórz hasło",
+        "akcept": "Akceptuję",
+        "regulations": "regulamin"
+
     },
     "validationError":{
         "email": "Wprowadź adres email",

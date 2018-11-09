@@ -6,8 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ErrorCodes } from '../../../shared/enums/error-code';
-import { environment } from '../../../../environments/environment';
-import { parseError } from '../../../shared/functions/parseError';
+import { AuthService } from '../../services/auth.service';
+import { AuthModel } from '../../models/auth.model';
+
 
 
 enum FormControlNames {
@@ -25,12 +26,13 @@ export class LoginComponent implements OnInit {
   formControlNames = FormControlNames;
   errorCode = ErrorCodes;
   destroy$: Subject<boolean> = new Subject<boolean>();
+  auth: AuthModel;
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private translate: TranslateService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private authService: AuthService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,10 @@ export class LoginComponent implements OnInit {
     });
   }
   public onSubmit() {
-    return this.http.post(environment.api + 'login', this.loginForm.value).subscribe(
+    this.auth = this.loginForm.value;
+    this.authService
+    .login(this.auth)
+    .then(
       () => {
         this.translate
           .get('alert.success.welcom')
@@ -49,29 +54,75 @@ export class LoginComponent implements OnInit {
           .subscribe(translation => {
             this.showNotification('success', translation);
           });
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-        const response = parseError(error);
-        if (response.code === this.errorCode.UserNotFound) {
-          console.log(response);
-          this.translate
+      })
+      .catch(
+      error => {
+        switch (error.code) {
+          case this.errorCode.UserNotFound : {
+            this.translate
             .get('alert.error.userNotFound')
             .pipe(takeUntil(this.destroy$))
             .subscribe(translation => {
               this.showNotification('error', translation);
             });
-        } else {
-          this.translate
+          break;
+          }
+          case this.errorCode.WrongPassword : {
+            this.translate
+            .get('alert.error.wrongPassword')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(translation => {
+              this.showNotification('error', translation);
+            });
+          break;
+          }
+          case this.errorCode.InvalidEmail : {
+            this.translate
+            .get('alert.error.invalidEmail')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(translation => {
+              this.showNotification('error', translation);
+            });
+          break;
+          }
+          default: {
+            this.translate
             .get('alert.error.notConect')
             .pipe(takeUntil(this.destroy$))
             .subscribe(translation => {
               this.showNotification('error', translation);
             });
+            break;
+          }
         }
       }
     );
   }
+
+public loginFb() {
+  this.authService.facebookLogin()
+  .catch(
+    error => console.log(error)
+  );
+}
+
+public loginGoogle() {
+  this.authService.googleLogin()
+  .then(
+    () => {
+      this.translate
+        .get('alert.success.welcom')
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(translation => {
+          this.showNotification('success', translation);
+        });
+    })
+  .catch(
+    error => console.log(error)
+  );
+}
+
+
   private showNotification(type: string, message: string): void {
     this.notifier.notify(type, message);
   }

@@ -7,6 +7,7 @@
         <button *ngFor="let lang of languageList" class=" btn btn-dark btn-block."  (click)="useLanguage(lang.name)">{{lang.name|uppercase}} <img class="flag" [src]="lang.src"></button>
     </div>
   </span>
-    <a class="btn btn-dark my-2 my-sm-0" href="#">{{'auth.login'|translate}}</a>
+    <button *ngIf="!isLogin()" class="btn btn-dark my-2 my-sm-0" [routerLink]="['/auth/login']">{{'auth.login'|translate}}</button>
+    <button *ngIf="isLogin()" class="btn btn-dark my-2 my-sm-0" (click)="logout()">{{'auth.logout'|translate}}</button>
   </div>  
 </nav>

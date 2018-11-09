@@ -1,6 +1,8 @@
 {
     "global":{
-        "language":"Język"
+        "language":"Język",
+        "or": "Lub",
+        "send":"Wyślij"
     },
     "auth":{
         "log": "Logowanie",
@@ -14,8 +16,12 @@
         "name": "Imie",
         "rePassword": "Powtórz hasło",
         "akcept": "Akceptuję",
-        "regulations": "regulamin"
-
+        "regulations": "regulamin",
+        "fb": "Zaloguj się przez Facebook",
+        "google": "Zaloguj się przez Google",
+        "forgotPassword": "Zapomiałeś hasła?",
+        "logout": "Wyloguj się",
+        "textResetPassword":"Wprowadź adres email by zresetować hasło"
     },
     "validationError":{
         "email": "Wprowadź adres email",
@@ -27,7 +33,10 @@
         },
         "error":{
             "notConect":"Problem z połaczeniem",
-            "userNotFound": "Niepoprawny email lub hasło"
+            "userNotFound": "Użytkownik o podanym adresie email nie istnieje",
+            "wrongPassword": "Błędne hasło",
+            "invalidEmail": "Błędny adres email",
+            "isEmail":"Użytkownik o podanym adresie email już istnieje"
         }
     }
 }

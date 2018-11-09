@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../auth/services/auth.service';
 
 
 @Component({
@@ -44,7 +45,8 @@ export class NavbarComponent implements OnInit {
     }
   ];
   constructor(
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -74,5 +76,15 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  isLogin() {
+    if (this.authService.fireAuth.auth.currentUser === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
+  logout() {
+    this.authService.logout();
+  }
 }

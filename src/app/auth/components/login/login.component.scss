@@ -1,11 +1,10 @@
-.bg-img{
-    background-image: url('../../../../assets/bg.png');
-    background-size: cover;
-    min-height: 100vh;
-    top: 0;
-    position: absolute;
+@import "../../auth.scss";
+
+.btn-fb{
+background-color: #3B5998;
+color: white;
 }
-.card{
-    max-width: 600px;
-    background-color: rgba(255,255, 255, 0.85);
+
+.social-icon{
+    height: 18px;
 }

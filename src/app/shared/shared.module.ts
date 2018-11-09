@@ -4,13 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotifierModule } from 'angular-notifier';
 import { ErrorDirectiveDirective } from './directives/error-directive.directive';
+import { environment } from '../../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
 const MODULES = [
   CommonModule,
   FormsModule,
   ReactiveFormsModule,
   TranslateModule,
-  NotifierModule
+  NotifierModule,
+  AngularFirestoreModule,
+  AngularFireAuthModule
 ];
 
 const DIRECTIVES = [
@@ -23,6 +30,7 @@ const COMPONENTS = [
 
 @NgModule({
   imports: [
+    AngularFireModule.initializeApp(environment.firebase),
     ...MODULES
   ],
   declarations: [

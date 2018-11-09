@@ -1,21 +1,31 @@
 <div class="bg-img container-fluid  ">
     <div class=" container">
   <div class="row pt-5">
-    <div class="col-md-12 py-5">
+    <div class="col-md-12 pt-5 pb-2">
         <div class="card mx-auto">
           <div class="card-body">
             <p class="display-4">{{'auth.log'|translate}}</p>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-              <div class="form-group">
+              <div class="form-group my-0">
                 <label>{{'auth.email'|translate}}</label>
                 <input type="email" appErrorDirective class="form-control" [placeholder]="'auth.email' | translate" [formControlName]="formControlNames.EMAIL_ADDRESS">
               </div>
-              <div class="form-group">
-                <label>{{'auth.password'|translate}}</label>
+              <div class="form-group my-0">
+                <label>{{'auth.password'|translate}}</label> 
                 <input type="password" appErrorDirective class="form-control" [placeholder]="'auth.password' | translate" [formControlName]="formControlNames.PASSWORD">
               </div>
-              <button type="submit" [disabled]="!loginForm.valid" class="btn button btn-primary">{{'auth.login'|translate}}</button>
+              <button type="button" class="btn-link border-0 p-0 my-0 " [routerLink]="['/auth/forgot-password']" >{{'auth.forgotPassword'|translate}}</button>
+              <button type="submit" [disabled]="!loginForm.valid" class="btn button btn-primary btn-block">{{'auth.login'|translate}}</button>
             </form>
+            <h5 class="font-weight-normal py-1 text-center">
+              {{'global.or'|translate}}
+            </h5>
+            <button type="button"  class="btn btn-fb btn-block" (click)="loginFb()"><img class="px-2 social-icon" src="../../../../assets/fb-icon.svg">
+              {{'auth.fb'|translate}}
+            </button>
+            <button type="button"  class="btn btn-light btn-block" (click)="loginGoogle()"><img class=" px-2 social-icon" src="../../../../assets/google-icon.svg">
+              {{'auth.google'|translate}}
+            </button>
           </div>
           <div class="card-footer">
             <span class="font-weight-normal">

@@ -1,0 +1,20 @@
+<div class="bg-img container-fluid  ">
+    <div class=" container">
+      <div class="row pt-5">
+        <div class="col-md-12 py-5">
+          <div class="card mx-auto" *ngIf="viewForm" >
+            <div class="card-body">
+                <h3 class="font-weight-normal text-center">{{'auth.changePassword'|translate}}</h3>
+              <form (ngSubmit)="onSubmit()" [formGroup]="resetPasswordForm">
+                <div class="form-group">
+                  <label>{{'auth.password'|translate}}</label>
+                  <input type="password" appErrorDirective class="form-control" [placeholder]="'auth.password' | translate" [formControlName]="formControlNames.PASSWORD">
+                </div>
+                <button [disabled]="!resetPasswordForm.valid" type="submit" class="btn button btn-primary btn-block">{{'global.changePassword'|translate}}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

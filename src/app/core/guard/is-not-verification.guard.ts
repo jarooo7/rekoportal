@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate,  Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { map } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class NotAuthGuard implements CanActivate {
+export class IsNotVerificationGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -16,8 +16,14 @@ export class NotAuthGuard implements CanActivate {
   }
   canActivate(): Observable<boolean> {
       return this.authService.authState$.pipe(map(state => {
-        if (state === null) { return true; }
-        // this.router.navigate(['/']);
+        if (state !== null) {
+          if (this.authService.isEmailVerification()) {
+            // this.router.navigate(['/']);
+            return false;
+          }
+            return true;
+          }
+        this.router.navigate(['/auth/login']);
         return false;
         }
       )

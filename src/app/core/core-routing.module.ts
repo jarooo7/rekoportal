@@ -1,12 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotAuthGuard } from './guard/not-auth.guard';
+import { IsNotAuthGuard } from './guard/is-not-auth.guard';
+import { IsNotVerificationGuard } from './guard/is-not-verification.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: './../auth/auth.module#AuthModule',
-    canActivate: [NotAuthGuard]
+    canActivate: [IsNotAuthGuard]
+  },
+  {
+    path: 'not-active-user',
+    loadChildren: './../not-active/not-active.module#NotActiveModule',
+    canActivate: [IsNotVerificationGuard]
+  },
+  {
+    path: 'email-action',
+    loadChildren: './../email-action/email-action.module#EmailActionModule'
   },
   {
     path: '',

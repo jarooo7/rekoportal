@@ -8,6 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 import { ErrorCodes } from '../../../shared/enums/error-code';
 import { AuthService } from '../../services/auth.service';
 import { AuthModel } from '../../models/auth.model';
+import { AlertService } from '../../../shared/services/alert.service';
+import { Router } from '@angular/router';
 
 
 
@@ -30,9 +32,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private notifier: NotifierService,
+    private alert: AlertService,
     private authService: AuthService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -52,8 +55,11 @@ export class LoginComponent implements OnInit {
           .get('alert.success.welcom')
           .pipe(takeUntil(this.destroy$))
           .subscribe(translation => {
-            this.showNotification('success', translation);
+            this.alert.showNotification('success', translation);
           });
+          if (!this.authService.isEmailVerification()) {
+            this.router.navigate(['/not-active-user/not-active']);
+          }
       })
       .catch(
       error => {
@@ -63,7 +69,7 @@ export class LoginComponent implements OnInit {
             .get('alert.error.userNotFound')
             .pipe(takeUntil(this.destroy$))
             .subscribe(translation => {
-              this.showNotification('error', translation);
+              this.alert.showNotification('error', translation);
             });
           break;
           }
@@ -72,7 +78,7 @@ export class LoginComponent implements OnInit {
             .get('alert.error.wrongPassword')
             .pipe(takeUntil(this.destroy$))
             .subscribe(translation => {
-              this.showNotification('error', translation);
+              this.alert.showNotification('error', translation);
             });
           break;
           }
@@ -81,7 +87,7 @@ export class LoginComponent implements OnInit {
             .get('alert.error.invalidEmail')
             .pipe(takeUntil(this.destroy$))
             .subscribe(translation => {
-              this.showNotification('error', translation);
+              this.alert.showNotification('error', translation);
             });
           break;
           }
@@ -90,7 +96,7 @@ export class LoginComponent implements OnInit {
             .get('alert.error.notConect')
             .pipe(takeUntil(this.destroy$))
             .subscribe(translation => {
-              this.showNotification('error', translation);
+              this.alert.showNotification('error', translation);
             });
             break;
           }
@@ -114,7 +120,7 @@ public loginGoogle() {
         .get('alert.success.welcom')
         .pipe(takeUntil(this.destroy$))
         .subscribe(translation => {
-          this.showNotification('success', translation);
+          this.alert.showNotification('success', translation);
         });
     })
   .catch(
@@ -122,8 +128,4 @@ public loginGoogle() {
   );
 }
 
-
-  private showNotification(type: string, message: string): void {
-    this.notifier.notify(type, message);
-  }
 }

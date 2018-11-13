@@ -17,49 +17,61 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.FacebookAuthProvider();
       this.fireAuth.auth
-      .signInWithPopup(provider)
-      .then(res => {
-        resolve(res);
-      }, err => {
-        console.log(err);
-        reject(err);
-      });
+        .signInWithPopup(provider)
+        .then(res => {
+          resolve(res);
+        }, err => {
+          reject(err);
+        });
     });
   }
-    googleLogin() {
-      return new Promise<any>((resolve, reject) => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('profile');
-        provider.addScope('email');
-        this.fireAuth.auth
+  googleLogin() {
+    return new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      this.fireAuth.auth
         .signInWithPopup(provider)
         .then(res => {
           resolve(res);
         });
-      });
-    }
+    });
+  }
 
-    get user(): User | null {
-      return this.fireAuth.auth.currentUser;
-    }
+  get user(): User | null {
+    return this.fireAuth.auth.currentUser;
+  }
 
-    login(auth:  AuthModel) {
-      return this.fireAuth.auth.signInWithEmailAndPassword(auth.email, auth.password);
-    }
+  login(auth: AuthModel) {
+    return this.fireAuth.auth.signInWithEmailAndPassword(auth.email, auth.password);
+  }
 
-    register(auth:  AuthModel) {
-      return this.fireAuth.auth.createUserWithEmailAndPassword(auth.email, auth.password);
-    }
+  register(auth: AuthModel) {
+    return this.fireAuth.auth.createUserWithEmailAndPassword(auth.email, auth.password);
 
-    logout() {
-      return this.fireAuth.auth.signOut();
-    }
+  }
 
-    forgotPassword(email: EmailModel) {
-      return this.fireAuth.auth.sendPasswordResetEmail(email.email);
-    }
+  logout() {
+    return this.fireAuth.auth.signOut();
+  }
 
-    resetPassword(resetPassword: ResetPasswordModel) {
-      return this.fireAuth.auth.confirmPasswordReset(resetPassword.code, resetPassword.password);
-    }
+  forgotPassword(email: EmailModel) {
+    return this.fireAuth.auth.sendPasswordResetEmail(email.email);
+  }
+
+  resetPassword(resetPassword: ResetPasswordModel) {
+    return this.fireAuth.auth.confirmPasswordReset(resetPassword.code, resetPassword.password);
+  }
+
+  sendActiveEmail() {
+    return this.fireAuth.auth.currentUser.sendEmailVerification();
+  }
+
+  activeEmail(code: string) {
+    return this.fireAuth.auth.applyActionCode(code);
+  }
+
+  isEmailVerification() {
+    return this.fireAuth.auth.currentUser.emailVerified;
+  }
 }

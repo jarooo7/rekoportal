@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 import { ErrorCodes } from '../../../shared/enums/error-code';
 import { EmailModel } from '../../models/auth.model';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AlertService } from '../../../shared/services/alert.service';
 
 enum FormControlNames {
   EMAIL_ADDRESS = 'email'
@@ -28,8 +30,9 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private translate: TranslateService,
-    private notifier: NotifierService,
-    private authService: AuthService
+    private alert: AlertService,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -44,11 +47,12 @@ export class ForgotPasswordComponent implements OnInit {
     .then(
       () => {
             this.translate
-              .get('alert.success.welcom')
+              .get('alert.success.sendResetPassword')
               .pipe(takeUntil(this.destroy$))
               .subscribe(translation => {
-                this.showNotification('success', translation);
+                this.alert.showNotification('success', translation);
               });
+              this.router.navigate(['/auth/login']);
           })
           .catch(
           error => {
@@ -58,7 +62,7 @@ export class ForgotPasswordComponent implements OnInit {
                 .get('alert.error.userNotFound')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(translation => {
-                  this.showNotification('error', translation);
+                  this.alert.showNotification('error', translation);
                 });
               break;
               }
@@ -67,7 +71,7 @@ export class ForgotPasswordComponent implements OnInit {
                 .get('alert.error.invalidEmail')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(translation => {
-                  this.showNotification('error', translation);
+                  this.alert.showNotification('error', translation);
                 });
               break;
               }
@@ -76,16 +80,12 @@ export class ForgotPasswordComponent implements OnInit {
                 .get('alert.error.notConect')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(translation => {
-                  this.showNotification('error', translation);
+                  this.alert.showNotification('error', translation);
                 });
                 break;
               }
             }
           }
     );
-  }
-
-  private showNotification(type: string, message: string): void {
-    this.notifier.notify(type, message);
   }
 }

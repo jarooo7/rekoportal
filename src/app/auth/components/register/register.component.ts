@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { AuthModel } from '../../models/auth.model';
+import { Router } from '@angular/router';
+import { AlertService } from '../../../shared/services/alert.service';
 
 enum FormControlNames {
   EMAIL_ADDRESS = 'email',
@@ -29,8 +31,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private translate: TranslateService,
-    private notifier: NotifierService,
-    private authService: AuthService
+    private alert: AlertService,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -51,37 +54,56 @@ export class RegisterComponent implements OnInit {
     .then(
       () => {
             this.translate
-              .get('alert.success.welcom')
+              .get('alert.success.register')
               .pipe(takeUntil(this.destroy$))
               .subscribe(translation => {
-                this.showNotification('success', translation);
+                this.alert.showNotification('success', translation);
               });
+              this.authService.sendActiveEmail();
+              this.router.navigate(['/not-active-user/not-active']);
           })
           .catch(
-          error => {
-            if (error.code === this.errorCode.IsEmail) {
-              this.translate
-                .get('alert.error.isEmail')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(translation => {
-                  this.showNotification('error', translation);
-                });
-            } else {
-              this.translate
-                .get('alert.error.notConect')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(translation => {
-                  this.showNotification('error', translation);
-                });
+            error => {
+              switch (error.code) {
+                case this.errorCode.UserNotFound : {
+                  this.translate
+                  .get('alert.error.userNotFound')
+                  .pipe(takeUntil(this.destroy$))
+                  .subscribe(translation => {
+                    this.alert.showNotification('error', translation);
+                  });
+                break;
+                }
+                case this.errorCode.InvalidEmail : {
+                  this.translate
+                  .get('alert.error.invalidEmail')
+                  .pipe(takeUntil(this.destroy$))
+                  .subscribe(translation => {
+                    this.alert.showNotification('error', translation);
+                  });
+                break;
+                }
+                case this.errorCode.EmailAlreadyInUse : {
+                  this.translate
+                  .get('alert.error.emailAlreadyInUse')
+                  .pipe(takeUntil(this.destroy$))
+                  .subscribe(translation => {
+                    this.alert.showNotification('error', translation);
+                  });
+                break;
+                }
+                default: {
+                  this.translate
+                  .get('alert.error.notConect')
+                  .pipe(takeUntil(this.destroy$))
+                  .subscribe(translation => {
+                    this.alert.showNotification('error', translation);
+                  });
+                  break;
+                }
+              }
             }
-          }
-    );
-  }
-  logout() {
-    this.authService.logout();
-  }
-  private showNotification(type: string, message: string): void {
-    this.notifier.notify(type, message);
+          );
   }
 
 }

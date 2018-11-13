@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './core/components/app/app.component';
 import { CoreModule } from './core/core.modules';
 
+
 @NgModule({
   declarations: [],
   imports: [

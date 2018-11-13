@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class NavbarComponent implements OnInit {
   ];
   constructor(
     private translate: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -86,5 +88,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
 }

@@ -1,17 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { User } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { AuthModel, EmailModel, ResetPasswordModel } from '../models/auth.model';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  @Output() public authState: EventEmitter<any> = new EventEmitter();
   readonly authState$: Observable<User | null> = this.fireAuth.authState;
+  userName: string;
 
-  constructor(public fireAuth: AngularFireAuth) { }
+  constructor(public fireAuth: AngularFireAuth) {
+
+   }
 
   facebookLogin() {
     return new Promise<any>((resolve, reject) => {
@@ -23,7 +29,10 @@ export class AuthService {
         }, err => {
           reject(err);
         });
-    });
+    }).then( (fireBaseUser) => {
+      this.authState.emit(fireBaseUser.user);
+    }
+    );
   }
   googleLogin() {
     return new Promise<any>((resolve, reject) => {
@@ -35,7 +44,10 @@ export class AuthService {
         .then(res => {
           resolve(res);
         });
-    });
+    }).then( (fireBaseUser) => {
+      this.authState.emit(fireBaseUser.user);
+    }
+    );
   }
 
   get user(): User | null {
@@ -43,12 +55,14 @@ export class AuthService {
   }
 
   login(auth: AuthModel) {
-    return this.fireAuth.auth.signInWithEmailAndPassword(auth.email, auth.password);
+    return this.fireAuth.auth.signInWithEmailAndPassword(auth.email, auth.password).then( (fireBaseUser) => {
+      this.authState.emit(fireBaseUser);
+    }
+    );
   }
 
   register(auth: AuthModel) {
     return this.fireAuth.auth.createUserWithEmailAndPassword(auth.email, auth.password);
-
   }
 
   logout() {
@@ -74,4 +88,24 @@ export class AuthService {
   isEmailVerification() {
     return this.fireAuth.auth.currentUser.emailVerified;
   }
+
+  getUserId() {
+    return localStorage.getItem(environment.userId);
+  }
+
+  removeUser() {
+    localStorage.getItem(environment.userId);
+    localStorage.getItem(environment.displayName);
+  }
+
+  setUser() {
+    this.authState$.subscribe(user => {
+      if (user) {
+        localStorage.setItem(environment.displayName, user.displayName);
+        localStorage.setItem(environment.userId, user.uid);
+      }
+    }
+    );
+  }
+
 }

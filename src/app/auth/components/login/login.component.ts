@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
           .subscribe(translation => {
             this.alert.showNotification('success', translation);
           });
+          // this.authService.setUser(this.authService.fireAuth.auth.currentUser.)
           if (!this.authService.isEmailVerification()) {
             this.router.navigate(['/not-active-user/not-active']);
           }

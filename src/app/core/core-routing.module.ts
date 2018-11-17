@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: './../email-action/email-action.module#EmailActionModule'
   },
   {
+    path: 'user',
+    loadChildren: './../user/user.module#UserModule'
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full'

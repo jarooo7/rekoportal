@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ErrorCodes } from '../../../shared/enums/error-code';
 import { Subject } from 'rxjs';
-import { NotifierService } from 'angular-notifier';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';

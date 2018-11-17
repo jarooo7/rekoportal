@@ -2,7 +2,12 @@
     "global":{
         "language":"Język",
         "or": "Lub",
-        "send":"Wyślij"
+        "send":"Wyślij",
+        "save": "Zapisz",
+        "name": "Imię",
+        "lastName":"Nazwisko",
+        "age": "Wiek",
+        "dateBirth": "Data urodzenia"
     },
     "auth":{
         "log": "Logowanie",
@@ -22,7 +27,8 @@
         "forgotPassword": "Zapomiałeś hasła?",
         "logout": "Wyloguj się",
         "textResetPassword":"Wprowadź adres email by zresetować hasło",
-        "changePassword": "Zmień hasło"
+        "changePassword": "Zmień hasło",
+        "completeProfile": "Uzupełnij profil"
     },
     "validationError":{
         "email": "Wprowadź adres email",

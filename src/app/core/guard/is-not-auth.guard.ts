@@ -18,8 +18,7 @@ export class IsNotAuthGuard implements CanActivate {
       return this.authService.authState$.pipe(map(state => {
         if (state === null) { return true; }
         if (this.authService.isEmailVerification()) {
-          // this.router.navigate(['/']);
-          return false;
+          this.router.navigate(['/user']);
         } else {
           this.router.navigate(['/not-active-user/not-active']);
         }

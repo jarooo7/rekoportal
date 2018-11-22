@@ -37,7 +37,7 @@ export class CompleteProfileComponent implements OnInit {
     private userService: UserService,
     private auth: AuthService
   ) {
-    this.auth.fireAuth.authState.subscribe(user => {
+    this.auth.getUser().subscribe(user => {
       console.log(user);
       if (user) {
       this.userName = user.displayName;
@@ -76,14 +76,14 @@ export class CompleteProfileComponent implements OnInit {
   }
   }
   wyswietl() {
-   this.userService.getProfile().pipe(
-    map( c => ({ key: c.payload.key, ...c.payload.val() })
-    )
-  ).subscribe(customers => {
-    this.profile = customers;
-    console.log(customers);
-  });
-  }
+  //  this.userService.getProfile().pipe(
+  //   map( c => ({ key: c.payload.key, ...c.payload.val() })
+  //   )
+  // ).subscribe(customers => {
+  //   this.profile = customers;
+  //   console.log(customers);
+  // });
+ }
 
 }
 

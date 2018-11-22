@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
           // this.authService.setUser(this.authService.fireAuth.auth.currentUser.)
           if (!this.authService.isEmailVerification()) {
             this.router.navigate(['/not-active-user/not-active']);
+          } else {
+            this.router.navigate(['/user']);
           }
       })
       .catch(
@@ -108,6 +110,9 @@ export class LoginComponent implements OnInit {
 
 public loginFb() {
   this.authService.facebookLogin()
+  .then(() =>
+      this.router.navigate(['/user'])
+  )
   .catch(
     error => console.log(error)
   );
@@ -123,6 +128,7 @@ public loginGoogle() {
         .subscribe(translation => {
           this.alert.showNotification('success', translation);
         });
+          this.router.navigate(['/user']);
     })
   .catch(
     error => console.log(error)

@@ -55,6 +55,7 @@ export class EmailActionComponent implements OnInit {
           .subscribe(translation => {
             this.alert.showNotification('success', translation);
           });
+          this.router.navigate(['/user']);
        })
       .catch(
         () => {
@@ -64,8 +65,8 @@ export class EmailActionComponent implements OnInit {
             .subscribe(translation => {
               this.alert.showNotification('error', translation);
             });
+            this.router.navigate(['/not-active-user/not-active']);
          });
-      this.router.navigate(['/auth/login']);
     } else {
       this.viewForm = true;
     }

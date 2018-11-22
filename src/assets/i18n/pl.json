@@ -59,5 +59,18 @@
         "title":"Aktywuj konto",
         "info-text":"Aktywuj konto by móc korzystać w pełni z wszystkich funkcji. Na twój adres email został wysłany kod aktywacyjny dzięki któremu aktywujesz konto. Jeśli nie otrzymałeś maila aktywacyjnego wciśnij przycisk ponirzej.",
         "send":"Wyślij ponownie email aktywacyjny"
+    },
+
+    "profile": {
+        "settingsUser": "Ustawienia użytkownika",
+        "editProfile": "Edytuj profil",
+        "addPhoto" : "Dodaj zdjęcie profilowe",
+        "editPhoto" : "Edytyj zdjęcie profilowe"
+    },
+    "post":{
+        "addPost":"Dodaj post",
+        "newPost":"Nowy post",
+        "dropPhoto": "Aby dodać zdjęcie upuść je tu ...",
+        "orSelectPhoto": "... lub wybierz plik."
     }
 }

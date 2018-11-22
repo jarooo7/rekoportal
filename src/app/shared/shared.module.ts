@@ -9,6 +9,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import {AngularFireStorageModule} from 'angularfire2/storage';
+import { FileDropDirective } from './directives/file-drop.directive' ;
 
 
 const MODULES = [
@@ -20,10 +23,13 @@ const MODULES = [
   AngularFirestoreModule,
   AngularFireAuthModule,
   AngularFireDatabaseModule,
+  AngularFontAwesomeModule,
+  AngularFireStorageModule
 ];
 
 const DIRECTIVES = [
-  ErrorDirectiveDirective
+  ErrorDirectiveDirective,
+  FileDropDirective
 ];
 
 const COMPONENTS = [
@@ -37,7 +43,8 @@ const COMPONENTS = [
   ],
   declarations: [
     ...DIRECTIVES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    FileDropDirective
   ],
   exports: [
     ...MODULES,

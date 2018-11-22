@@ -17,7 +17,7 @@ export class AuthService {
 
   constructor(public fireAuth: AngularFireAuth) {
 
-   }
+  }
 
   facebookLogin() {
     return new Promise<any>((resolve, reject) => {
@@ -29,7 +29,7 @@ export class AuthService {
         }, err => {
           reject(err);
         });
-    }).then( (fireBaseUser) => {
+    }).then((fireBaseUser) => {
       this.authState.emit(fireBaseUser.user);
     }
     );
@@ -44,7 +44,7 @@ export class AuthService {
         .then(res => {
           resolve(res);
         });
-    }).then( (fireBaseUser) => {
+    }).then((fireBaseUser) => {
       this.authState.emit(fireBaseUser.user);
     }
     );
@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   login(auth: AuthModel) {
-    return this.fireAuth.auth.signInWithEmailAndPassword(auth.email, auth.password).then( (fireBaseUser) => {
+    return this.fireAuth.auth.signInWithEmailAndPassword(auth.email, auth.password).then((fireBaseUser) => {
       this.authState.emit(fireBaseUser);
     }
     );
@@ -108,4 +108,7 @@ export class AuthService {
     );
   }
 
+  getUser() {
+    return this.fireAuth.authState;
+  }
 }

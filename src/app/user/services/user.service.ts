@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/services/auth.service';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import { UserModel } from '../models/profile.model';
 import { map } from 'rxjs/operators';
+import { Ng2ImgToolsService } from 'ng2-img-tools';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,11 @@ export class UserService {
   myProfile: AngularFireObject<ProfileModel> = null;
   profile: AngularFireObject<UserModel> = null;
   avatar: AngularFireObject<AvatarModel> = null;
-  storageRef: AngularFireStorageReference;
-  uploadTask: AngularFireUploadTask;
   userId: string;
 
 
   constructor(
+    private ng2ImgToolsService: Ng2ImgToolsService,
     private dataBase: AngularFireDatabase,
     private authService: AuthService,
     private afStorage: AngularFireStorage
@@ -47,40 +47,58 @@ export class UserService {
 
   uploadAvatar(file: File) {
     const today = new Date();
+    const type = file.type;
+    let storageRef: AngularFireStorageReference;
+    let uploadTask: AngularFireUploadTask;
     const id = Math.random().toString(36).substring(2);
-    this.storageRef = this.afStorage.ref('profile');
-    this.uploadTask = this.storageRef.child(
+    storageRef = this.afStorage.ref('profile');
+     this.ng2ImgToolsService.resizeExactCrop([file], 180, 180).subscribe (result => {
+    uploadTask = storageRef.child(
       `${this.userId}/${today.getFullYear()}-${today.getMonth()}-${today.getDay()}${today.getMilliseconds()}${id}`
-    ).put(file);
-    this.uploadTask.then(
-      () => {
-        const avatar = new AvatarModel(); {
-          avatar.date = today;
-          avatar.url = `${this.userId}/${today.getFullYear()}-${today.getMonth()}-${today.getDay()}${today.getMilliseconds()}${id}`;
+    ).put(new File([result], 'photo', {type: type, lastModified: Date.now()}));
+      uploadTask.then(
+        () => {
+          const avatar = new AvatarModel(); {
+            avatar.date = today;
+            avatar.url = `${today.getFullYear()}-${today.getMonth()}-${today.getDay()}${today.getMilliseconds()}${id}`;
+          }
+          this.addAvatar(avatar);
         }
-        this.addAvatar(avatar);
-      }
-    );
+      );
+     });
   }
 
   deleteAvatar() {
+    let storageRef: AngularFireStorageReference;
+    let uploadTask: AngularFireUploadTask;
     let url: string;
+    let flag = true;
     this.getProfile(this.userId).pipe(
       map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
       )
-    ).subscribe(p => {url = p.avatar.url; });
-    this.storageRef = this.afStorage.ref('profile');
-    this.uploadTask = this.storageRef.child(url).delete();
+    ).subscribe(p => {
+      if ( p.avatar.url && flag) {
+        url = p.avatar.url;
+        storageRef = this.afStorage.ref(`profile/${this.userId}`);
+        uploadTask = storageRef.child(url).delete();
+        flag = false;
+      }
+    });
   }
 
   editAvatar(file: File) {
+    if (!file) {
+      return;
+    }
     this.deleteAvatar();
     this.uploadAvatar(file);
   }
 
-  getAvatar(url: string) {
-    this.storageRef = this.afStorage.ref('profile');
-    return this.storageRef.child(url).getDownloadURL();
+
+  getAvatar(url: string, userId: string) {
+    let storageRef: AngularFireStorageReference;
+    storageRef = this.afStorage.ref(`profile/${userId}`);
+    return storageRef.child(url).getDownloadURL();
   }
 
 }

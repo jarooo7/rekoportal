@@ -12,9 +12,13 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import { FileDropDirective } from './directives/file-drop.directive' ;
-
+import { Ng2ImgToolsModule } from 'ng2-img-tools';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 const MODULES = [
+  EmojiModule,
+  PickerModule,
   CommonModule,
   FormsModule,
   ReactiveFormsModule,
@@ -24,7 +28,8 @@ const MODULES = [
   AngularFireAuthModule,
   AngularFireDatabaseModule,
   AngularFontAwesomeModule,
-  AngularFireStorageModule
+  AngularFireStorageModule,
+  Ng2ImgToolsModule
 ];
 
 const DIRECTIVES = [

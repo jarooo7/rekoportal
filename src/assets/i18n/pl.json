@@ -1,15 +1,16 @@
 {
-    "global":{
-        "language":"Język",
+    "global": {
+        "language": "Język",
         "or": "Lub",
-        "send":"Wyślij",
+        "send": "Wyślij",
         "save": "Zapisz",
         "name": "Imię",
-        "lastName":"Nazwisko",
+        "lastName": "Nazwisko",
         "age": "Wiek",
-        "dateBirth": "Data urodzenia"
+        "dateBirth": "Data urodzenia",
+        "search": "Wyszukaj"
     },
-    "auth":{
+    "auth": {
         "log": "Logowanie",
         "register": "Rejestracja",
         "login": "Zaloguj się",
@@ -26,51 +27,66 @@
         "google": "Zaloguj się przez Google",
         "forgotPassword": "Zapomiałeś hasła?",
         "logout": "Wyloguj się",
-        "textResetPassword":"Wprowadź adres email by zresetować hasło",
+        "textResetPassword": "Wprowadź adres email by zresetować hasło",
         "changePassword": "Zmień hasło",
         "completeProfile": "Uzupełnij profil"
     },
-    "validationError":{
+    "validationError": {
         "email": "Wprowadź adres email",
-        "required":"Uzupełnij pole"
+        "required": "Uzupełnij pole"
     },
-    "alert":{
-        "success":{
+    "alert": {
+        "success": {
             "welcom": "Witamy w RekoPortal",
             "register": "Rejestracja powiodłą się",
             "resetPassword": "Hasło zostało zresetowane",
-            "sendResetPassword":"Mail do resetu hasła został wysłąny",
+            "sendResetPassword": "Mail do resetu hasła został wysłąny",
             "active": "Użytkownik został pomyślnie aktywowany",
             "sendActiveEmail": "Email aktywacyjny został wysłany"
         },
-        "error":{
-            "notConect":"Problem z połaczeniem",
+        "error": {
+            "notConect": "Problem z połaczeniem",
             "userNotFound": "Użytkownik o podanym adresie email nie istnieje",
             "wrongPassword": "Błędne hasło",
             "invalidEmail": "Błędny adres email",
-            "isEmail":"Użytkownik o podanym adresie email już istnieje",
+            "isEmail": "Użytkownik o podanym adresie email już istnieje",
             "invalidCode": "Token wygasł wyślij maila ponownie",
             "emailAlreadyInUse": "Adres e-mail jest już używany przez inne konto",
             "notActive": "Wystąpił problem z aktywacją użytkownika",
             "errorSendActiveEmail": "Wystąpił błąd przy wysyłaniu maila aktywacyjnego. Spróbuj jescze raz!"
         }
     },
-    "not-active":{
-        "title":"Aktywuj konto",
-        "info-text":"Aktywuj konto by móc korzystać w pełni z wszystkich funkcji. Na twój adres email został wysłany kod aktywacyjny dzięki któremu aktywujesz konto. Jeśli nie otrzymałeś maila aktywacyjnego wciśnij przycisk ponirzej.",
-        "send":"Wyślij ponownie email aktywacyjny"
+    "not-active": {
+        "title": "Aktywuj konto",
+        "info-text": "Aktywuj konto by móc korzystać w pełni z wszystkich funkcji. Na twój adres email został wysłany kod aktywacyjny dzięki któremu aktywujesz konto. Jeśli nie otrzymałeś maila aktywacyjnego wciśnij przycisk ponirzej.",
+        "send": "Wyślij ponownie email aktywacyjny"
     },
-
     "profile": {
         "settingsUser": "Ustawienia użytkownika",
         "editProfile": "Edytuj profil",
-        "addPhoto" : "Dodaj zdjęcie profilowe",
-        "editPhoto" : "Edytyj zdjęcie profilowe"
+        "addPhoto": "Dodaj zdjęcie profilowe",
+        "editPhoto": "Edytyj zdjęcie profilowe"
     },
-    "post":{
-        "addPost":"Dodaj post",
-        "newPost":"Nowy post",
+    "post": {
+        "addPost": "Dodaj post",
+        "newPost": "Nowy post",
         "dropPhoto": "Aby dodać zdjęcie upuść je tu ...",
         "orSelectPhoto": "... lub wybierz plik."
+    },
+    "emoji": {
+        "notfound": "Nie znaleziono ikony",
+        "categories": {
+            "search": "Wyniki wyszukiwania",
+            "recent": "Często używane",
+            "people": "Uśmieszki i ludzie",
+            "nature": "Zwierzęta i natura",
+            "foods": "Jedzenie i picie",
+            "activity": "Czynności",
+            "places": "Podróże i miejsca",
+            "objects": "Obiekty",
+            "symbols": "Symbole",
+            "flags": "Flagi",
+            "custom": "Inne"
+        }
     }
 }

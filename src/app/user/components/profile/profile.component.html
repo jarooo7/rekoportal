@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-3 text-white pt-2">
           
-          <div  *ngIf ="isAvatar" [ngStyle]="{'background-image': 'url('+(avatar|async)+')'}"  class="rounded-circle border-white profile center-cropped"></div>
+          <img  *ngIf ="isAvatar" src="{{(avatar|async)||'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
   
           <img *ngIf ="!isAvatar" src="../../../../assets/profile.png" alt="Placeholder" class="rounded-circle border-white profile">
         </div>

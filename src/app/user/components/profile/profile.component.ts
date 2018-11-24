@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
         this.user.avatar = p.avatar;
       }
       if (this.user.avatar) {
-      this.avatar = this.userServise.getAvatar(this.user.avatar.url);
+      this.avatar = this.userServise.getAvatar(this.user.avatar.url, this.idUser);
       this.isAvatar = true;
     }
     });

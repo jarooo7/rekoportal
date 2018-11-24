@@ -1,0 +1,30 @@
+<div class="bg-img container-fluid  ">
+  <div class=" container">
+    <div class="row pt-5">
+      <div class="col-md-12 py-5">
+        <div class="card mx-auto">
+          <div class="card-body">
+            <p class="display-4 text-center">{{'auth.register'|translate}}</p>
+            <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+              <div class="form-group">
+                <label>{{'auth.email'|translate}}</label>
+                <input type="email" appErrorDirective class="form-control" [placeholder]="'auth.email' | translate" [formControlName]="formControlNames.EMAIL_ADDRESS">
+              </div>
+              <div class="form-group">
+                <label>{{'auth.password'|translate}}</label>
+                <input type="password" appErrorDirective class="form-control" [placeholder]="'auth.password' | translate" [formControlName]="formControlNames.PASSWORD">
+              </div>
+              <div class="form-group">
+              <input type="checkbox" appErrorDirective [formControlName]="formControlNames.AKCEPT"> {{'auth.akcept'|translate}}
+              <button class="btn-link border-0 p-0 m-0" [routerLink]="['/auth/register']">
+                {{'auth.regulations'|translate}}
+              </button>
+            </div>
+              <button [disabled]="!registerForm.valid" type="submit" class="btn button btn-primary btn-block">{{'auth.signUp'|translate}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

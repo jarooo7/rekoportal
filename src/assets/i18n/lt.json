@@ -1,0 +1,12 @@
+{
+    "global":{
+        "language":"Kalba"
+    },
+    "auth":{
+        "log": "Prisijungti",
+        "register": "Rejestracja",
+        "login": "Prisijungti",
+        "password": "Slaptažodis",
+        "email": "El. paštas"
+    }
+}

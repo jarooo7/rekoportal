@@ -1,0 +1,62 @@
+<div *ngIf="user">
+<div [ngStyle]="{'background-image': 'url('+backgroundUrl+')'}">
+  <div class="gradient  pt-5 pb-4">
+    <div class="container pt-5 pb-4">
+      <div class="row">
+        <div class="col-md-9 text-white">
+          <p class="display-4 pt-4">{{user.name}} {{user.lastName}}</p>
+        </div>
+        <div class="col-md-3 text-white pt-2">
+          
+          <img  *ngIf ="isAvatar" src="{{(avatar|async)||'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
+  
+          <img *ngIf ="!isAvatar" src="../../../../assets/profile.png" alt="Placeholder" class="rounded-circle border-white profile">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 py-4b">
+    </div>
+    <div class="col-md-3 py-4b">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row ">
+    <div class="col-md-8 px-5 bg-gray py-4">
+      <app-add-post></app-add-post>
+    </div>
+    <div class="col-md-4 px-5">
+        <br>
+      <label class="btn btn-link m-0 p-0">
+        <h6>
+          <fa name="edit"></fa> {{'profile.editProfile'|translate}}
+        </h6>
+      </label>
+      <br>
+      <label class="btn btn-link m-0 p-0">
+      <h6>
+        <fa name="cogs"></fa> {{'profile.settingsUser'|translate}}
+      </h6>
+      </label>
+      <br>
+      <label  *ngIf ="!isAvatar" class="btn btn-link m-0 p-0">
+        <h6>
+          <fa name="camera"></fa> {{'profile.addPhoto'|translate}}
+          <input type="file" (change)="uploadAvatar($event)" style="display: none;" accept=".png,.jpg" />
+        </h6>
+      </label>
+      <label  *ngIf ="isAvatar" class="btn btn-link m-0 p-0">
+          <h6>
+            <fa name="camera"></fa>  {{'profile.editPhoto'|translate}}
+            <input type="file" (change)="editAvatar($event)" style="display: none;" accept=".png,.jpg" />
+          </h6>
+        </label>
+
+    </div>
+  </div>
+</div>
+</div>

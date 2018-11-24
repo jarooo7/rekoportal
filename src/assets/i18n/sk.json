@@ -1,0 +1,12 @@
+{
+    "global":{
+        "language":"jazyk"
+    },
+    "auth":{
+        "log": "Prihlásiť sa",
+        "register": "Регистрация",
+        "login": "Prihlásiť sa",
+        "password": "Heslo",
+        "email": "Email"
+    }
+}

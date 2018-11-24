@@ -1,0 +1,12 @@
+{
+    "global":{
+        "language":"Language"
+    },
+    "auth":{
+        "log": "Sign in",
+        "register": "Rejestracja",
+        "login": "Sign in",
+        "password": "Password",
+        "email": "Email"
+    }
+}

@@ -1,3 +1,13 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-light bg-dark justify-content-between">
+  <a class="navbar-brand"><img class="logo" src="../../../../assets/logo.png"></a>
+  <div>
+    <span class="dropdown" >
+      <button (click)="buttonLanguage()" class="btn btn-dark my-2 my-sm-0">{{'global.language'|translate}} : {{language|uppercase}} <img class="flag" [src]="countryFlag"></button>
+      <div class="dropdown-menu bg-dark text-center" [ngClass]="languageDropdown">
+        <button *ngFor="let lang of languageList" class=" btn btn-dark btn-block."  (click)="useLanguage(lang.name)">{{lang.name|uppercase}} <img class="flag" [src]="lang.src"></button>
+    </div>
+  </span>
+    <button *ngIf="!isLogin()" class="btn btn-dark my-2 my-sm-0" [routerLink]="['/auth/login']">{{'auth.login'|translate}}</button>
+    <button *ngIf="isLogin()" class="btn btn-dark my-2 my-sm-0" (click)="logout()">{{'auth.logout'|translate}}</button>
+  </div>  
+</nav>

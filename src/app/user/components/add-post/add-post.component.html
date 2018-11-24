@@ -1,0 +1,67 @@
+<div class="form-group">
+  <form [formGroup]="postForm">
+    <label class="h5">{{'post.newPost'| translate}}:</label>
+    <textarea class="form-control" rows="3" [formControlName]="formControlNames.POST"></textarea>
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-ligth"> Dodaj ikone</button>
+      </div>
+      <div class="col-md-6">
+
+      </div>
+    </div>
+    <emoji-mart 
+      *ngIf="openEmoji"
+      set="emojione" 
+      sheetSize="20"
+      showPreview="false" 
+      title="RekoPortal" 
+      [i18n]="{
+              search: ('global.search'|translate),
+              notfound: ('emoji.notfound'|translate),
+              categories: {
+                  search: ('emoji.categories.search'|translate),
+                  recent: ('emoji.categories.recent'|translate),
+                  people: ('emoji.categories.people'|translate),
+                  nature: ('emoji.categories.nature'|translate),
+                  foods: ('emoji.categories.foods'|translate),
+                  activity: ('emoji.categories.activity'|translate),
+                  places: ('emoji.categories.places'|translate),
+                  objects: ('emoji.categories.objects'|translate),
+                  symbols: ('emoji.categories.symbols'|translate),
+                  flags: ('emoji.categories.flags'|translate),
+                  custom: ('emoji.categories.custom'|translate)
+                }
+              }"
+      class="emoji"
+      (emojiClick)="addEmoji($event)">
+      
+    </emoji-mart>
+
+    <div class="text-right">
+      <div class="dropzone" appFileDrop (hovered)="toggleHover($event)" (dropped)="addPhoto($event)" [class.hovering]="isHovering">
+        <div class="row px-5 py-3">
+          <div class="col-md-12 text-center">
+            <h5>{{'post.dropPhoto'| translate}}</h5>
+            <label class="btn btn-dark">
+              <input style="display: none;" type="file" accept=".png,.jpg" (change)="addPhoto($event.target.files)">
+              <span>
+                <i class="fa fa-upload"></i>
+                {{'post.orSelectPhoto'| translate}}
+              </span>
+            </label>
+          </div>
+          <div class="row">
+            <div *ngFor="let img of imageSrc; let i = index" class="p-2">
+              <div (click)="removePhoto(i);" class="x">
+                <i class="fa fa-times fa-2x text-danger"></i>
+              </div>
+              <img class="min" [src]="img">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary mt-2">{{'post.addPost'| translate}}</button>
+    </div>
+  </form>
+</div>

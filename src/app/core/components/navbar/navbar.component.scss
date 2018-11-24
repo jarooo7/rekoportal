@@ -1,0 +1,26 @@
+.logo{
+    height: 40px;
+}
+.flag{
+    height: 20px;
+}
+.dropdown-open{
+    display: block;
+}
+.dropdown-close{
+    display: none;
+}
+.link-lang{
+    width: 100%;
+}
+.link-lang:hover{
+    background-color: black;
+}
+
+.navbar {
+    transition: 500ms;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+  }

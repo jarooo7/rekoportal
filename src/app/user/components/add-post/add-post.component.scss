@@ -1,11 +1,9 @@
 .dropzone { 
-    border: 3px dashed #9e9d9d;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border: 3px solid #9e9d9d;
+    border-radius: 15px;
     background: white;
-    border-top: none;
     &.hovering {
-        border: 3px solid #0074d9;
+        border: 3px dashed #0074d9;
         color: #c7c7c7 !important;
     }
 }
@@ -16,9 +14,9 @@
 }
 
 .tex{
-    width: 100%;
+    border-radius: 15px; 
+    padding-left: 60px;
 }
-
 
 .min{
     height: 100px;
@@ -33,4 +31,9 @@
 .emoji{
     z-index: 5;
     position: absolute;
+}
+.emoji-button{
+    height: 40px;
+    position: absolute;
+    top: 60px;
 }

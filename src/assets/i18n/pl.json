@@ -42,7 +42,8 @@
             "resetPassword": "Hasło zostało zresetowane",
             "sendResetPassword": "Mail do resetu hasła został wysłąny",
             "active": "Użytkownik został pomyślnie aktywowany",
-            "sendActiveEmail": "Email aktywacyjny został wysłany"
+            "sendActiveEmail": "Email aktywacyjny został wysłany",
+            "addPost": "Post został dodany"
         },
         "error": {
             "notConect": "Problem z połaczeniem",
@@ -53,7 +54,8 @@
             "invalidCode": "Token wygasł wyślij maila ponownie",
             "emailAlreadyInUse": "Adres e-mail jest już używany przez inne konto",
             "notActive": "Wystąpił problem z aktywacją użytkownika",
-            "errorSendActiveEmail": "Wystąpił błąd przy wysyłaniu maila aktywacyjnego. Spróbuj jescze raz!"
+            "errorSendActiveEmail": "Wystąpił błąd przy wysyłaniu maila aktywacyjnego. Spróbuj jescze raz!",
+            "addPost": "Dodanie postu nie powieodło się!"
         }
     },
     "not-active": {
@@ -71,7 +73,8 @@
         "addPost": "Dodaj post",
         "newPost": "Nowy post",
         "dropPhoto": "Aby dodać zdjęcie upuść je tu ...",
-        "orSelectPhoto": "... lub wybierz plik."
+        "orSelectPhoto": "... lub wybierz plik.",
+        "placeholder": "Co u Ciebie słychać ?"
     },
     "emoji": {
         "notfound": "Nie znaleziono ikony",

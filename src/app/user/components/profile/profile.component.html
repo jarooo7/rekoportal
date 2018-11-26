@@ -26,10 +26,7 @@
 </div>
 <div class="container">
   <div class="row ">
-    <div class="col-md-8 px-5 bg-gray py-4">
-      <app-add-post></app-add-post>
-    </div>
-    <div class="col-md-4 px-5">
+    <div class="col-md-4 py-3">
         <br>
       <label class="btn btn-link m-0 p-0">
         <h6>
@@ -55,7 +52,9 @@
             <input type="file" (change)="editAvatar($event)" style="display: none;" accept=".png,.jpg" />
           </h6>
         </label>
-
+    </div>
+    <div class="col-md-8 px-5 bg-gray py-4">
+        <app-add-post></app-add-post>
     </div>
   </div>
 </div>

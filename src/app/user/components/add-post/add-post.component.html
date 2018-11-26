@@ -1,22 +1,12 @@
 <div class="form-group">
-  <form [formGroup]="postForm">
-    <label class="h5">{{'post.newPost'| translate}}:</label>
-    <textarea class="form-control" rows="3" [formControlName]="formControlNames.POST"></textarea>
-    <div class="row">
-      <div class="col-md-6">
-        <button class="btn btn-ligth"> Dodaj ikone</button>
-      </div>
-      <div class="col-md-6">
+  <form [formGroup]="postForm" (ngSubmit)="onSubmitPost()">
+    <label class="h4">{{'post.newPost'| translate}}:</label>
+    <div class="dropzone" appFileDrop (hovered)="toggleHover($event)" (dropped)="addPhoto($event)" [class.hovering]="isHovering">
+      <div class="m-1">
+        <img class="m-2 emoji-button" src="../../../../assets/smile.svg" (click)="openEmojiPopup()">
+        <textarea [placeholder]="'post.placeholder' | translate" class="form-control tex" appErrorDirective rows="4" [formControlName]="formControlNames.POST" (click)="closeEmojiPopup()"></textarea>
 
-      </div>
-    </div>
-    <emoji-mart 
-      *ngIf="openEmoji"
-      set="emojione" 
-      sheetSize="20"
-      showPreview="false" 
-      title="RekoPortal" 
-      [i18n]="{
+        <emoji-mart *ngIf="openEmoji" set="emojione" sheetSize="20" [showPreview]="false" [i18n]="{
               search: ('global.search'|translate),
               notfound: ('emoji.notfound'|translate),
               categories: {
@@ -32,36 +22,32 @@
                   flags: ('emoji.categories.flags'|translate),
                   custom: ('emoji.categories.custom'|translate)
                 }
-              }"
-      class="emoji"
-      (emojiClick)="addEmoji($event)">
-      
-    </emoji-mart>
-
-    <div class="text-right">
-      <div class="dropzone" appFileDrop (hovered)="toggleHover($event)" (dropped)="addPhoto($event)" [class.hovering]="isHovering">
-        <div class="row px-5 py-3">
-          <div class="col-md-12 text-center">
-            <h5>{{'post.dropPhoto'| translate}}</h5>
-            <label class="btn btn-dark">
-              <input style="display: none;" type="file" accept=".png,.jpg" (change)="addPhoto($event.target.files)">
-              <span>
-                <i class="fa fa-upload"></i>
-                {{'post.orSelectPhoto'| translate}}
-              </span>
-            </label>
-          </div>
-          <div class="row">
-            <div *ngFor="let img of imageSrc; let i = index" class="p-2">
-              <div (click)="removePhoto(i);" class="x">
-                <i class="fa fa-times fa-2x text-danger"></i>
-              </div>
-              <img class="min" [src]="img">
+              }" class="emoji" (emojiClick)="addEmoji($event)">
+        </emoji-mart>
+      </div>
+      <div class="row px-5 py-3">
+        <div class="col-md-12 text-center">
+          <h5>{{'post.dropPhoto'| translate}}</h5>
+          <label class="btn btn-dark">
+            <input style="display: none;" type="file" accept=".png,.jpg" (change)="addPhoto($event.target.files)">
+            <span>
+              <i class="fa fa-upload"></i>
+              {{'post.orSelectPhoto'| translate}}
+            </span>
+          </label>
+        </div>
+        <div class="row">
+          <div *ngFor="let img of imageSrc; let i = index" class="p-2">
+            <div (click)="removePhoto(i);" class="x">
+              <i class="fa fa-times fa-2x text-danger"></i>
             </div>
+            <img class="min" [src]="img">
           </div>
         </div>
       </div>
-      <button class="btn btn-primary mt-2">{{'post.addPost'| translate}}</button>
+    </div>
+    <div class="text-right">
+      <button [disabled]="!postForm.valid" class="btn btn-primary mt-2">{{'post.addPost'| translate}}</button>
     </div>
   </form>
 </div>

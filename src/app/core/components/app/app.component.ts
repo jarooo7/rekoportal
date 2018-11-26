@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +9,10 @@ import { environment } from '../../../../environments/environment';
 })
 export class AppComponent {
   title = 'rekoportal-frontend';
-  constructor(private translateService: TranslateService) {
+  constructor(
+    private translateService: TranslateService
+  ) {
+
     if (localStorage.getItem(environment.language)) {
       switch (localStorage.getItem(environment.language)) {
         case 'en': {

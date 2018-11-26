@@ -1,10 +1,10 @@
 export class PhotoModel {
-    url: string;
+    url: string[];
 }
 
 export class PostModel {
     text: string;
-    date: Date;
-    photos: PhotoModel[];
+    date: string;
+    photos?: string[];
 }
 

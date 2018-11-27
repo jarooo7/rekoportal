@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AlertService } from '../../../shared/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
+import * as firebase from 'firebase';
 
 enum FormControlNames {
   POST = 'post'
@@ -96,6 +97,7 @@ export class AddPostComponent implements OnInit {
   onSubmitPost() {
     if (!this.postForm.valid) { return; }
     const urlList: string[] = [];
+    const timestamp = firebase.database.ServerValue.TIMESTAMP;
     let index = 0;
     let id: string;
     const today = getFormatedDate(new Date);
@@ -110,6 +112,7 @@ export class AddPostComponent implements OnInit {
             `${index}-${id}`, file);
           if (this.photos.length === index + 1) {
             post = new PostModel; {
+              post.timestamp = timestamp;
               post.text = this.postForm.get(FormControlNames.POST).value;
               post.date = today;
               post.photos = urlList;
@@ -135,6 +138,7 @@ export class AddPostComponent implements OnInit {
         });
     } else {
       post = new PostModel; {
+        post.timestamp = timestamp;
         post.text = this.postForm.get(FormControlNames.POST).value;
         post.date = today;
       }

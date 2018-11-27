@@ -5,6 +5,7 @@ export class PhotoModel {
 export class PostModel {
     text: string;
     date: string;
+    timestamp: any;
     photos?: string[];
 }
 

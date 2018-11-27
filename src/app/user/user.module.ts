@@ -4,6 +4,7 @@ import { UserRouting } from './user-routing.module';
 import { CompleteProfileComponent } from './components/complete-profile/complete-profile.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { PostListComponent } from './components/post-list/post-list.component';
 
 
 
@@ -12,6 +13,6 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     SharedModule,
     UserRouting
   ],
-  declarations: [CompleteProfileComponent, ProfileComponent, AddPostComponent]
+  declarations: [CompleteProfileComponent, ProfileComponent, AddPostComponent, PostListComponent]
 })
 export class UserModule { }

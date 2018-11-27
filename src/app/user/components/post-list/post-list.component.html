@@ -1,0 +1,10 @@
+<div *ngFor="let post of posts | async">
+{{post.text}}
+
+</div>
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="onScroll()">
+</div>

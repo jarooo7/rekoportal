@@ -103,9 +103,29 @@ export class UserService {
     storageRef = this.afStorage.ref(`profile/${userId}`);
     return storageRef.child(url).getDownloadURL();
   }
+
   addPost(post: PostModel) {
-    return this.post.push(post);
+    let thisPost:  AngularFireObject<PostModel> = null;
+    const posted = this.post.push(post);
+    const key = posted.key;
+    let timestamp: number;
+    thisPost = this.dataBase.object(`post/${this.userId}/${key}`);
+    posted.then(() => {
+      thisPost.snapshotChanges().pipe(
+        map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
+        )
+      ).subscribe(p => {
+        if (p.timestamp >= 0) {
+        timestamp = p.timestamp * -1;
+        this.dataBase.list(`post/${this.userId}`).update(key, {timestamp});
+        }
+      });
+
+    }
+  );
+  return posted;
   }
+
   uploadPhoto(url: string, name: string, file: File) {
     let storageRef: AngularFireStorageReference;
     let uploadTask: AngularFireUploadTask;
@@ -117,4 +137,14 @@ export class UserService {
     return uploadTask;
   }
 
+  getMyPosts(userId: string, batch: number, lastKey?: string) {
+    let post: AngularFireList<PostModel> = null;
+    if (lastKey) {
+      console.log('tak');
+      post = this.dataBase.list(`post/${userId}`, ref => ref.orderByChild('timestamp').limitToFirst(batch).startAt(lastKey));
+    } else {
+     post = this.dataBase.list(`post/${userId}`, ref => ref.orderByChild('timestamp').limitToFirst(batch));
+    }
+    return post.snapshotChanges();
+  }
 }

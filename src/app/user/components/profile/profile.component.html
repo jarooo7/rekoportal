@@ -59,4 +59,10 @@
   </div>
 </div>
 </div>
-<app-post-list [getUser]="idUser"></app-post-list>
+<app-post-list 
+*ngIf="user"
+[getUser]="idUser" 
+[name]="user.name" 
+[lastName]="user.lastName"
+[avatar]="avatar"
+></app-post-list>

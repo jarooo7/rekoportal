@@ -16,6 +16,9 @@ export class PostListComponent  {
     this.finish = false;
     this.getPost();
   }
+  @Input() name: string;
+  @Input() lastName: string;
+  @Input() avatar: string;
   userId: string;
   posts = new BehaviorSubject([]);
   batch = 4;
@@ -33,7 +36,6 @@ export class PostListComponent  {
   private getPost() {
     if (this.finish) { return; }
     let lastKey: string;
-    let flag = true;
     this.userService
     .getMyPosts(this.userId, this.batch + 1 , this.lastKey)
     .pipe(
@@ -41,20 +43,19 @@ export class PostListComponent  {
         posts.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       ))
     .subscribe(post => {
-      if (flag) {
-      post.forEach(p => {
-        lastKey = p.timestamp;
+      if (this.finish) { return; }
+      const postR = post.reverse();
+      postR.forEach(p => {
+          lastKey = p.timestamp;
       });
       if (this.lastKey && this.lastKey === lastKey) {
         this.finish = true;
         return;
       }
       this.lastKey = lastKey;
-      const newPost = _.slice(post, 0, this.batch);
+      const newPost = _.slice(postR, 0, this.batch);
       const currentPost = this.posts.getValue();
       this.posts.next( _.concat(currentPost, newPost) );
-      flag = false;
-    }
     });
   }
 }

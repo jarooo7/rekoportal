@@ -8,7 +8,8 @@
         "lastName": "Nazwisko",
         "age": "Wiek",
         "dateBirth": "Data urodzenia",
-        "search": "Wyszukaj"
+        "search": "Wyszukaj",
+        "like": "Lubię to!"
     },
     "auth": {
         "log": "Logowanie",

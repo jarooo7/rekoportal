@@ -1,5 +1,5 @@
-export class PhotoModel {
-    url: string[];
+export class LikeModel {
+    likeKey: string;
 }
 
 export class PostModel {

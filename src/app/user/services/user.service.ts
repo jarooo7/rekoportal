@@ -6,7 +6,7 @@ import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference 
 import { UserModel } from '../models/profile.model';
 import { map } from 'rxjs/operators';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
-import { PostModel } from '../../shared/models/post.model';
+import { PostModel, LikeModel} from '../../shared/models/post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -104,6 +104,14 @@ export class UserService {
     return storageRef.child(url).getDownloadURL();
   }
 
+  getPhotoPost(url: string, name: string) {
+    let urlI: string;
+    let storageRef: AngularFireStorageReference;
+    storageRef = this.afStorage.ref(`photo/${this.userId}/${url}`);
+    urlI = storageRef.child(name).getDownloadURL();
+    return urlI;
+  }
+
   addPost(post: PostModel) {
     return this.post.push(post);
   }
@@ -111,12 +119,13 @@ export class UserService {
   uploadPhoto(url: string, name: string, file: File) {
     let storageRef: AngularFireStorageReference;
     let uploadTask: AngularFireUploadTask;
-    const type = file.type;
-    this.ng2ImgToolsService.resize([file], 800, 800).subscribe(result => {
     storageRef = this.afStorage.ref(`photo/${this.userId}/${url}`);
-    uploadTask = storageRef.child(name).put( new File([result], 'photo', { type: type, lastModified: Date.now() }));
-    });
+    uploadTask = storageRef.child(name).put(file);
     return uploadTask;
+  }
+
+  resize(file: File) {
+   return this.ng2ImgToolsService.resize([file], 800, 800);
   }
 
   getMyPosts(userId: string, batch: number, lastKey?: string) {
@@ -128,5 +137,24 @@ export class UserService {
      post = this.dataBase.list(`post/${userId}`, ref => ref.orderByChild('timestamp').limitToLast(batch));
     }
     return post.snapshotChanges();
+  }
+
+  addLike(userId: string, key: string) {
+    const like: AngularFireList<LikeModel> =  this.dataBase.list(`like/${userId}/${key}`);
+    let user: LikeModel;
+    user = new LikeModel; {
+      user.likeKey = this.userId;
+    }
+    return like.push(user);
+  }
+
+  getLike(userId: string, key: string) {
+    const like: AngularFireList<LikeModel> =  this.dataBase.list(`like/${userId}/${key}`);
+    return like.snapshotChanges();
+  }
+
+  delLike(userId: string, postKey: string, key: string, ) {
+    const like: AngularFireList<LikeModel> =  this.dataBase.list(`like/${userId}/${postKey}/${key}`);
+    return like.remove();
   }
 }

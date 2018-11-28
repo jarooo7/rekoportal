@@ -1,0 +1,14 @@
+.post-img{
+    height: 50vh;
+}
+
+.btn-left{
+    background-color: #03030300;
+    background-image: linear-gradient( to right,#00000078, rgba(0, 0, 0, 0));
+    border: none;
+}
+.btn-right{
+    background-color: #03030300;
+    background-image: linear-gradient(to left,#00000078, rgba(0, 0, 0, 0));
+    border: none;
+}

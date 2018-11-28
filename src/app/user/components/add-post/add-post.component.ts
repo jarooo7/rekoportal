@@ -74,6 +74,7 @@ export class AddPostComponent implements OnInit {
 
   addPhoto(event: FileList) {
     let index: number;
+    let type: string;
     if (this.imageSrc) {
       index = this.imageSrc.length;
     } else {
@@ -81,10 +82,14 @@ export class AddPostComponent implements OnInit {
     }
     Array.from(event).forEach(file => {
       if (file.type.split('/')[0] === 'image') {
-        this.imageSrc.push('');
-        this.preview(file, index);
-        index++;
-        this.photos.push(file);
+        type = file.type;
+        this.userService.resize(file).subscribe(result => {
+          const reFile: File = new File([result], 'photo', { type: type, lastModified: Date.now() });
+          this.photos.push(reFile);
+          this.imageSrc.push('');
+          this.preview(reFile, index);
+          index++;
+        });
       }
     });
   }
@@ -99,6 +104,7 @@ export class AddPostComponent implements OnInit {
     const urlList: string[] = [];
     const timestamp = firebase.database.ServerValue.TIMESTAMP;
     let index = 0;
+    let index2 = 0;
     let id: string;
     const today = getFormatedDate(new Date);
     let post: PostModel;
@@ -106,35 +112,43 @@ export class AddPostComponent implements OnInit {
       this.photos.forEach(
         file => {
           id = Math.random().toString(36).substring(2);
-          urlList.push(`${today}/${index}-${id}`);
           this.userService.uploadPhoto(
             today,
-            `${index}-${id}`, file);
-          if (this.photos.length === index + 1) {
-            post = new PostModel; {
-              post.timestamp = timestamp;
-              post.text = this.postForm.get(FormControlNames.POST).value;
-              post.date = today;
-              post.photos = urlList;
-            }
-            this.userService.addPost(post).then(() => {
-              this.translate
-                .get('alert.success.addPost')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(translation => {
-                  this.alert.showNotification('success', translation);
-                });
-            }, () => {
-              this.translate
-                .get('alert.error.addPost')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(translation => {
-                  this.alert.showNotification('error', translation);
-                });
+            `${index}-${id}`, file).then(p => {
+              p.ref.getDownloadURL().then(
+                url => {
+                  urlList.push(url);
+                  if (this.photos.length === index2 + 1) {
+                    post = new PostModel; {
+                      post.timestamp = timestamp;
+                      post.text = this.postForm.get(FormControlNames.POST).value;
+                      post.date = today;
+                      post.photos = urlList;
+                    }
+                    this.userService.addPost(post).then(() => {
+                      this.translate
+                        .get('alert.success.addPost')
+                        .pipe(takeUntil(this.destroy$))
+                        .subscribe(translation => {
+                          this.alert.showNotification('success', translation);
+                        });
+                        this.resetForm();
+                    }, () => {
+                      this.translate
+                        .get('alert.error.addPost')
+                        .pipe(takeUntil(this.destroy$))
+                        .subscribe(translation => {
+                          this.alert.showNotification('error', translation);
+                        });
+                    }
+                    );
+                  }
+                  index2++;
+                }
+              );
             }
             );
-          }
-          index++;
+            index++;
         });
     } else {
       post = new PostModel; {
@@ -149,6 +163,7 @@ export class AddPostComponent implements OnInit {
           .subscribe(translation => {
             this.alert.showNotification('success', translation);
           });
+          this.resetForm();
       }, () => {
         this.translate
           .get('alert.error.addPost')
@@ -159,7 +174,6 @@ export class AddPostComponent implements OnInit {
       }
       );
     }
-    this.resetForm();
   }
 
   resetForm() {

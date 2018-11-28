@@ -5,6 +5,8 @@ import { CompleteProfileComponent } from './components/complete-profile/complete
 import { ProfileComponent } from './components/profile/profile.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { GalleryComponent } from '../shared/components/gallery/gallery.component';
+import { LikeComponent } from '../shared/components/like/like.component';
 
 
 
@@ -13,6 +15,8 @@ import { PostListComponent } from './components/post-list/post-list.component';
     SharedModule,
     UserRouting
   ],
-  declarations: [CompleteProfileComponent, ProfileComponent, AddPostComponent, PostListComponent]
+  declarations: [CompleteProfileComponent, ProfileComponent, AddPostComponent, PostListComponent,
+    GalleryComponent, LikeComponent
+  ]
 })
 export class UserModule { }

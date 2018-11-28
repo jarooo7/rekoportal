@@ -1,0 +1,10 @@
+<button *ngIf="!isLiked" class="btn btn-light btn-block" (click)="addLike()">
+  <span class="text-secondary">
+    {{quantity}} <fa name="heart"></fa> {{'global.like'|translate}}
+  </span>
+</button>
+<button  *ngIf="isLiked" class="btn btn-light btn-block" (click)="delLike()">
+  <span class="text-danger">
+    {{quantity}} <fa name="heart"></fa> {{'global.like'|translate}}
+  </span>
+</button>

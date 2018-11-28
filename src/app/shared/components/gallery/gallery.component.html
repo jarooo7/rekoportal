@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item text-center" *ngFor="let img of images; let i = index" [ngClass]='classImg[i]'>
+          <img class="d-block post-img img-fluid mx-auto " src="{{img}}">
+        </div>
+      </div>
+      <button *ngIf="images.length !== 1" class="carousel-control-prev btn-right" data-slide="prev" (click)="prev()">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="sr-only">Previous</span>
+      </button>
+      <button *ngIf="images.length !== 1" class="carousel-control-next btn-left" data-slide="next" (click)="next()" >
+        <span class="carousel-control-next-icon"></span>
+        <span class="sr-only">Next</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -92,5 +92,9 @@
             "flags": "Flagi",
             "custom": "Inne"
         }
+    },
+    "com": {
+        "writeCom":"Napisz komentarz ...",
+        "addCom": "Dodaj komentarz"
     }
 }

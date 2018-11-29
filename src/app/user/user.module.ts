@@ -7,6 +7,7 @@ import { AddPostComponent } from './components/add-post/add-post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { GalleryComponent } from '../shared/components/gallery/gallery.component';
 import { LikeComponent } from '../shared/components/like/like.component';
+import { AddCommentComponent } from '../shared/components/add-comment/add-comment.component';
 
 
 
@@ -16,7 +17,7 @@ import { LikeComponent } from '../shared/components/like/like.component';
     UserRouting
   ],
   declarations: [CompleteProfileComponent, ProfileComponent, AddPostComponent, PostListComponent,
-    GalleryComponent, LikeComponent
+    GalleryComponent, LikeComponent, AddCommentComponent
   ]
 })
 export class UserModule { }

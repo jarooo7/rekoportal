@@ -14,9 +14,12 @@
         </p>
         <p class="mb-3">{{post.text}} </p>
       </div>
-      <div class="col-md-7 text-center mx-auto" *ngIf="name">
+      <div class="col-md-7 mx-auto" *ngIf="name">
         <app-gallery *ngIf="post.photos" [image]="post.photos"></app-gallery>
         <app-like [postKey]="post.key" [userId]="userId"></app-like>
+      </div>
+      <div class="col-md-7 mx-auto" *ngIf="name">
+        <app-add-comment [key]="post.key" [userId]="userId"></app-add-comment>
       </div>        
     </div>
   </div>

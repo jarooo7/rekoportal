@@ -6,7 +6,7 @@ import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference 
 import { UserModel } from '../models/profile.model';
 import { map } from 'rxjs/operators';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
-import { PostModel, LikeModel} from '../../shared/models/post.model';
+import { PostModel, LikeModel, ComModel} from '../../shared/models/post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -156,5 +156,15 @@ export class UserService {
   delLike(userId: string, postKey: string, key: string, ) {
     const like: AngularFireList<LikeModel> =  this.dataBase.list(`like/${userId}/${postKey}/${key}`);
     return like.remove();
+  }
+
+  addCom(userId: string, key: string, text: string) {
+    const like: AngularFireList<ComModel> =  this.dataBase.list(`comment/${userId}/${key}`);
+    let com: ComModel;
+    com = new ComModel; {
+      com.userKey = this.userId;
+      com.text = text;
+    }
+    return like.push(com);
   }
 }

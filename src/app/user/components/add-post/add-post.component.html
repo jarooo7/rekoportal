@@ -5,7 +5,6 @@
       <div class="m-1">
         <img class="m-2 emoji-button" src="../../../../assets/smile.svg" (click)="openEmojiPopup()">
         <textarea [placeholder]="'post.placeholder' | translate" class="form-control tex" appErrorDirective rows="4" [formControlName]="formControlNames.POST" (click)="closeEmojiPopup()"></textarea>
-
         <emoji-mart *ngIf="openEmoji" set="emojione" sheetSize="20" [showPreview]="false" [i18n]="{
               search: ('global.search'|translate),
               notfound: ('emoji.notfound'|translate),

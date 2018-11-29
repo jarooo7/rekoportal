@@ -2,6 +2,11 @@ export class LikeModel {
     likeKey: string;
 }
 
+export class ComModel {
+    userKey: string;
+    text: string;
+}
+
 export class PostModel {
     text: string;
     date: string;

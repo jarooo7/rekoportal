@@ -19,8 +19,9 @@
         <app-like [postKey]="post.key" [userId]="userId"></app-like>
       </div>
       <div class="col-md-7 mx-auto" *ngIf="name">
+        <app-view-comment [keyPost]="post.key" [userId]="userId"></app-view-comment>  
         <app-add-comment [key]="post.key" [userId]="userId"></app-add-comment>
-      </div>        
+      </div>      
     </div>
   </div>
 </div>

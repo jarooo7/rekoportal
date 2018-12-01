@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { AlertService } from '../../../shared/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
-import * as firebase from 'firebase';
+
 
 enum FormControlNames {
   POST = 'post'
@@ -102,7 +102,7 @@ export class AddPostComponent implements OnInit {
   onSubmitPost() {
     if (!this.postForm.valid) { return; }
     const urlList: string[] = [];
-    const timestamp = firebase.database.ServerValue.TIMESTAMP;
+    const timestamp = this.userService.time();
     let index = 0;
     let index2 = 0;
     let id: string;

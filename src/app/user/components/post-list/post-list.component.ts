@@ -29,7 +29,6 @@ export class PostListComponent  {
     private userService: UserService
   ) { }
   onScroll () {
-    console.log('scrolled!!');
     this.getPost();
   }
 
@@ -48,9 +47,8 @@ export class PostListComponent  {
       postR.forEach(p => {
           lastKey = p.timestamp;
       });
-      if (this.lastKey && this.lastKey === lastKey) {
+      if ((this.lastKey && this.lastKey === lastKey) || postR.length === this.batch ) {
         this.finish = true;
-        return;
       }
       this.lastKey = lastKey;
       const newPost = _.slice(postR, 0, this.batch);

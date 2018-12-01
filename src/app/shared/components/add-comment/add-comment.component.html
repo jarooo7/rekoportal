@@ -1,8 +1,10 @@
-<form [formGroup]="comForm" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col-md-12">
+<form [formGroup]="comForm">
   <div class="my-1">
     <img class="mx-2 my-1  emoji-button" src="../../../../assets/smile.svg" (click)="openEmojiPopup()">
     <textarea [placeholder]="'com.writeCom' | translate" class="form-control tex" appErrorDirective rows="2" [formControlName]="formControlNames.COM"
-      (click)="closeEmojiPopup()"></textarea>
+      (click)="closeEmojiPopup()" (keydown.enter) = "onSubmit()"></textarea>
     <emoji-mart *ngIf="openEmoji" set="emojione" sheetSize="20" [showPreview]="false" [i18n]="{
           search: ('global.search'|translate),
           notfound: ('emoji.notfound'|translate),
@@ -22,7 +24,6 @@
           }" class="emoji" (emojiClick)="addEmoji($event)">
     </emoji-mart>
   </div>
-  <div class="text-right">
-  <button [disabled]="!comForm.valid" class="btn btn-primary">{{'com.addCom'| translate}}</button>
-</div>
 </form>
+</div>
+</div>

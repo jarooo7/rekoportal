@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-md-12">
+    <button *ngIf="!finish" class="btn btn-link" (click)="next()">{{'global.next'|translate}}</button>
+    <div class="px-4 my-2" *ngFor="let com of comments | async">
+      <app-comment [idUser]="com.userKey" [text]="com.text"></app-comment>
+    </div>
+  </div>
+</div>

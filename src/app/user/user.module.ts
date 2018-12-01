@@ -8,6 +8,8 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { GalleryComponent } from '../shared/components/gallery/gallery.component';
 import { LikeComponent } from '../shared/components/like/like.component';
 import { AddCommentComponent } from '../shared/components/add-comment/add-comment.component';
+import { ViewCommentComponent } from '../shared/components/view-comment/view-comment.component';
+import { CommentComponent } from '../shared/components/comment/comment.component';
 
 
 
@@ -16,8 +18,16 @@ import { AddCommentComponent } from '../shared/components/add-comment/add-commen
     SharedModule,
     UserRouting
   ],
-  declarations: [CompleteProfileComponent, ProfileComponent, AddPostComponent, PostListComponent,
-    GalleryComponent, LikeComponent, AddCommentComponent
+  declarations: [
+    CompleteProfileComponent,
+    ProfileComponent,
+    AddPostComponent,
+    PostListComponent,
+    GalleryComponent,
+    LikeComponent,
+    AddCommentComponent,
+    ViewCommentComponent,
+    CommentComponent
   ]
 })
 export class UserModule { }

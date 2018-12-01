@@ -9,7 +9,8 @@
         "age": "Wiek",
         "dateBirth": "Data urodzenia",
         "search": "Wyszukaj",
-        "like": "Lubię to!"
+        "like": "Lubię to!",
+        "next": "Załaduj więcej ..."
     },
     "auth": {
         "log": "Logowanie",

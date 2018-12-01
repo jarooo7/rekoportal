@@ -5,6 +5,7 @@ export class LikeModel {
 export class ComModel {
     userKey: string;
     text: string;
+    timestamp: any;
 }
 
 export class PostModel {

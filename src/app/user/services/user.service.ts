@@ -7,6 +7,7 @@ import { UserModel } from '../models/profile.model';
 import { map } from 'rxjs/operators';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { PostModel, LikeModel, ComModel} from '../../shared/models/post.model';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +98,10 @@ export class UserService {
     this.uploadAvatar(file);
   }
 
+  time() {
+    return firebase.database.ServerValue.TIMESTAMP;
+  }
+
 
   getAvatar(url: string, userId: string) {
     let storageRef: AngularFireStorageReference;
@@ -131,7 +136,6 @@ export class UserService {
   getMyPosts(userId: string, batch: number, lastKey?: string) {
     let post: AngularFireList<PostModel> = null;
     if (lastKey) {
-      console.log('tak');
       post = this.dataBase.list(`post/${userId}`, ref => ref.orderByChild('timestamp').limitToLast(batch).endAt(lastKey));
     } else {
      post = this.dataBase.list(`post/${userId}`, ref => ref.orderByChild('timestamp').limitToLast(batch));
@@ -159,12 +163,23 @@ export class UserService {
   }
 
   addCom(userId: string, key: string, text: string) {
-    const like: AngularFireList<ComModel> =  this.dataBase.list(`comment/${userId}/${key}`);
+    const comment: AngularFireList<ComModel> =  this.dataBase.list(`comment/${userId}/${key}`);
     let com: ComModel;
     com = new ComModel; {
       com.userKey = this.userId;
       com.text = text;
+      com.timestamp = this.time();
     }
-    return like.push(com);
+    return comment.push(com);
+  }
+
+  getCom(userId: string, key: string, batch: number, lastKey?: string) {
+    let com: AngularFireList<ComModel> =  null;
+    if (lastKey) {
+      com = this.dataBase.list(`comment/${userId}/${key}`, ref => ref.orderByChild('timestamp').limitToLast(batch).endAt(lastKey));
+    } else {
+      com = this.dataBase.list(`comment/${userId}/${key}`, ref => ref.orderByChild('timestamp').limitToLast(batch));
+    }
+    return com.snapshotChanges();
   }
 }

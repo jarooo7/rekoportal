@@ -19,23 +19,21 @@ export class ViewCommentComponent implements  OnDestroy {
     this.keyP = key;
     this.batch = 2;
     this.finish = false;
-    // this.o = true;
-    this.getPost();
-    // this.loadNewCom();
+    this.getCom();
   }
   keyP: string;
   finish: boolean;
   startId: string;
   batch: number;
-  // o: boolean;
   operation: boolean;
   lastKey: string;
   comments = new BehaviorSubject<ComModel[]>([]);
+  newComments = new BehaviorSubject<ComModel[]>([]);
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private userService: UserService) { }
 
-  private getPost() {
+  private getCom() {
     if (this.finish) { return; }
     let lastKey: string;
     const sub = this.userService
@@ -52,10 +50,11 @@ export class ViewCommentComponent implements  OnDestroy {
         this.startId = comR[0].timestamp;
         console.log('tak', this.startId);
       }
+      this.loadNewCom();
       comR.forEach(c => {
           lastKey = c.timestamp;
       });
-      if ((this.lastKey && this.lastKey === lastKey) || comR.length === this.batch ) {
+      if ((this.lastKey && this.lastKey === lastKey) || comR.length <= this.batch ) {
         this.finish = true;
       }
       this.lastKey = lastKey;
@@ -64,33 +63,33 @@ export class ViewCommentComponent implements  OnDestroy {
       this.comments.next( _.concat(newCom.reverse(), currentCom) );
       console.log(this.comments);
       sub.unsubscribe();
+    }
+    );
+  }
+
+  loadNewCom() {
+    this.userService
+    .getNewCom(this.userId, this.keyP, this.startId  )
+    .pipe(
+      map(result =>
+        result.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ))
+    .subscribe(com => {
+      let newCom;
+      if (!this.startId && com[0]) {
+      this.startId = com[0].timestamp;
+      }
+      if (this.comments.getValue().length === 0) {
+      newCom = _.slice(com, 0);
+      } else {
+      newCom = _.slice(com, 1);
+      }
+      this.newComments.next(_.concat(newCom));
     });
   }
 
-  // loadNewCom() {
-  //   this.userService
-  //   .getCom(this.userId, this.keyP, 1 )
-  //   .pipe(
-  //     map(result =>
-  //       result.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-  //     ))
-  //   .subscribe(com => {
-  //     console.log('chuj');
-  //     if (this.o) {
-  //       this.o = false;
-  //     if (!(!com[0] || !this.startId || this.startId === com[0].timestamp)) {
-  //     this.startId = com[0].timestamp;
-  //     const newPost = _.slice(com);
-  //     const currentPost = this.comments.getValue();
-  //     this.comments.next( _.concat(currentPost, newPost) );
-  //   }
-  //   this.o = true;
-  // }
-  //   });
-  // }
-
   next() {
-    this.getPost();
+    this.getCom();
   }
 
   ngOnDestroy() {

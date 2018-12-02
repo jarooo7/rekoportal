@@ -182,4 +182,10 @@ export class UserService {
     }
     return com.snapshotChanges();
   }
+
+  getNewCom(userId: string, key: string, startKey: string) {
+    let com: AngularFireList<ComModel> =  null;
+    com = this.dataBase.list(`comment/${userId}/${key}`, ref => ref.orderByChild('timestamp').startAt(startKey));
+    return com.snapshotChanges();
+  }
 }

@@ -4,5 +4,7 @@
     <div class="px-4 my-2" *ngFor="let com of comments | async">
       <app-comment [idUser]="com.userKey" [text]="com.text"></app-comment>
     </div>
+    <div class="px-4 my-2" *ngFor="let com of newComments | async">
+      <app-comment [idUser]="com.userKey" [text]="com.text"></app-comment>
   </div>
 </div>

@@ -28,7 +28,7 @@ export class ViewCommentComponent implements  OnDestroy {
   operation: boolean;
   lastKey: string;
   comments = new BehaviorSubject<ComModel[]>([]);
-  newComments = new BehaviorSubject<ComModel[]>([]);
+  newComments: ComModel[] = [];
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private userService: UserService) { }
@@ -75,16 +75,23 @@ export class ViewCommentComponent implements  OnDestroy {
         result.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       ))
     .subscribe(com => {
-      let newCom;
+      let n = this.newComments.length;
       if (!this.startId && com[0]) {
       this.startId = com[0].timestamp;
       }
-      if (this.comments.getValue().length === 0) {
-      newCom = _.slice(com, 0);
+      if (this.comments.getValue().length === 0 || (this.comments.getValue().length === 0 && this.newComments.length !== 0)) {
+        const com3 = _.slice(com, this.newComments.length);
+        com3.forEach(c => {
+          this.newComments[n] = c;
+          n++;
+        });
       } else {
-      newCom = _.slice(com, 1);
+      const com2 = _.slice(com, this.newComments.length + 1);
+      com2.forEach(c => {
+        this.newComments[n] = c;
+        n++;
+      });
       }
-      this.newComments.next(_.concat(newCom));
     });
   }
 

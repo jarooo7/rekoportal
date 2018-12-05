@@ -4,8 +4,9 @@ import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { UserService } from '../../services/user.service';
-import { UserModel } from '../../models/profile.model';
+import { UserModel, AvatarModel } from '../../models/profile.model';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
+import { getFormatedDate } from '../../../shared/functions/format-date';
 
 @Component({
   selector: 'app-profile',
@@ -18,8 +19,6 @@ export class ProfileComponent implements OnInit {
   backgroundUrl: string;
   idUser: string;
   user: UserModel;
-  avatar: string;
-  isAvatar: boolean;
 
   constructor(
     private router: Router,
@@ -30,7 +29,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isAvatar = false;
     this.viewBackground();
     this.readRouting();
   }
@@ -45,9 +43,22 @@ export class ProfileComponent implements OnInit {
 
   readRouting() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      this.idUser = null;
       this.idUser = params['idUser'];
       this.loadRouting();
     });
+  }
+
+  isYour() {
+    if (this.userServise.userId) {
+      if (this.userServise.userId === this.idUser) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   loadRouting() {
@@ -81,18 +92,33 @@ export class ProfileComponent implements OnInit {
         this.user.dateBirth = p.dateBirth;
         this.user.avatar = p.avatar;
       }
-      if (this.user.avatar) {
-      this.avatar = this.userServise.getAvatar(this.user.avatar.url, this.idUser);
-      this.isAvatar = true;
-    }
     });
   }
 
   uploadAvatar(event) {
-    this.userServise.uploadAvatar(event.target.files[0]);
+    if (!event) { return; }
+    let avatar: AvatarModel;
+    const type = event.target.files[0].type;
+    const date = getFormatedDate(new Date());
+    const id = Math.random().toString(36).substring(2);
+    this.userServise.resizeAvatar(event.target.files[0]).subscribe(result => {
+      this.userServise.upload2Avatar(
+        new File([result], 'photo', { type: type, lastModified: Date.now()}),
+        date, id).then(p => {
+          p.ref.getDownloadURL().then(
+            url => {
+              avatar = new AvatarModel; {
+                avatar.url = url;
+                avatar.location = `${date}/${id}`;
+              }
+              this.userServise.addAvatar(avatar);
+            });
+          });
+    });
   }
   editAvatar(event) {
-    this.userServise.editAvatar(event.target.files[0]);
+    this.userServise.deleteAvatar();
+    this.uploadAvatar(event);
   }
 
 

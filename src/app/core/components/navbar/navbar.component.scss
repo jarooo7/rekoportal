@@ -24,3 +24,30 @@
     top: 0;
     z-index: 2;
   }
+
+  .search{
+    position: absolute;
+    background-color: white;
+  }
+  
+  .log{
+      width: 250px;
+  }
+
+  .avatar{
+    width: 70px;
+    height: 70px;
+    box-shadow: none;
+    position: absolute;
+    border: 3px solid;
+    z-index: 2;
+  }
+  .pb-40{
+      padding-bottom: 40px;
+  }
+
+  .menu-profile{
+      position: absolute;
+      top:60px;
+  }
+ 

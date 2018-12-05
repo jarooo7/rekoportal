@@ -10,7 +10,10 @@
         "dateBirth": "Data urodzenia",
         "search": "Wyszukaj",
         "like": "Lubię to!",
-        "next": "Załaduj więcej ..."
+        "next": "Załaduj więcej ...",
+        "searchText": "Wyszukaj użytkownika lub grupę",
+        "searchResult": "Wynik wyszukiwania",
+        "myProfile": "Mój profil"
     },
     "auth": {
         "log": "Logowanie",
@@ -35,7 +38,8 @@
     },
     "validationError": {
         "email": "Wprowadź adres email",
-        "required": "Uzupełnij pole"
+        "required": "Uzupełnij pole",
+        "smallTextSearch": "Zbyt krótki tekst wyszukiwania"
     },
     "alert": {
         "success": {

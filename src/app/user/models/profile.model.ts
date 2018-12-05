@@ -2,17 +2,18 @@ export class ProfileModel {
     name: string;
     lastName: string;
     dateBirth: string;
+    search?: string;
 }
 
 export class AvatarModel {
     url: string;
-    date: Date;
+    location: string;
 }
 
 export class UserModel {
     name: string;
     lastName: string;
     dateBirth: string;
-    avatar: AvatarModel;
+    avatar?: AvatarModel;
 }
 

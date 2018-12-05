@@ -49,29 +49,6 @@ export class UserService {
     return this.profile.snapshotChanges();
   }
 
-  uploadAvatar(file: File) {
-    const today = new Date();
-    const type = file.type;
-    let storageRef: AngularFireStorageReference;
-    let uploadTask: AngularFireUploadTask;
-    const id = Math.random().toString(36).substring(2);
-    storageRef = this.afStorage.ref('profile');
-    this.ng2ImgToolsService.resizeExactCrop([file], 180, 180).subscribe(result => {
-      uploadTask = storageRef.child(
-        `${this.userId}/${today.getFullYear()}-${today.getMonth()}-${today.getDay()}${today.getMilliseconds()}${id}`
-      ).put(new File([result], 'photo', { type: type, lastModified: Date.now() }));
-      uploadTask.then(
-        () => {
-          const avatar = new AvatarModel(); {
-            avatar.date = today;
-            avatar.url = `${today.getFullYear()}-${today.getMonth()}-${today.getDay()}${today.getMilliseconds()}${id}`;
-          }
-          this.addAvatar(avatar);
-        }
-      );
-    });
-  }
-
   deleteAvatar() {
     let storageRef: AngularFireStorageReference;
     let uploadTask: AngularFireUploadTask;
@@ -82,7 +59,7 @@ export class UserService {
       )
     ).subscribe(p => {
       if (p.avatar.url && flag) {
-        url = p.avatar.url;
+        url = p.avatar.location;
         storageRef = this.afStorage.ref(`profile/${this.userId}`);
         uploadTask = storageRef.child(url).delete();
         flag = false;
@@ -90,23 +67,8 @@ export class UserService {
     });
   }
 
-  editAvatar(file: File) {
-    if (!file) {
-      return;
-    }
-    this.deleteAvatar();
-    this.uploadAvatar(file);
-  }
-
   time() {
     return firebase.database.ServerValue.TIMESTAMP;
-  }
-
-
-  getAvatar(url: string, userId: string) {
-    let storageRef: AngularFireStorageReference;
-    storageRef = this.afStorage.ref(`profile/${userId}`);
-    return storageRef.child(url).getDownloadURL();
   }
 
   getPhotoPost(url: string, name: string) {
@@ -131,6 +93,19 @@ export class UserService {
 
   resize(file: File) {
    return this.ng2ImgToolsService.resize([file], 800, 800);
+  }
+
+  resizeAvatar(file: File) {
+   return this.ng2ImgToolsService.resizeExactCrop([file], 180, 180);
+  }
+
+  upload2Avatar(file: File, name: string, id: string) {
+    let storageRef: AngularFireStorageReference;
+    let uploadTask: AngularFireUploadTask;
+    storageRef = this.afStorage.ref(`profile`);
+    uploadTask = storageRef.child(
+      `${this.userId}/${name}/${id}` ).put(file);
+    return uploadTask;
   }
 
   getMyPosts(userId: string, batch: number, lastKey?: string) {

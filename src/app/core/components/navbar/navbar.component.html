@@ -1,13 +1,66 @@
-<nav class="navbar navbar-light bg-dark justify-content-between">
-  <a class="navbar-brand"><img class="logo" src="../../../../assets/logo.png"></a>
-  <div>
-    <span class="dropdown" >
-      <button (click)="buttonLanguage()" class="btn btn-dark my-2 my-sm-0">{{'global.language'|translate}} : {{language|uppercase}} <img class="flag" [src]="countryFlag"></button>
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark " (click)="hidesearch()">
+  <a class="navbar-brand">
+    <img class="logo" src="../../../../assets/logo.png">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form [formGroup]="searchForm" class="form-inline w-100 my-2 mx-3 my-lg-0">
+      <fa class="search mx-3" name="search" (click)="search()"></fa>
+      <input [formControlName]="formControlNames.SEARCH" (keyup)="searchNow($event.target.value)" (keydown.enter)="search()" class="form-control w-100 pl-5 mr-sm-2"
+        type="search" placeholder="{{'global.searchText'|translate}}">
+      <div>
+        <div class="search" *ngIf="view">
+          <div *ngFor="let r of result">
+            <app-user-result [user]="r" [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
+          </div>
+        </div>
+      </div>
+    </form>
+    <span class="dropdown">
+      <button (click)="buttonLanguage()" class="btn btn-dark my-2 my-sm-0">{{'global.language'|translate}} : {{language|uppercase}}
+        <img class="flag" [src]="countryFlag">
+      </button>
       <div class="dropdown-menu bg-dark text-center" [ngClass]="languageDropdown">
-        <button *ngFor="let lang of languageList" class=" btn btn-dark btn-block."  (click)="useLanguage(lang.name)">{{lang.name|uppercase}} <img class="flag" [src]="lang.src"></button>
+        <button *ngFor="let lang of languageList" class=" btn btn-dark btn-block." (click)="useLanguage(lang.name)">{{lang.name|uppercase}}
+          <img class="flag" [src]="lang.src">
+        </button>
+      </div>
+    </span>
+    <div class="log">
+      <button *ngIf="!isLogin()" class="btn btn-dark my-2 my-sm-0" [routerLink]="['/auth/login']">{{'auth.login'|translate}}</button>
+      <div *ngIf="isLogin()" (click)="clickMenu()" class="pb-40 profil-btn">
+        <div>
+          <div>
+            <img *ngIf="avatar" src="{{avatar.url||'../../../../assets/profile.png'}}" class="mx-4 rounded-circle border-white avatar">
+            <img *ngIf="!avatar" src="{{'../../../../assets/profile.png'}}" class="mx-4 rounded-circle border-white avatar">
+          </div>
+          <div *ngIf="menu" class="menu-profile bg-dark py-4 ">
+            <div>
+              <a class="btn btn-dark btn-block my-2 px-4 my-sm-0" [routerLink]="['/user/profile']">{{'global.myProfile'|translate}}</a>
+            </div>
+            <div>
+              <button *ngIf="isLogin()" class="btn-block px-4 btn btn-dark my-2 my-sm-0" (click)="logout()">{{'auth.logout'|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </span>
-    <button *ngIf="!isLogin()" class="btn btn-dark my-2 my-sm-0" [routerLink]="['/auth/login']">{{'auth.login'|translate}}</button>
-    <button *ngIf="isLogin()" class="btn btn-dark my-2 my-sm-0" (click)="logout()">{{'auth.logout'|translate}}</button>
-  </div>  
+  </div>
 </nav>

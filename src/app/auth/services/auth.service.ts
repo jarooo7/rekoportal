@@ -5,6 +5,8 @@ import { User } from 'firebase/app';
 import { Observable } from 'rxjs';
 import { AuthModel, EmailModel, ResetPasswordModel } from '../models/auth.model';
 import { environment } from '../../../environments/environment';
+import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
+import { UserModel } from '../../user/models/profile.model';
 
 
 @Injectable({
@@ -14,9 +16,25 @@ export class AuthService {
   @Output() public authState: EventEmitter<any> = new EventEmitter();
   readonly authState$: Observable<User | null> = this.fireAuth.authState;
   userName: string;
+  userId: string;
+  myProfile: AngularFireObject<UserModel> = null;
+  userDetails: firebase.User;
 
-  constructor(public fireAuth: AngularFireAuth) {
+  constructor(public fireAuth: AngularFireAuth,
+    private dataBase: AngularFireDatabase) {
+    this.authState$.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.userDetails = user;
+        this.userName = user.displayName;
+        this.myProfile = dataBase.object(`profile/${user.uid}`);
+      }
+    });
 
+  }
+
+  getProfile() {
+    return this.myProfile.snapshotChanges();
   }
 
   facebookLogin() {
@@ -46,6 +64,7 @@ export class AuthService {
         });
     }).then((fireBaseUser) => {
       this.authState.emit(fireBaseUser.user);
+      this.setUser();
     }
     );
   }
@@ -101,8 +120,7 @@ export class AuthService {
   setUser() {
     this.authState$.subscribe(user => {
       if (user) {
-        localStorage.setItem(environment.displayName, user.displayName);
-        localStorage.setItem(environment.userId, user.uid);
+        user.getIdToken().then(u => localStorage.setItem(environment.userId, u));
       }
     }
     );

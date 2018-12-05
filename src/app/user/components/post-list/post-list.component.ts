@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { UserService } from '../../services/user.service';
 import * as _ from 'lodash';
 import { map, tap } from 'rxjs/operators';
+import { UserModel } from '../../models/profile.model';
 
 @Component({
   selector: 'app-post-list',
@@ -12,13 +13,12 @@ import { map, tap } from 'rxjs/operators';
 export class PostListComponent  {
   @Input() set getUser(userId: string) {
     this.posts = new BehaviorSubject([]);
-    this.userId =  userId;
+    this.userId = userId;
+    this.lastKey = null;
     this.finish = false;
     this.getPost();
   }
-  @Input() name: string;
-  @Input() lastName: string;
-  @Input() avatar: string;
+  @Input() user: UserModel;
   userId: string;
   posts = new BehaviorSubject([]);
   batch = 4;

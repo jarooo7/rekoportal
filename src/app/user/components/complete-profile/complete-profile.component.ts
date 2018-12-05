@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { ErrorCodes } from '../../../shared/enums/error-code';
 import { ProfileModel } from '../../models/profile.model';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -8,12 +8,13 @@ import { UserService } from '../../services/user.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireObject } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
+import { getFormatedSearch } from '../../../shared/functions/format-search-text';
 
 
 enum FormControlNames {
   NAME = 'name',
-  LAST_NAME= 'lastName',
-  DATE_BIRTH  = 'dateBirth'
+  LAST_NAME = 'lastName',
+  DATE_BIRTH = 'dateBirth'
 }
 @Component({
   selector: 'app-complete-profile',
@@ -30,6 +31,7 @@ export class CompleteProfileComponent implements OnInit {
   name: string;
   lastName: string;
   profile: any;
+  userSub: Observable<firebase.User>;
   userName: string;
 
   constructor(
@@ -37,22 +39,29 @@ export class CompleteProfileComponent implements OnInit {
     private userService: UserService,
     private auth: AuthService
   ) {
-    this.auth.getUser().subscribe(user => {
-      console.log(user);
-      if (user) {
-      this.userName = user.displayName;
-      this.setFormValue(user.displayName);
-      }
-    });
+    this.userSub = auth.authState$;
   }
 
   ngOnInit() {
     this.valid();
-    console.log(this.userName);
-    this.setFormValue(this.userName);
+    this.userSub.subscribe(u => {
+      if (u) {
+        if (u.displayName) {
+          this.userName = u.displayName;
+          this.setFormValue(u.displayName);
+        }
+      }
+    });
   }
   public onSubmit() {
-    this.user = this.profileForm.value;
+    let textSearch: string;
+    textSearch = `${this.profileForm.get(FormControlNames.NAME).value} ${this.profileForm.get(FormControlNames.LAST_NAME).value}`;
+    this.user = new ProfileModel; {
+      this.user.name = this.profileForm.get(FormControlNames.NAME).value;
+      this.user.lastName = this.profileForm.get(FormControlNames.LAST_NAME).value;
+      this.user.dateBirth = this.profileForm.get(FormControlNames.DATE_BIRTH).value;
+      this.user.search = getFormatedSearch(textSearch.toLowerCase());
+    }
     this.userService.createProfile(this.user);
   }
 
@@ -66,24 +75,15 @@ export class CompleteProfileComponent implements OnInit {
 
   setFormValue(userName: string) {
     if (userName) {
-    this.name = userName.substring(0, userName.search(' '));
-    this.lastName = userName.substring(userName.search(' ') + 1);
-    this.profileForm.setValue({
-      [FormControlNames.NAME]: this.name,
-      [FormControlNames.LAST_NAME]: this.lastName,
-      [FormControlNames.DATE_BIRTH]: null
-    });
+      this.name = userName.substring(0, userName.search(' '));
+      this.lastName = userName.substring(userName.search(' ') + 1);
+      this.profileForm.setValue({
+        [FormControlNames.NAME]: this.name,
+        [FormControlNames.LAST_NAME]: this.lastName,
+        [FormControlNames.DATE_BIRTH]: null
+      });
+    }
   }
-  }
-  wyswietl() {
-  //  this.userService.getProfile().pipe(
-  //   map( c => ({ key: c.payload.key, ...c.payload.val() })
-  //   )
-  // ).subscribe(customers => {
-  //   this.profile = customers;
-  //   console.log(customers);
-  // });
- }
 
 }
 

@@ -15,6 +15,7 @@ import { FileDropDirective } from './directives/file-drop.directive' ;
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { UserResultComponent } from '../search/components/user-result/user-result.component';
 const MODULES = [
   PickerModule,
   CommonModule,
@@ -37,7 +38,7 @@ const DIRECTIVES = [
 ];
 
 const COMPONENTS = [
-
+  UserResultComponent
 ];
 
 @NgModule({

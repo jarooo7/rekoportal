@@ -4,7 +4,16 @@ import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../../user/services/user.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { getFormatedSearch } from '../../../shared/functions/format-search-text';
+import { SearchResultsService } from '../../../search/services/search-results.service';
+import { UserModel, AvatarModel } from '../../../user/models/profile.model';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
+enum FormControlNames {
+  SEARCH = 'search'
+}
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +24,14 @@ import { UserService } from '../../../user/services/user.service';
 export class NavbarComponent implements OnInit {
   language: string;
   countryFlag: string;
+  searchText: string;
+  searchForm: FormGroup;
+  formControlNames = FormControlNames;
+  view = true;
+  menu = false;
+  avatar: AvatarModel;
+  user: Observable<firebase.User>;
+  result: UserModel[] = [];
   languageDropdown = 'dropdown-close';
   languageList = [
     {
@@ -49,11 +66,26 @@ export class NavbarComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private authService: AuthService,
-    private router: Router
-  ) { }
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private searchService: SearchResultsService
+  ) {
+    this.user = authService.authState$;
+    this.user.subscribe(u => {
+      if (u) {
+        if (u.uid) {
+          this.loadUser();
+        }
+      }
+   });
+   }
 
   ngOnInit() {
     this.loadLanguage();
+    this.searchForm = this.formBuilder.group({
+      [FormControlNames.SEARCH]: ['']
+    });
   }
   loadLanguage() {
     if (localStorage.getItem(environment.language)) {
@@ -87,8 +119,48 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  loadUser() {
+    this.authService.getProfile().pipe(
+      map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
+      )
+    ).subscribe(p => {
+      this.avatar = p.avatar;
+    });
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/auth/login']);
   }
+  search() {
+    this.view = false;
+    const text: string = this.searchForm.get(FormControlNames.SEARCH).value;
+    this.router.navigate([`search/result-search/${getFormatedSearch(text.toLocaleLowerCase())}`]);
+  }
+
+  searchNow(event) {
+    this.view = true;
+    const textSearch = getFormatedSearch(event.toLocaleLowerCase());
+      if (textSearch.length < 3) {
+        this.result = [];
+        return;
+      }
+      this.searchService.get3User(textSearch ,  textSearch + '\uf8ff')
+      .pipe(
+        map(like =>
+          like.map( l => ({ key: l.payload.key, ...l.payload.val() }))
+        ))
+      .subscribe(u => {
+        this.result = u;
+      });
+  }
+
+  hidesearch() {
+    this.view = false;
+  }
+
+  clickMenu() {
+    this.menu = !this.menu;
+  }
+
 }

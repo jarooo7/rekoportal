@@ -12,14 +12,11 @@ import { Router } from '@angular/router';
 export class CommentComponent  {
   @Input() set idUser(id: string) {
     this.userId = id;
-    this.isAvatar = false;
     this.loadProfileUser();
   }
   @Input() text: string;
   userId: string;
   user: UserModel;
-  avatar: string;
-  isAvatar: boolean;
 
   constructor(
     private router: Router,
@@ -37,11 +34,6 @@ export class CommentComponent  {
         this.user.dateBirth = p.dateBirth;
         this.user.avatar = p.avatar;
       }
-      if (this.user.avatar) {
-      this.avatar = this.userService.getAvatar(this.user.avatar.url, this.userId);
-      this.isAvatar = true;
-    }
     });
   }
-
 }

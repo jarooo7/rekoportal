@@ -7,7 +7,7 @@ import { UserService } from '../../../user/services/user.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { getFormatedSearch } from '../../../shared/functions/format-search-text';
 import { SearchResultsService } from '../../../search/services/search-results.service';
-import { UserModel, AvatarModel } from '../../../user/models/profile.model';
+import { UserModel, AvatarModel, UserId } from '../../../user/models/profile.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -28,7 +28,9 @@ export class NavbarComponent implements OnInit {
   searchForm: FormGroup;
   formControlNames = FormControlNames;
   view = true;
+  invit: UserId[] = [];
   menu = false;
+  invitFlag = false;
   avatar: AvatarModel;
   user: Observable<firebase.User>;
   result: UserModel[] = [];
@@ -76,10 +78,11 @@ export class NavbarComponent implements OnInit {
       if (u) {
         if (u.uid) {
           this.loadUser();
+          this.loadInvit();
         }
       }
-   });
-   }
+    });
+  }
 
   ngOnInit() {
     this.loadLanguage();
@@ -101,6 +104,10 @@ export class NavbarComponent implements OnInit {
     this.language = language;
     this.countryFlag = `../../../../assets/language/${this.language}.svg`;
     this.buttonLanguage();
+  }
+
+  invitOpen() {
+    this.invitFlag = !this.invitFlag;
   }
 
   buttonLanguage() {
@@ -127,6 +134,15 @@ export class NavbarComponent implements OnInit {
       this.avatar = p.avatar;
     });
   }
+  loadInvit() {
+    this.userService.loadInvitFriends().pipe(
+      map(invit =>
+        invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ))
+      .subscribe(i => {
+        this.invit = i;
+      });
+  }
 
   logout() {
     this.authService.logout();
@@ -141,14 +157,14 @@ export class NavbarComponent implements OnInit {
   searchNow(event) {
     this.view = true;
     const textSearch = getFormatedSearch(event.toLocaleLowerCase());
-      if (textSearch.length < 3) {
-        this.result = [];
-        return;
-      }
-      this.searchService.get3User(textSearch ,  textSearch + '\uf8ff')
+    if (textSearch.length < 3) {
+      this.result = [];
+      return;
+    }
+    this.searchService.get3User(textSearch, textSearch + '\uf8ff')
       .pipe(
         map(like =>
-          like.map( l => ({ key: l.payload.key, ...l.payload.val() }))
+          like.map(l => ({ key: l.payload.key, ...l.payload.val() }))
         ))
       .subscribe(u => {
         this.result = u;

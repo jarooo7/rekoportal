@@ -28,6 +28,7 @@
   .search{
     position: absolute;
     background-color: white;
+    z-index: 4;
   }
   
   .log{
@@ -49,5 +50,13 @@
   .menu-profile{
       position: absolute;
       top:60px;
+  }
+
+  .number{
+    font-size: 13px;
+    min-width: 18px;
+  }
+  .none-select {
+    user-select: none;
   }
  

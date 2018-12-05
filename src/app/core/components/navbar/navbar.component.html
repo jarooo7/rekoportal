@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  navbar-dark bg-dark " (click)="hidesearch()">
+<nav class="navbar navbar-expand-lg none-select navbar-dark bg-dark " (click)="hidesearch()">
   <a class="navbar-brand">
     <img class="logo" src="../../../../assets/logo.png">
   </a>
@@ -33,7 +33,22 @@
         </div>
       </div>
     </form>
-    <span class="dropdown">
+    <div class="px-3">
+      <div (click)="invitOpen()">
+        <div style="position: absolute;" class="px-2" *ngIf="invit.length !== 0">
+          <div class="rounded-circle bg-danger number text-light text-center">{{invit.length}}</div>
+        </div>
+        <fa name="users" class="h4 my-auto mx-3 text-light"></fa>
+      </div>
+      <div *ngIf="invitFlag">
+        <div class="search mt-3">
+          <div *ngFor="let r of invit">
+            <app-invit-list [uid]="r.userId" [key]="r.key"></app-invit-list>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dropdown">
       <button (click)="buttonLanguage()" class="btn btn-dark my-2 my-sm-0">{{'global.language'|translate}} : {{language|uppercase}}
         <img class="flag" [src]="countryFlag">
       </button>
@@ -42,7 +57,7 @@
           <img class="flag" [src]="lang.src">
         </button>
       </div>
-    </span>
+    </div>
     <div class="log">
       <button *ngIf="!isLogin()" class="btn btn-dark my-2 my-sm-0" [routerLink]="['/auth/login']">{{'auth.login'|translate}}</button>
       <div *ngIf="isLogin()" (click)="clickMenu()" class="pb-40 profil-btn">

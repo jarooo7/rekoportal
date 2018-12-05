@@ -18,6 +18,8 @@ export class ProfileComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   backgroundUrl: string;
   idUser: string;
+  invit = false;
+  myProfile = false;
   user: UserModel;
 
   constructor(
@@ -31,6 +33,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.viewBackground();
     this.readRouting();
+    this.isYour();
   }
 
   viewBackground() {
@@ -49,15 +52,30 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  isYour() {
+  private loadInvit() {
+    this.userServise.loadInvitFriends().pipe(
+      map(invit =>
+        invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ))
+      .subscribe(i => {
+        if (i.length === 0) {
+          this.invit = true;
+        } else {
+          this.invit = false;
+        }
+      });
+  }
+
+  private isYour() {
     if (this.userServise.userId) {
       if (this.userServise.userId === this.idUser) {
-        return true;
+        this.myProfile = true;
       } else {
-        return false;
+        this.loadInvit();
+        this.myProfile = false;
       }
     } else {
-      return false;
+      this.myProfile = false;
     }
   }
 
@@ -93,6 +111,10 @@ export class ProfileComponent implements OnInit {
         this.user.avatar = p.avatar;
       }
     });
+  }
+
+  addFriends() {
+    this.userServise.addInvitFriends(this.idUser);
   }
 
   uploadAvatar(event) {

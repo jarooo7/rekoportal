@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
-import { ProfileModel, AvatarModel } from '../models/profile.model';
+import { ProfileModel, AvatarModel, UserId } from '../models/profile.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import { UserModel } from '../models/profile.model';
@@ -146,6 +146,35 @@ export class UserService {
       com.timestamp = this.time();
     }
     return comment.push(com);
+  }
+
+  addInvitFriends(userId: string) {
+    const invit: AngularFireList<UserId> =  this.dataBase.list(`invitFriends/${userId}`);
+    invit.push({userId: this.userId});
+  }
+
+  removeinvitFriends(userId: string, key: string) {
+    const invit: AngularFireList<UserId> =  this.dataBase.list(`invitFriends/${this.userId}/${key}`);
+    invit.remove();
+  }
+
+  addFriends(userId: string , key: string) {
+    this.removeinvitFriends(userId, key);
+    const invit: AngularFireList<UserId> =  this.dataBase.list(`friends/${this.userId}`);
+    invit.push({userId: userId});
+    const invit2: AngularFireList<UserId> =  this.dataBase.list(`friends/${userId}`);
+    invit2.push({userId: this.userId});
+  }
+
+  loadInvitFriends() {
+    const invit: AngularFireList<UserId> =  this.dataBase.list(`invitFriends/${this.userId}`);
+    return invit.snapshotChanges();
+  }
+
+  loadUserInvitFriends(userId: string) {
+    let invit: AngularFireList<UserId> = null;
+    invit = this.dataBase.list(`invitFriends/${userId}`, ref => ref.orderByChild('userId').equalTo(this.userId));
+    return invit.snapshotChanges();
   }
 
   getCom(userId: string, key: string, batch: number, lastKey?: string) {

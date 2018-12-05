@@ -73,7 +73,9 @@
         "settingsUser": "Ustawienia użytkownika",
         "editProfile": "Edytuj profil",
         "addPhoto": "Dodaj zdjęcie profilowe",
-        "editPhoto": "Edytyj zdjęcie profilowe"
+        "editPhoto": "Edytyj zdjęcie profilowe",
+        "addFriends": "Dodaj do znajomych",
+        "akceptInvitation": "Akceptuj zaproszenie"
     },
     "post": {
         "addPost": "Dodaj post",

@@ -5,6 +5,10 @@ export class ProfileModel {
     search?: string;
 }
 
+export class UserId {
+    userId: string;
+}
+
 export class AvatarModel {
     url: string;
     location: string;

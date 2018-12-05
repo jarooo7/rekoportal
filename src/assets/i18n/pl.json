@@ -75,7 +75,8 @@
         "addPhoto": "Dodaj zdjęcie profilowe",
         "editPhoto": "Edytyj zdjęcie profilowe",
         "addFriends": "Dodaj do znajomych",
-        "akceptInvitation": "Akceptuj zaproszenie"
+        "akceptInvitation": "Akceptuj zaproszenie",
+        "rejectInvitation": "Odrzuć zaproszenie"
     },
     "post": {
         "addPost": "Dodaj post",

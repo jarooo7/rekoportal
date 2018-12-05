@@ -18,9 +18,12 @@ export class ProfileComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   backgroundUrl: string;
   idUser: string;
-  invit = false;
+  invit = true;
+  isFriend = true;
+  invit2 = true;
   myProfile = false;
   user: UserModel;
+  key: string;
 
   constructor(
     private router: Router,
@@ -33,7 +36,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.viewBackground();
     this.readRouting();
-    this.isYour();
   }
 
   viewBackground() {
@@ -53,11 +55,12 @@ export class ProfileComponent implements OnInit {
   }
 
   private loadInvit() {
-    this.userServise.loadInvitFriends().pipe(
+    this.userServise.loadUserInvitFriends(this.idUser).pipe(
       map(invit =>
         invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       ))
       .subscribe(i => {
+        console.log(i);
         if (i.length === 0) {
           this.invit = true;
         } else {
@@ -66,12 +69,44 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  private isYour() {
+  private isMyFriend() {
+    this.userServise.isMyFriend(this.idUser).pipe(
+      map(invit =>
+        invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ))
+      .subscribe(i => {
+        console.log(i);
+        if (i.length === 0) {
+          this.isFriend = false;
+        } else {
+          this.isFriend = true;
+        }
+      });
+  }
+
+  private loadInvit2() {
+    this.userServise.loadUserInvit2Friends(this.idUser).pipe(
+      map(invit =>
+        invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      ))
+      .subscribe(i => {
+        if (i.length === 0) {
+          this.invit2 = true;
+        } else {
+          this.key = i[0].key;
+          this.invit2 = false;
+        }
+      });
+  }
+
+  private operation() {
     if (this.userServise.userId) {
       if (this.userServise.userId === this.idUser) {
         this.myProfile = true;
       } else {
         this.loadInvit();
+        this.loadInvit2();
+        this.isMyFriend();
         this.myProfile = false;
       }
     } else {
@@ -95,6 +130,18 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  canAdd() {
+    if (!this.myProfile) {
+      if (this.invit && this.invit2) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   setRouting() {
     this.router.navigate(['user/profile/', this.idUser]);
   }
@@ -110,11 +157,18 @@ export class ProfileComponent implements OnInit {
         this.user.dateBirth = p.dateBirth;
         this.user.avatar = p.avatar;
       }
+      this.operation();
     });
   }
 
-  addFriends() {
+  addInvitFriends() {
     this.userServise.addInvitFriends(this.idUser);
+  }
+  addFriends() {
+    this.userServise.addFriends(this.idUser, this.key);
+  }
+  removeFriends() {
+    this.userServise.removeinvitFriends(this.idUser, this.key);
   }
 
   uploadAvatar(event) {

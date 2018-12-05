@@ -173,7 +173,18 @@ export class UserService {
 
   loadUserInvitFriends(userId: string) {
     let invit: AngularFireList<UserId> = null;
-    invit = this.dataBase.list(`invitFriends/${userId}`, ref => ref.orderByChild('userId').equalTo(this.userId));
+    invit = this.dataBase.list(`invitFriends/${userId}`, ref => ref.orderByChild('userId').startAt(this.userId).endAt(this.userId));
+    return invit.snapshotChanges();
+  }
+  loadUserInvit2Friends(userId: string) {
+    let invit: AngularFireList<UserId> = null;
+    invit = this.dataBase.list(`invitFriends/${this.userId}`, ref => ref.orderByChild('userId').startAt(userId).endAt(userId));
+    return invit.snapshotChanges();
+  }
+
+  isMyFriend(userId: string) {
+    let invit: AngularFireList<UserId> = null;
+    invit = this.dataBase.list(`friends/${this.userId}`, ref => ref.orderByChild('userId').startAt(userId).endAt(userId));
     return invit.snapshotChanges();
   }
 

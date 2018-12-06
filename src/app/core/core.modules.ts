@@ -9,9 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SharedModule } from '../shared/shared.module';
 import { CoreRoutingModule } from './core-routing.module';
 import { NotifierOptions, NotifierModule } from 'angular-notifier';
-import { UserResultComponent } from '../search/components/user-result/user-result.component';
 import { InvitListComponent } from './components/invit-list/invit-list.component';
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }

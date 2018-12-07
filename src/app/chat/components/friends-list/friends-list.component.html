@@ -2,66 +2,15 @@
   <div class="list bg-light align-self-end ">
     <div class="list-friends py-5">
       <div class="py-5 win-h">
-        Czat
-        <div class="scroll-y bg-primary">
-          f
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d1
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d2
-          <br>d
-          <br>d
-          <br>d
-          <br>d
+        <h5 class="text-center"> {{'global.contacts'|translate}}</h5>
+        <div class="scroll-y">
+          <div *ngFor="let f of friends">
+            <app-contacts [searchText]="search" [getFriend]="f"></app-contacts>
 
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>dl
-          <br>d
-          <br>d3
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d4
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d5
-          <br>d
-          <br>d l
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d
-          <br>d l
-          <br>d
-          <br>d6
-          <br>d
-          <br>d
+          </div>
         </div>
-        <div class="pt-5">
-          tu bedzie szukaj
+        <div class="pb-2 pt-4">
+          <input [(ngModel)]="search" class="form-control w-100" placeholder="{{'global.search'|translate}}">
         </div>
       </div>
     </div>

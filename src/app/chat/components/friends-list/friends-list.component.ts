@@ -1,15 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../../user/services/user.service';
+import { UserId } from '../../../user/models/profile.model';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-friends-list',
   templateUrl: './friends-list.component.html',
   styleUrls: ['./friends-list.component.scss']
 })
-export class FriendsListComponent implements OnInit {
+export class FriendsListComponent {
 
-  constructor() { }
+  friends: UserId[] = [];
+  user: Observable<firebase.User>;
+  search: string;
 
-  ngOnInit() {
+  constructor(
+    private userService: UserService,
+    private authService:  AuthService
+  ) {
+    this.user = authService.authState$;
+    this.user.subscribe(u => {
+      if (u) {
+        if (u.uid) {
+          this.gerFriends(u.uid);
+        }
+      }
+    });
+   }
+
+  gerFriends(id: string) {
+    this.userService.getFriends(id).pipe(
+      map(friends =>
+        friends.map(f => ({ key: f.payload.key, ...f.payload.val() }))
+      )
+    ).subscribe(result => {
+      console.log('fl', result);
+      this.friends = result;
+    });
   }
 
 }

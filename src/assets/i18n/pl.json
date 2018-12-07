@@ -13,7 +13,8 @@
         "next": "Załaduj więcej ...",
         "searchText": "Wyszukaj użytkownika lub grupę",
         "searchResult": "Wynik wyszukiwania",
-        "myProfile": "Mój profil"
+        "myProfile": "Mój profil",
+        "contacts": "Kontakty"
     },
     "auth": {
         "log": "Logowanie",

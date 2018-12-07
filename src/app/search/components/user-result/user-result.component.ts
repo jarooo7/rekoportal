@@ -1,4 +1,4 @@
-import { Component,  Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserModel } from '../../../user/models/profile.model';
 import { Router } from '@angular/router';
 
@@ -10,17 +10,20 @@ import { Router } from '@angular/router';
 })
 export class UserResultComponent {
 
-  @Input()  user: UserModel;
-  @Input()  userId: string;
-  @Input()  imgClass: string;
-  @Input()  textClass: string;
-  @Input()  divClass: string;
+  @Input() user: UserModel;
+  @Input() userId: string;
+  @Input() imgClass: string;
+  @Input() textClass: string;
+  @Input() divClass: string;
+  @Input() isClick: boolean;
   constructor(
     private router: Router
   ) { }
 
   goToUser() {
-    this.router.navigate([`user/profile/${this.userId}`]);
+    if (this.isClick) {
+      this.router.navigate([`user/profile/${this.userId}`]);
+    }
   }
 
 }

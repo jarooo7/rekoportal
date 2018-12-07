@@ -17,6 +17,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { UserResultComponent } from '../search/components/user-result/user-result.component';
 import { FriendsListComponent } from '../chat/components/friends-list/friends-list.component';
+import { ContactsComponent } from '../chat/components/contacts/contacts.component';
 const MODULES = [
   PickerModule,
   CommonModule,
@@ -38,9 +39,11 @@ const DIRECTIVES = [
   FileDropDirective
 ];
 
+
 const COMPONENTS = [
   UserResultComponent,
-  FriendsListComponent
+  FriendsListComponent,
+  ContactsComponent
 ];
 
 @NgModule({

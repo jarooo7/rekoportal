@@ -28,7 +28,7 @@
       <div>
         <div class="search" *ngIf="view">
           <div *ngFor="let r of result">
-            <app-user-result [user]="r" [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
+            <app-user-result [user]="r" [isClick]="true"  [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
           </div>
         </div>
       </div>

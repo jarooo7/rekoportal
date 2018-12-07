@@ -183,9 +183,15 @@ export class UserService {
   }
 
   isMyFriend(userId: string) {
-    let invit: AngularFireList<UserId> = null;
-    invit = this.dataBase.list(`friends/${this.userId}`, ref => ref.orderByChild('userId').startAt(userId).endAt(userId));
-    return invit.snapshotChanges();
+    let result: AngularFireList<UserId> = null;
+    result = this.dataBase.list(`friends/${this.userId}`, ref => ref.orderByChild('userId').startAt(userId).endAt(userId));
+    return result.snapshotChanges();
+  }
+
+  getFriends(id: string) {
+    let result: AngularFireList<UserId> = null;
+    result = this.dataBase.list(`friends/${id}`);
+    return result.snapshotChanges();
   }
 
   getCom(userId: string, key: string, batch: number, lastKey?: string) {

@@ -1,0 +1,26 @@
+<div class="messager bg-light" *ngIf="uid">
+  <div class="modal-header bg-dark">
+    <h6 class="modal-title text-light" (click)="goToUser()">
+      <fa class="text-success mr-2" *ngIf="isOnline()" name="circle"></fa>
+      <fa class="text-danger mr-2" *ngIf="!isOnline()" name="circle"></fa>
+      {{friend.name}} {{friend.lastName}}
+    </h6>
+    <div>
+      <div class="close">
+        <span aria-hidden="true" class=" text-light" (click)="removeChat()">&times;</span>
+      </div>
+      <div class="close" *ngIf="isOpen" (click)="minimize()">
+        <span aria-hidden="true"  class=" text-light" >_</span>
+      </div>
+      <div class="close" *ngIf="!isOpen" (click)="maximize()">
+        <span aria-hidden="true"  class="h6 text-light">	<fa name="window-maximize"></fa></span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isOpen">
+    <div class="chat"></div>
+    <div class="msg">
+     <app-new-msg [msgId]="msgId"></app-new-msg>
+    </div>
+  </div>
+</div>

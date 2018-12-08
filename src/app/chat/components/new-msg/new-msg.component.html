@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-12">
+<form [formGroup]="msgForm">
+<div class="my-1">
+  <img class="mx-2 my-1  emoji-button" src="../../../../assets/smile.svg" (click)="openEmojiPopup()">
+  <textarea [placeholder]="'com.writeCom' | translate" class="form-control tex" rows="1" [formControlName]="formControlNames.MSG"
+    (click)="closeEmojiPopup()" (keydown.enter) = "onSubmit()"></textarea>
+  <emoji-mart *ngIf="openEmoji"  set="emojione" sheetSize="20" [showPreview]="false" [i18n]="{
+        search: ('global.search'|translate),
+        notfound: ('emoji.notfound'|translate),
+        categories: {
+            search: ('emoji.categories.search'|translate),
+            recent: ('emoji.categories.recent'|translate),
+            people: ('emoji.categories.people'|translate),
+            nature: ('emoji.categories.nature'|translate),
+            foods: ('emoji.categories.foods'|translate),
+            activity: ('emoji.categories.activity'|translate),
+            places: ('emoji.categories.places'|translate),
+            objects: ('emoji.categories.objects'|translate),
+            symbols: ('emoji.categories.symbols'|translate),
+            flags: ('emoji.categories.flags'|translate),
+            custom: ('emoji.categories.custom'|translate)
+          }
+        }" class="emoji" (emojiClick)="addEmoji($event)">
+  </emoji-mart>
+</div>
+</form>
+</div>
+</div>

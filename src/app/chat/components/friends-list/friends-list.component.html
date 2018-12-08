@@ -5,8 +5,7 @@
         <h5 class="text-center"> {{'global.contacts'|translate}}</h5>
         <div class="scroll-y">
           <div *ngFor="let f of friends">
-            <app-contacts [searchText]="search" [getFriend]="f"></app-contacts>
-
+            <app-contacts [searchText]="search" (click)="openChat(f)" [getFriend]="f"></app-contacts>
           </div>
         </div>
         <div class="pb-2 pt-4">
@@ -21,3 +20,4 @@
     </div>
   </div>
 </div>
+<app-window-chat (remove)="remove()" [msgId]="chatId" [userId]="selectFriends"></app-window-chat>

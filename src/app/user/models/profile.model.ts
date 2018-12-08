@@ -7,6 +7,11 @@ export class ProfileModel {
 
 export class UserId {
     userId: string;
+    msgId?: string;
+}
+
+export class Status {
+    status: string;
 }
 
 export class AvatarModel {

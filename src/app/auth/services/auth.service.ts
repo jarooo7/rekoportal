@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { AuthModel, EmailModel, ResetPasswordModel } from '../models/auth.model';
 import { environment } from '../../../environments/environment';
 import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
-import { UserModel } from '../../user/models/profile.model';
+import { UserModel, Status } from '../../user/models/profile.model';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -28,9 +29,29 @@ export class AuthService {
         this.userDetails = user;
         this.userName = user.displayName;
         this.myProfile = dataBase.object(`profile/${user.uid}`);
+        this.statOnline();
+        this.updateOnDisconnect();
+      } else {
+        this.statOffline();
       }
     });
+  }
 
+  statOnline() {
+    const stat: AngularFireObject<Status> = this.dataBase.object(`status/${this.userId}`);
+    return stat.set({ status: 'online' });
+  }
+  statOffline() {
+    if (this.userId) {
+      const stat: AngularFireObject<Status> = this.dataBase.object(`status/${this.userId}`);
+      return stat.set({ status: 'offline' }).then(() => this.userId = null);
+    }
+  }
+
+  private updateOnDisconnect() {
+    firebase.database().ref().child(`status/${this.userId}`)
+            .onDisconnect()
+            .update({status: 'offline'});
   }
 
   getProfile() {

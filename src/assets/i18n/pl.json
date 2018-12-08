@@ -102,6 +102,9 @@
             "custom": "Inne"
         }
     },
+    "msg":{
+        "writeMsg": "Napisz wiadomość"
+    },
     "com": {
         "writeCom":"Napisz komentarz ...",
         "addCom": "Dodaj komentarz"

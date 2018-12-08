@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
-import { ProfileModel, AvatarModel, UserId } from '../models/profile.model';
+import { ProfileModel, AvatarModel, UserId, Status } from '../models/profile.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { AngularFireStorage, AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
 import { UserModel } from '../models/profile.model';
@@ -47,6 +47,10 @@ export class UserService {
   getProfile(userId) {
     this.profile = this.dataBase.object(`profile/${userId}`);
     return this.profile.snapshotChanges();
+  }
+  getStat(userId) {
+    const stat: AngularFireObject<Status> = this.dataBase.object(`status/${userId}`);
+    return stat.snapshotChanges();
   }
 
   deleteAvatar() {
@@ -161,9 +165,9 @@ export class UserService {
   addFriends(userId: string , key: string) {
     this.removeinvitFriends(userId, key);
     const invit: AngularFireList<UserId> =  this.dataBase.list(`friends/${this.userId}`);
-    invit.push({userId: userId});
+    invit.push({userId: userId, msgId: `${this.userId}${userId}`});
     const invit2: AngularFireList<UserId> =  this.dataBase.list(`friends/${userId}`);
-    invit2.push({userId: this.userId});
+    invit2.push({userId: this.userId,  msgId: `${this.userId}${userId}`});
   }
 
   loadInvitFriends() {
@@ -185,12 +189,6 @@ export class UserService {
   isMyFriend(userId: string) {
     let result: AngularFireList<UserId> = null;
     result = this.dataBase.list(`friends/${this.userId}`, ref => ref.orderByChild('userId').startAt(userId).endAt(userId));
-    return result.snapshotChanges();
-  }
-
-  getFriends(id: string) {
-    let result: AngularFireList<UserId> = null;
-    result = this.dataBase.list(`friends/${id}`);
     return result.snapshotChanges();
   }
 

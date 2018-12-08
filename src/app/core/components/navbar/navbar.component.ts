@@ -9,7 +9,7 @@ import { getFormatedSearch } from '../../../shared/functions/format-search-text'
 import { SearchResultsService } from '../../../search/services/search-results.service';
 import { UserModel, AvatarModel, UserId } from '../../../user/models/profile.model';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 enum FormControlNames {
   SEARCH = 'search'
@@ -34,6 +34,7 @@ export class NavbarComponent implements OnInit {
   avatar: AvatarModel;
   user: Observable<firebase.User>;
   result: UserModel[] = [];
+  private conectUser: any;
   languageDropdown = 'dropdown-close';
   languageList = [
     {
@@ -127,7 +128,7 @@ export class NavbarComponent implements OnInit {
   }
 
   loadUser() {
-    this.authService.getProfile().pipe(
+    this.conectUser = this.authService.getProfile().pipe(
       map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
       )
     ).subscribe(p => {
@@ -145,8 +146,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/auth/login']);
+    this.authService.logout().then(() =>
+    this.router.navigate(['/auth/login']));
   }
   search() {
     this.view = false;

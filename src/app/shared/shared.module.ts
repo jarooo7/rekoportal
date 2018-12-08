@@ -18,6 +18,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { UserResultComponent } from '../search/components/user-result/user-result.component';
 import { FriendsListComponent } from '../chat/components/friends-list/friends-list.component';
 import { ContactsComponent } from '../chat/components/contacts/contacts.component';
+import { WindowChatComponent } from '../chat/components/window-chat/window-chat.component';
+import { NewMsgComponent } from '../chat/components/new-msg/new-msg.component';
 const MODULES = [
   PickerModule,
   CommonModule,
@@ -43,7 +45,9 @@ const DIRECTIVES = [
 const COMPONENTS = [
   UserResultComponent,
   FriendsListComponent,
-  ContactsComponent
+  ContactsComponent,
+  WindowChatComponent,
+  NewMsgComponent
 ];
 
 @NgModule({

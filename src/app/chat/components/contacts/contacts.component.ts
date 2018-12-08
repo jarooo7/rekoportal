@@ -14,9 +14,11 @@ export class ContactsComponent {
     this.friendId = uid;
     console.log(' chuju tu jestem raz dwa 3', uid);
     this.loadFriend();
+    this.loadStat(uid.userId);
   }
   @Input() searchText: string;
   friendId: UserId;
+  status: string;
   friend: UserModel;
   constructor(private userService: UserService
   ) { }
@@ -29,6 +31,29 @@ export class ContactsComponent {
       this.friend = result;
       console.log('fl2');
     });
+  }
+
+  loadStat(id: string) {
+    this.userService.getStat(id).pipe(
+      map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
+      )
+    ).subscribe(result => {
+      this.status = result.status;
+      console.log(result);
+    });
+  }
+
+  isOnline() {
+    if (this.status) {
+      if (this.status === 'online') {
+        console.log('aktywny');
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   filter() {

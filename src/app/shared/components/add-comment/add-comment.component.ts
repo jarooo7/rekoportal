@@ -28,7 +28,7 @@ export class AddCommentComponent implements OnInit {
   ngOnInit() {
     this.openEmoji = false;
     this.comForm = this.formBuilder.group({
-      [FormControlNames.COM]: ['']
+      [FormControlNames.COM]: ['', [Validators.required]]
     });
   }
   addEmoji($event) {
@@ -46,6 +46,7 @@ export class AddCommentComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.comForm.valid) {return; }
     this.userService.addCom(this.userId, this.key, this.comForm.get(FormControlNames.COM).value).then(
       () => this. resetForm());
   }

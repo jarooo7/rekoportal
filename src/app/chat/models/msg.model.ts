@@ -3,3 +3,7 @@ export class MsgModel {
     timestamp: any;
     userId: string;
 }
+
+export class MsgNotificationModel {
+    isRead: boolean;
+}

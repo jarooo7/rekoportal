@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireList, AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { UserId } from '../../user/models/profile.model';
-import { MsgModel } from '../models/msg.model';
+import { MsgModel, MsgNotificationModel } from '../models/msg.model';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../../auth/services/auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,27 @@ export class ChatService {
     let com: AngularFireList<MsgModel> =  null;
     com = this.dataBase.list(`msg/${id}`, ref => ref.orderByChild('timestamp').startAt(startKey));
     return com.snapshotChanges();
+  }
+
+  newMsg(userId: string, key: string) {
+    let ref: AngularFireObject<MsgNotificationModel> =  null;
+    ref = this.dataBase.object(`msgNotificationModel/${userId}/${key}`);
+    return ref.set({isRead: true});
+  }
+
+  readOut(key: string) {
+    let ref: AngularFireObject<MsgNotificationModel> =  null;
+    ref = this.dataBase.object(`msgNotificationModel/${this.userId}/${key}`);
+    return ref.remove();
+  }
+
+  isReadOut(key: string) {
+    let ref: AngularFireObject<MsgNotificationModel> =  null;
+    ref = this.dataBase.object(`msgNotificationModel/${this.userId}/${key}`);
+    return ref.snapshotChanges();
+  }
+
+  notifiMsg(id: string) {
+    return this.dataBase.list(`msgNotificationModel/${id}`);
   }
 }

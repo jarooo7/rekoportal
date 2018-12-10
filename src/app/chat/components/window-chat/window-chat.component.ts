@@ -20,10 +20,12 @@ export class WindowChatComponent implements  AfterViewChecked {
   @Input() msgId: string;
   @Input() set userId(id: string) {
     this.uid = id;
+    this.classBar = 'bg-dark';
     this.authService.authState$.subscribe(user => {
       if (user) {
         this.loadFriend(id);
         this.loadStat(id);
+        this.isReadOut(this.msgId);
         this.newMsgList = [];
         this.msgs = new BehaviorSubject<MsgModel[]>([]);
         this.batch = 12;
@@ -43,11 +45,10 @@ export class WindowChatComponent implements  AfterViewChecked {
   finish: boolean;
   startId: string;
   batch: number;
+  classBar: string;
   lastKey: string;
   msgs = new BehaviorSubject<MsgModel[]>([]);
   newMsgList: MsgModel[] = [];
-
-
   isOpen = true;
   status: string;
   uid: string;
@@ -88,6 +89,22 @@ export class WindowChatComponent implements  AfterViewChecked {
       this.status = result.status;
       console.log(result);
     });
+  }
+
+  isReadOut(id: string) {
+    this.chatService.isReadOut(id).pipe(
+      map(f => ({ key: f.payload.key, ...f.payload.val() }))
+    ).subscribe(result => {
+        if (result.isRead) {
+          this.classBar = 'notRead';
+        } else {
+          this.classBar = 'bg-dark';
+        }
+    });
+  }
+
+  readOut() {
+    this.chatService.readOut(this.msgId);
   }
 
   // loadMsg(key: string) {

@@ -16,6 +16,9 @@
   </div>
   <div class="align-self-end">
     <div class="icon text-center my-4 py-3">
+      <div style="position: absolute;" class="px-2" *ngIf="notification !== 0">
+        <div class="rounded-circle bg-danger number text-light text-center">{{notification}}</div>
+      </div>
       <fa name="comments"></fa>
     </div>
   </div>

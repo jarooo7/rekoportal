@@ -25,3 +25,13 @@
 .f-msg{
     border-radius: 20px;
 }
+
+.notRead {
+    animation: animationBarNotRead 2s infinite;
+  }
+
+  @keyframes animationBarNotRead  {
+    0% { background-color:rgb(20, 20, 20); }
+    50% { background-color:rgb(150, 7, 7); }
+    100% { background-color:rgb(20, 20, 20);; }
+  }

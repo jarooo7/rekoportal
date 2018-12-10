@@ -1,5 +1,5 @@
-<div class="messager bg-light" *ngIf="uid">
-  <div class="modal-header bg-dark">
+<div (click)="readOut()" class="messager bg-light" *ngIf="uid">
+  <div class="modal-header" [ngClass]="classBar">
     <h6 class="modal-title text-light" (click)="goToUser()">
       <fa class="text-success mr-2" *ngIf="isOnline()" name="circle"></fa>
       <fa class="text-danger mr-2" *ngIf="!isOnline()" name="circle"></fa>
@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="msg">
-      <app-new-msg [msgId]="msgId"></app-new-msg>
+      <app-new-msg [userId]="uid" [msgId]="msgId"></app-new-msg>
     </div>
   </div>
 </div>

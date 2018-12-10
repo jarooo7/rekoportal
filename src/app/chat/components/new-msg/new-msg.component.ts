@@ -15,6 +15,7 @@ enum FormControlNames {
 })
 export class NewMsgComponent implements OnInit {
   @Input() msgId: string;
+  @Input() userId: string;
 
   msgForm: FormGroup;
   formControlNames = FormControlNames;
@@ -45,7 +46,12 @@ export class NewMsgComponent implements OnInit {
     this.openEmoji = false;
   }
 
+  readOut() {
+    this.chatService.readOut(this.msgId);
+  }
+
   onSubmit() {
+    this.readOut();
     if (!this.msgForm.valid) {
       return; }
     if (this.msgForm.get(FormControlNames.MSG).value === '\n') {
@@ -53,7 +59,10 @@ export class NewMsgComponent implements OnInit {
       return;
     }
     this.chatService.sentMsg(this.msgId, this.msgForm.get(FormControlNames.MSG).value).then(
-      () => this. resetForm());
+      () => {
+        this. resetForm();
+        this.chatService.newMsg(this.userId, this.msgId);
+      });
   }
   resetForm() {
     this.msgForm.setValue({

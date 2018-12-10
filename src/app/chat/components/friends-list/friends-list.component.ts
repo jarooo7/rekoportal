@@ -18,6 +18,7 @@ export class FriendsListComponent {
   search: string;
   chatId: string;
   selectFriends: string = null;
+  notification: number;
 
   constructor(
     private chatService: ChatService,
@@ -28,6 +29,7 @@ export class FriendsListComponent {
       if (u) {
         if (u.uid) {
           this.gerFriends(u.uid);
+          this.notifiMsg(u.uid);
         }
       }
     });
@@ -48,10 +50,20 @@ export class FriendsListComponent {
     this.selectFriends = id.userId;
     this.chatId = id.msgId;
     console.log(id);
+    this.chatService.readOut(id.msgId);
   }
 
   remove() {
     this.selectFriends = null;
   }
 
+  notifiMsg(id: string) {
+    this.chatService.notifiMsg(id).snapshotChanges().pipe(
+      map(msg =>
+        msg.map(f => ({ key: f.payload.key, ...f.payload.val() }))
+      )
+    ).subscribe(result => {
+      this.notification = result.length;
+    });
+  }
 }

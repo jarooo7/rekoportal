@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UserService } from '../../../user/services/user.service';
 import { UserId, UserModel } from '../../../user/models/profile.model';
 import { map } from 'rxjs/operators';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-contacts',
@@ -12,16 +13,31 @@ export class ContactsComponent {
 
   @Input() set getFriend(uid: UserId) {
     this.friendId = uid;
-    console.log(' chuju tu jestem raz dwa 3', uid);
+    this.isRead = false;
+    this.isReadOut(uid.msgId);
     this.loadFriend();
     this.loadStat(uid.userId);
   }
   @Input() searchText: string;
+  isRead: boolean;
   friendId: UserId;
   status: string;
   friend: UserModel;
-  constructor(private userService: UserService
+  constructor(private userService: UserService,
+    private chatService: ChatService
   ) { }
+
+  isReadOut(id: string) {
+    this.chatService.isReadOut(id).pipe(
+      map(f => ({ key: f.payload.key, ...f.payload.val() }))
+    ).subscribe(result => {
+        if (result.isRead) {
+          this.isRead = true;
+        } else {
+          this.isRead = false;
+        }
+    });
+  }
 
   loadFriend() {
     this.userService.getProfile(this.friendId.userId).pipe(

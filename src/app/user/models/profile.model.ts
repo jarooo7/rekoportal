@@ -25,5 +25,7 @@ export class UserModel {
     lastName: string;
     dateBirth: string;
     avatar?: AvatarModel;
+    key?: string;
+    isAdmin?: boolean;
 }
 

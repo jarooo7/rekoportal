@@ -108,5 +108,14 @@
     "com": {
         "writeCom":"Napisz komentarz ...",
         "addCom": "Dodaj komentarz"
+    },
+    "admin":{
+        "listUser": "Lista użytkowników",
+        "listGrup": "Lista grup",
+        "suggestGrup": "Propozycje grup",
+        "users": "Użytkownicy",
+        "addAdmin": "Dodaj uprawnienia administartora",
+        "delAdmin": "Usuń uprawnienia administartora",
+        "panelAdmin": "Panel administratora"
     }
 }

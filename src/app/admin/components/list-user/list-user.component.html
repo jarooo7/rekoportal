@@ -1,0 +1,24 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">{{'admin.users'|translate}}</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td scope="row">
+          <app-user-result [user]="u" [isClick]="true" [imgClass]="'mini2'" [textClass]="'h6'" [divClass]="'pl-4'" [userId]="u.key">
+          </app-user-result>
+        </td>
+        <td class="text-right">
+          <button class="btn btn-success" *ngIf="!u.isAdmin" (click)="addAdmin(u.key)">
+            {{'admin.addAdmin'|translate}}
+          </button>
+          <button class="btn btn-danger" *ngIf="u.isAdmin" (click)="delAdmin(u.key)">
+            {{'admin.delAdmin'|translate}}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

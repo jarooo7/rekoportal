@@ -68,6 +68,9 @@
           </div>
           <div *ngIf="menu" class="menu-profile bg-dark py-4 ">
             <div>
+              <a class="btn btn-dark btn-block my-2 px-4 my-sm-0" *ngIf="isAdmin" [routerLink]="['/admin/admin-panel']">{{'admin.panelAdmin'|translate}}</a>
+            </div>
+            <div>
               <a class="btn btn-dark btn-block my-2 px-4 my-sm-0" [routerLink]="['/user/profile']">{{'global.myProfile'|translate}}</a>
             </div>
             <div>

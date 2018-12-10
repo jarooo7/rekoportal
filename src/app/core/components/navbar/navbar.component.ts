@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
   view = true;
   invit: UserId[] = [];
   menu = false;
+  isAdmin: boolean;
   invitFlag = false;
   avatar: AvatarModel;
   user: Observable<firebase.User>;
@@ -133,6 +134,8 @@ export class NavbarComponent implements OnInit {
       )
     ).subscribe(p => {
       this.avatar = p.avatar;
+      this.isAdmin = p.isAdmin;
+
     });
   }
   loadInvit() {

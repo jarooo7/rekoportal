@@ -47,6 +47,10 @@ export class AddCommentComponent implements OnInit {
 
   onSubmit() {
     if (!this.comForm.valid) {return; }
+    if (this.comForm.get(FormControlNames.COM).value === '\n') {
+      this.resetForm();
+      return;
+    }
     this.userService.addCom(this.userId, this.key, this.comForm.get(FormControlNames.COM).value).then(
       () => this. resetForm());
   }

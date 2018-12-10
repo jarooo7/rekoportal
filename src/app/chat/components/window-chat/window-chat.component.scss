@@ -10,8 +10,18 @@
 }
 .msg{
     width: 350px;
-    height: 50px;
+    height: 70px;
 }
 .f-r{
     float: right;
+}
+.scroll-y {
+    overflow-y: auto;
+    }
+.my-msg{
+   background-color: rgb(218, 214, 214);
+   border-radius: 20px;
+}
+.f-msg{
+    border-radius: 20px;
 }

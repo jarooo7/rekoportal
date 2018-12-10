@@ -10,17 +10,39 @@
         <span aria-hidden="true" class=" text-light" (click)="removeChat()">&times;</span>
       </div>
       <div class="close" *ngIf="isOpen" (click)="minimize()">
-        <span aria-hidden="true"  class=" text-light" >_</span>
+        <span aria-hidden="true" class=" text-light">_</span>
       </div>
       <div class="close" *ngIf="!isOpen" (click)="maximize()">
-        <span aria-hidden="true"  class="h6 text-light">	<fa name="window-maximize"></fa></span>
+        <span aria-hidden="true" class="h6 text-light">
+          <fa name="window-maximize"></fa>
+        </span>
       </div>
     </div>
   </div>
   <div *ngIf="isOpen">
-    <div class="chat"></div>
+    <div #scrollMsg class="chat scroll-y">
+      <button *ngIf="!finish" class="btn btn-link text-center" (click)="next()">{{'global.next'|translate}}</button>
+      <div *ngFor="let msg of msgs | async">
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd  HH:mm'}}" *ngIf="isMyMsg(msg.userId)" class="my-msg text-right my-2 mr-2 ml-5 py-2 px-3">
+          {{msg.text}}
+        </div>
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd HH:mm'}}" *ngIf="!isMyMsg(msg.userId)" class="f-msg bg-dark text-light text-left my-2 ml-2 mr-5 px-3 py-2">
+          {{msg.text}}
+        </div>
+      </div>
+      <div *ngFor="let msg of newMsgList">
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd  HH:mm'}}" *ngIf="isMyMsg(msg.userId)" class="my-msg text-right my-2 mr-2 ml-5 py-2 px-3">
+          {{msg.text}}
+        </div>
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd HH:mm'}}" *ngIf="!isMyMsg(msg.userId)" class="f-msg bg-dark text-light text-left my-2 ml-2 mr-5 px-3 py-2">
+          {{msg.text}}
+        </div>
+      </div>
+      <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="1000" (scrolle)="test()">
+        </div>
+    </div>
     <div class="msg">
-     <app-new-msg [msgId]="msgId"></app-new-msg>
+      <app-new-msg [msgId]="msgId"></app-new-msg>
     </div>
   </div>
 </div>

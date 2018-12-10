@@ -7,6 +7,7 @@ export class ProfileModel {
 
 export class UserId {
     userId: string;
+    isReadOut?: boolean;
     msgId?: string;
 }
 

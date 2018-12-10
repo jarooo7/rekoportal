@@ -46,7 +46,12 @@ export class NewMsgComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.msgForm.valid) {return; }
+    if (!this.msgForm.valid) {
+      return; }
+    if (this.msgForm.get(FormControlNames.MSG).value === '\n') {
+      this.resetForm();
+      return;
+    }
     this.chatService.sentMsg(this.msgId, this.msgForm.get(FormControlNames.MSG).value).then(
       () => this. resetForm());
   }

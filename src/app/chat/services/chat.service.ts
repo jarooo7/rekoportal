@@ -36,13 +36,34 @@ export class ChatService {
   }
 
   sentMsg(key: string, text: string) {
-    const comment: AngularFireList<MsgModel> = this.dataBase.list(`msg/${key}`);
+    const message: AngularFireList<MsgModel> = this.dataBase.list(`msg/${key}`);
     let msg: MsgModel;
     msg = new MsgModel; {
       msg.timestamp = this.time();
       msg.text = text;
       msg.userId = this.userId;
     }
-    return comment.push(msg);
+    return message.push(msg);
+  }
+
+  // getMsg(key: string) {
+  //   const msg: AngularFireList<MsgModel> = this.dataBase.list(`msg/${key}`);
+  //   return msg.snapshotChanges();
+  // }
+
+  getMsg(id: string, batch: number, lastKey?: string) {
+    let com: AngularFireList<MsgModel> =  null;
+    if (lastKey) {
+      com = this.dataBase.list(`msg/${id}`, ref => ref.orderByChild('timestamp').limitToLast(batch).endAt(lastKey));
+    } else {
+      com = this.dataBase.list(`msg/${id}`, ref => ref.orderByChild('timestamp').limitToLast(batch));
+    }
+    return com.snapshotChanges();
+  }
+
+  getNewMsg(id: string, startKey: string) {
+    let com: AngularFireList<MsgModel> =  null;
+    com = this.dataBase.list(`msg/${id}`, ref => ref.orderByChild('timestamp').startAt(startKey));
+    return com.snapshotChanges();
   }
 }

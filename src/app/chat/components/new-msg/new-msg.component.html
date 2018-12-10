@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-12">
 <form [formGroup]="msgForm">
-<div class="my-1">
+<div class="m-1">
   <img class="mx-2 my-1  emoji-button" src="../../../../assets/smile.svg" (click)="openEmojiPopup()">
-  <textarea [placeholder]="'com.writeCom' | translate" class="form-control tex" rows="1" [formControlName]="formControlNames.MSG"
+  <textarea [placeholder]="'msg.writeMsg'| translate" class="form-control tex" [formControlName]="formControlNames.MSG"
     (click)="closeEmojiPopup()" (keydown.enter) = "onSubmit()"></textarea>
   <emoji-mart *ngIf="openEmoji"  set="emojione" sheetSize="20" [showPreview]="false" [i18n]="{
         search: ('global.search'|translate),

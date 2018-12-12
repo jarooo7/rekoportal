@@ -52,7 +52,10 @@ export class AddCommentComponent implements OnInit {
       return;
     }
     this.userService.addCom(this.userId, this.key, this.comForm.get(FormControlNames.COM).value).then(
-      () => this. resetForm());
+      () => {
+        this.resetForm();
+      }
+    );
   }
   resetForm() {
     this.comForm.setValue({

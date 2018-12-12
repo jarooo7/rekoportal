@@ -15,6 +15,10 @@ const routes: Routes = [
     canActivate: [IsNotVerificationGuard]
   },
   {
+    path: 'table-post',
+    loadChildren: './../table-post/table-post.module#TablePostModule'
+  },
+  {
     path: 'email-action',
     loadChildren: './../email-action/email-action.module#EmailActionModule'
   },

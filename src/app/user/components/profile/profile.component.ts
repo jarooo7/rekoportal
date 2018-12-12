@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   myProfile = false;
   user: UserModel;
   key: string;
+  refreshKey = 'start';
 
   constructor(
     private router: Router,
@@ -38,9 +39,12 @@ export class ProfileComponent implements OnInit {
     this.readRouting();
   }
 
+  refresh() {
+    this.refreshKey = Math.random().toString(36).substring(2);
+  }
+
   viewBackground() {
     if (this.backgroundUrl === null) {
-      console.log('ni chuja');
     } else {
       this.backgroundUrl = '../../../../assets/standardBG.jpg';
     }
@@ -60,7 +64,6 @@ export class ProfileComponent implements OnInit {
         invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       ))
       .subscribe(i => {
-        console.log(i);
         if (i.length === 0) {
           this.invit = true;
         } else {
@@ -75,7 +78,6 @@ export class ProfileComponent implements OnInit {
         invit.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       ))
       .subscribe(i => {
-        console.log(i);
         if (i.length === 0) {
           this.isFriend = false;
         } else {

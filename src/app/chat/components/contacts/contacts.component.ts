@@ -45,7 +45,6 @@ export class ContactsComponent {
       )
     ).subscribe(result => {
       this.friend = result;
-      console.log('fl2');
     });
   }
 
@@ -55,14 +54,12 @@ export class ContactsComponent {
       )
     ).subscribe(result => {
       this.status = result.status;
-      console.log(result);
     });
   }
 
   isOnline() {
     if (this.status) {
       if (this.status === 'online') {
-        console.log('aktywny');
         return true;
       } else {
         return false;

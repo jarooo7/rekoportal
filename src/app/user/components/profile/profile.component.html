@@ -78,11 +78,11 @@
         </label>
       </div>
       <div class="col-md-8 px-5 bg-gray py-4">
-        <app-add-post></app-add-post>
+        <app-add-post (addNewPost)="refresh()"></app-add-post>
       </div>
     </div>
     <div class="row ">
     </div>
   </div>
 </div>
-<app-post-list *ngIf="user && (myProfile || isFriend)" [getUser]="idUser" [user]="user"></app-post-list>
+<app-post-list *ngIf="user && (myProfile || isFriend)" [getUser]="idUser" [user]="user" [refresh]="refreshKey"></app-post-list>

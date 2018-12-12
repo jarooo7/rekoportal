@@ -41,7 +41,6 @@ export class FriendsListComponent {
         friends.map(f => ({ key: f.payload.key, ...f.payload.val() }))
       )
     ).subscribe(result => {
-      console.log('fl', result);
       this.friends = result;
     });
   }
@@ -49,7 +48,6 @@ export class FriendsListComponent {
   openChat(id: UserId) {
     this.selectFriends = id.userId;
     this.chatId = id.msgId;
-    console.log(id);
     this.chatService.readOut(id.msgId);
   }
 

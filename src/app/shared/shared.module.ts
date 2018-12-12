@@ -20,6 +20,12 @@ import { FriendsListComponent } from '../chat/components/friends-list/friends-li
 import { ContactsComponent } from '../chat/components/contacts/contacts.component';
 import { WindowChatComponent } from '../chat/components/window-chat/window-chat.component';
 import { NewMsgComponent } from '../chat/components/new-msg/new-msg.component';
+import { AddPostComponent } from '../user/components/add-post/add-post.component';
+import { GalleryComponent } from './components/gallery/gallery.component';
+import { LikeComponent } from './components/like/like.component';
+import { ViewCommentComponent } from './components/view-comment/view-comment.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 const MODULES = [
   PickerModule,
   CommonModule,
@@ -47,7 +53,13 @@ const COMPONENTS = [
   FriendsListComponent,
   ContactsComponent,
   WindowChatComponent,
-  NewMsgComponent
+  AddPostComponent,
+  NewMsgComponent,
+  GalleryComponent,
+  LikeComponent,
+  ViewCommentComponent,
+  CommentComponent,
+  AddCommentComponent
 ];
 
 @NgModule({

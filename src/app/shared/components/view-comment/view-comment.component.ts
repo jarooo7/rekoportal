@@ -48,7 +48,6 @@ export class ViewCommentComponent implements  OnDestroy {
       const comR = com.reverse();
       if (!this.lastKey && comR[0]) {
         this.startId = comR[0].timestamp;
-        console.log('tak', this.startId);
       }
       this.loadNewCom();
       comR.forEach(c => {
@@ -61,7 +60,6 @@ export class ViewCommentComponent implements  OnDestroy {
       const newCom = _.slice(comR, 0, this.batch);
       const currentCom = this.comments.getValue();
       this.comments.next( _.concat(newCom.reverse(), currentCom) );
-      console.log(this.comments);
       sub.unsubscribe();
     }
     );

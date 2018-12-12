@@ -3,6 +3,7 @@ import { UserModel } from '../../../user/models/profile.model';
 import { UserService } from '../../../user/services/user.service';
 import { map } from 'rxjs/internal/operators/map';
 import { Router } from '@angular/router';
+import { ComModel } from '../../models/post.model';
 
 @Component({
   selector: 'app-comment',
@@ -10,11 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent  {
-  @Input() set idUser(id: string) {
-    this.userId = id;
+  @Input() set com(com: ComModel) {
+    this.commant = com;
+    this.userId = com.userKey;
     this.loadProfileUser();
   }
-  @Input() text: string;
+  commant: ComModel;
   userId: string;
   user: UserModel;
 
@@ -36,4 +38,9 @@ export class CommentComponent  {
       }
     });
   }
+
+  goToUser() {
+    this.router.navigate([`/user/profile/${this.userId}`]);
+  }
+
 }

@@ -14,7 +14,8 @@
         "searchText": "Wyszukaj użytkownika lub grupę",
         "searchResult": "Wynik wyszukiwania",
         "myProfile": "Mój profil",
-        "contacts": "Kontakty"
+        "contacts": "Kontakty",
+        "refresh": "Odśwież"
     },
     "auth": {
         "log": "Logowanie",

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { PostModel } from '../../../shared/models/post.model';
@@ -21,6 +21,8 @@ enum FormControlNames {
 
 export class AddPostComponent implements OnInit {
 
+  @Output() addNewPost = new EventEmitter();
+
   imageSrc: string[] = [];
   photos: File[] = [];
   postForm: FormGroup;
@@ -42,6 +44,10 @@ export class AddPostComponent implements OnInit {
     this.postForm = this.formBuilder.group({
       [FormControlNames.POST]: ['', [Validators.required]]
     });
+  }
+
+  private addPost(): void {
+    this.addNewPost.emit();
   }
 
   addEmoji($event) {
@@ -123,6 +129,7 @@ export class AddPostComponent implements OnInit {
                       post.timestamp = timestamp;
                       post.text = this.postForm.get(FormControlNames.POST).value;
                       post.date = today;
+                      post.userId = this.userService.userId;
                       post.photos = urlList;
                     }
                     this.userService.addPost(post).then(() => {
@@ -133,6 +140,7 @@ export class AddPostComponent implements OnInit {
                           this.alert.showNotification('success', translation);
                         });
                         this.resetForm();
+                        this.addPost();
                     }, () => {
                       this.translate
                         .get('alert.error.addPost')
@@ -153,6 +161,7 @@ export class AddPostComponent implements OnInit {
     } else {
       post = new PostModel; {
         post.timestamp = timestamp;
+        post.userId = this.userService.userId;
         post.text = this.postForm.get(FormControlNames.POST).value;
         post.date = today;
       }
@@ -164,6 +173,7 @@ export class AddPostComponent implements OnInit {
             this.alert.showNotification('success', translation);
           });
           this.resetForm();
+          this.addPost();
       }, () => {
         this.translate
           .get('alert.error.addPost')

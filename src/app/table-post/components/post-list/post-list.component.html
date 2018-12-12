@@ -1,0 +1,15 @@
+<div class="container pt-3 pb-5" *ngFor="let p of posts">
+    <app-post [loadPost]="p"></app-post>
+</div>
+<div class="container pt-3 pb-5">
+  <div class="row">
+    <div class="col-md-10 mx-auto bg-gray py-4">
+      <div class="contener-loader  mx-auto">
+        <div class="loader" *ngIf="loader" ></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="1000" [infiniteScrollContainer]="selector" [fromRoot]="true"
+  (scrolled)="nextLoad(nextStart - 28800000, nextEnd - 28800000)">
+</div>

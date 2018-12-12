@@ -11,7 +11,7 @@
         <img *ngIf ="!user.avatar" src="{{'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
         <h2 class="mt-3">{{user.name}} {{user.lastName}}</h2>
         <p class="mt-2">
-          <small>{{post.date}}</small>
+          <small>{{post.timestamp | date: 'yyyy-MM-dd  HH:mm'}}</small>
         </p>
         <p class="mb-3">{{post.text}} </p>
       </div>

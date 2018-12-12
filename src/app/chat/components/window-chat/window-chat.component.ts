@@ -87,7 +87,6 @@ export class WindowChatComponent implements  AfterViewChecked {
       )
     ).subscribe(result => {
       this.status = result.status;
-      console.log(result);
     });
   }
 
@@ -107,17 +106,6 @@ export class WindowChatComponent implements  AfterViewChecked {
     this.chatService.readOut(this.msgId);
   }
 
-  // loadMsg(key: string) {
-  //   this.chatService.getMsg(key).pipe(
-  //     map(msg =>
-  //       msg.map(m => ({ key: m.payload.key, ...m.payload.val() }))
-  //     )
-  //   ).subscribe(result => {
-  //     console.log('fl', result);
-  //     this.msgList = result;
-  //   });
-  // }
-
   isMyMsg(id: string) {
     if (id === this.uid) {
       return false;
@@ -131,7 +119,6 @@ export class WindowChatComponent implements  AfterViewChecked {
   isOnline() {
     if (this.status) {
       if (this.status === 'online') {
-        console.log('aktywny');
         return true;
       } else {
         return false;
@@ -170,7 +157,6 @@ export class WindowChatComponent implements  AfterViewChecked {
       const msgR = msg.reverse();
       if (!this.lastKey && msgR[0]) {
         this.startId = msgR[0].timestamp;
-        console.log('tak', this.startId);
       }
       this.loadNewMsg(id);
       msgR.forEach(c => {
@@ -197,7 +183,6 @@ export class WindowChatComponent implements  AfterViewChecked {
       ))
     .subscribe(com => {
       let n = this.newMsgList.length;
-      console.log(id, this.startId, com);
       if (!this.startId && com[0]) {
       this.startId = com[0].timestamp;
       }
@@ -219,10 +204,6 @@ export class WindowChatComponent implements  AfterViewChecked {
 
   next() {
     this.getMsg(this.msgId);
-  }
-
-  test() {
-    console.log('chuju tu jestem test');
   }
 
 }

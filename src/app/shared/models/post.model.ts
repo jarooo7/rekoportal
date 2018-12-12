@@ -11,6 +11,7 @@ export class ComModel {
 export class PostModel {
     text: string;
     date: string;
+    userId: string;
     timestamp: any;
     photos?: string[];
 }

@@ -118,5 +118,8 @@
         "addAdmin": "Dodaj uprawnienia administartora",
         "delAdmin": "Usuń uprawnienia administartora",
         "panelAdmin": "Panel administratora"
+    },
+    "group":{
+        "group-list": "Lista grup"
     }
 }

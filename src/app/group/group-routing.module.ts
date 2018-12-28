@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { PostsComponent } from './components/posts/posts.component';
+import { GroupsListComponent } from './components/groups-list/groups-list.component';
+
+const routes: Routes = [
+  { path: 'posts', component: PostsComponent },
+  { path: 'groups-list', component: GroupsListComponent },
+  {
+    path: '',
+    redirectTo: 'posts',
+    pathMatch: 'full'
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class GroupRouting { }

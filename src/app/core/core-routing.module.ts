@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: './../user/user.module#UserModule'
   },
   {
+    path: 'group',
+    loadChildren: './../group/group.module#GroupModule'
+  },
+  {
     path: 'admin',
     loadChildren: './../admin/admin.module#AdminModule'
   },

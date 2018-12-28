@@ -6,4 +6,6 @@ export class MsgModel {
 
 export class MsgNotificationModel {
     isRead: boolean;
+    name: string;
+    userId: string;
 }

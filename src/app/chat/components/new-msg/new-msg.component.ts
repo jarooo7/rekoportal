@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { MsgModel } from '../../models/msg.model';
 
-
 enum FormControlNames {
   MSG = 'msg'
 }
@@ -16,6 +15,7 @@ enum FormControlNames {
 export class NewMsgComponent implements OnInit {
   @Input() msgId: string;
   @Input() userId: string;
+  @Input() name: string;
 
   msgForm: FormGroup;
   formControlNames = FormControlNames;
@@ -61,7 +61,7 @@ export class NewMsgComponent implements OnInit {
     this.chatService.sentMsg(this.msgId, this.msgForm.get(FormControlNames.MSG).value).then(
       () => {
         this. resetForm();
-        this.chatService.newMsg(this.userId, this.msgId);
+        this.chatService.newMsg(this.userId, this.msgId, this.name);
       });
   }
   resetForm() {

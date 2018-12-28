@@ -68,10 +68,10 @@ export class ChatService {
     return com.snapshotChanges();
   }
 
-  newMsg(userId: string, key: string) {
+  newMsg(userId: string, key: string, name: string) {
     let ref: AngularFireObject<MsgNotificationModel> =  null;
     ref = this.dataBase.object(`msgNotificationModel/${userId}/${key}`);
-    return ref.set({isRead: true});
+    return ref.set({isRead: true, name: name , userId: userId });
   }
 
   readOut(key: string) {

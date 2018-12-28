@@ -4,5 +4,6 @@ export enum ErrorCodes {
     WrongPassword = 'auth/wrong-password',
     InvalidEmail = 'auth/invalid-email',
     InvalidCode = 'auth/invalid-action-code',
-    EmailAlreadyInUse = 'auth/email-already-in-use'
+    EmailAlreadyInUse = 'auth/email-already-in-use',
+    AccountExists = 'auth/account-exists-with-different-credential'
 }

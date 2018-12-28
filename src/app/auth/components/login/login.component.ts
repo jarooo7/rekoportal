@@ -121,7 +121,55 @@ export class LoginComponent implements OnInit {
       }
       )
       .catch(
-        error => console.log(error)
+        error => {
+          switch (error.code) {
+            case this.errorCode.UserNotFound: {
+              this.translate
+                .get('alert.error.userNotFound')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.WrongPassword: {
+              this.translate
+                .get('alert.error.wrongPassword')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.InvalidEmail: {
+              this.translate
+                .get('alert.error.invalidEmail')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.AccountExists: {
+              this.translate
+                .get('alert.error.accountExists')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            default: {
+              this.translate
+                .get('alert.error.notConect')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+          }
+        }
       );
   }
 
@@ -138,7 +186,64 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/table-post/posts']);
         })
       .catch(
-        error => console.log(error)
+        error => {
+          switch (error.code) {
+            case this.errorCode.UserNotFound: {
+              this.translate
+                .get('alert.error.userNotFound')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.AccountExists: {
+              this.translate
+                .get('alert.error.accountExists')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.WrongPassword: {
+              this.translate
+                .get('alert.error.wrongPassword')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.InvalidEmail: {
+              this.translate
+                .get('alert.error.invalidEmail')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.EmailAlreadyInUse: {
+              this.translate
+                .get('alert.error.emailAlreadyInUse')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            default: {
+              this.translate
+                .get('alert.error.notConect')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+          }
+        }
       );
   }
 

@@ -62,7 +62,8 @@
             "emailAlreadyInUse": "Adres e-mail jest już używany przez inne konto",
             "notActive": "Wystąpił problem z aktywacją użytkownika",
             "errorSendActiveEmail": "Wystąpił błąd przy wysyłaniu maila aktywacyjnego. Spróbuj jescze raz!",
-            "addPost": "Dodanie postu nie powieodło się!"
+            "addPost": "Dodanie postu nie powieodło się!",
+            "accountExists": "Email jest użyty przy innym sposobie logowania"
         }
     },
     "not-active": {

@@ -35,8 +35,7 @@
         "forgotPassword": "Zapomiałeś hasła?",
         "logout": "Wyloguj się",
         "textResetPassword": "Wprowadź adres email by zresetować hasło",
-        "changePassword": "Zmień hasło",
-        "completeProfile": "Uzupełnij profil"
+        "changePassword": "Zmień hasło"
     },
     "validationError": {
         "email": "Wprowadź adres email",

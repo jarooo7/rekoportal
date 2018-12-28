@@ -8,11 +8,14 @@ import { AuthService } from '../../services/auth.service';
 import { AuthModel } from '../../models/auth.model';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../shared/services/alert.service';
+import { ProfileModel } from '../../../user/models/profile.model';
+import { getFormatedSearch } from '../../../shared/functions/format-search-text';
 
 enum FormControlNames {
   EMAIL_ADDRESS = 'email',
   PASSWORD = 'password',
-  AKCEPT = 'akcept'
+  NAME = 'name',
+  LAST_NAME = 'lastName'
 }
 
 @Component({
@@ -26,6 +29,7 @@ export class RegisterComponent implements OnInit {
   errorCode = ErrorCodes;
   destroy$: Subject<boolean> = new Subject<boolean>();
   auth: AuthModel;
+  user: ProfileModel;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +44,8 @@ export class RegisterComponent implements OnInit {
       [FormControlNames.EMAIL_ADDRESS]: ['',
         [Validators.required, Validators.email]],
       [FormControlNames.PASSWORD]: ['', [Validators.required]],
-      [FormControlNames.AKCEPT]: [false, [Validators.requiredTrue]]
+      [FormControlNames.NAME]: ['', [Validators.required]],
+      [FormControlNames.LAST_NAME]: ['', [Validators.required]],
     });
   }
   public onSubmit() {
@@ -49,60 +54,76 @@ export class RegisterComponent implements OnInit {
       this.auth.password = this.registerForm.value[FormControlNames.PASSWORD];
     }
     this.authService
-    .register(this.auth)
-    .then(
-      () => {
-            this.translate
-              .get('alert.success.register')
-              .pipe(takeUntil(this.destroy$))
-              .subscribe(translation => {
-                this.alert.showNotification('success', translation);
-              });
-              this.authService.sendActiveEmail();
-              this.router.navigate(['/not-active-user/not-active']);
-          })
-          .catch(
-            error => {
-              switch (error.code) {
-                case this.errorCode.UserNotFound : {
-                  this.translate
-                  .get('alert.error.userNotFound')
-                  .pipe(takeUntil(this.destroy$))
-                  .subscribe(translation => {
-                    this.alert.showNotification('error', translation);
-                  });
-                break;
-                }
-                case this.errorCode.InvalidEmail : {
-                  this.translate
-                  .get('alert.error.invalidEmail')
-                  .pipe(takeUntil(this.destroy$))
-                  .subscribe(translation => {
-                    this.alert.showNotification('error', translation);
-                  });
-                break;
-                }
-                case this.errorCode.EmailAlreadyInUse : {
-                  this.translate
-                  .get('alert.error.emailAlreadyInUse')
-                  .pipe(takeUntil(this.destroy$))
-                  .subscribe(translation => {
-                    this.alert.showNotification('error', translation);
-                  });
-                break;
-                }
-                default: {
-                  this.translate
-                  .get('alert.error.notConect')
-                  .pipe(takeUntil(this.destroy$))
-                  .subscribe(translation => {
-                    this.alert.showNotification('error', translation);
-                  });
-                  break;
-                }
-              }
+      .register(this.auth)
+      .then(
+        u => {
+          this.translate
+            .get('alert.success.register')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(translation => {
+              this.alert.showNotification('success', translation);
+            });
+          this.createProfile(u.user.uid);
+        })
+      .catch(
+        error => {
+          switch (error.code) {
+            case this.errorCode.UserNotFound: {
+              this.translate
+                .get('alert.error.userNotFound')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
             }
-          );
+            case this.errorCode.InvalidEmail: {
+              this.translate
+                .get('alert.error.invalidEmail')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.EmailAlreadyInUse: {
+              this.translate
+                .get('alert.error.emailAlreadyInUse')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            default: {
+              this.translate
+                .get('alert.error.notConect')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+          }
+        }
+      );
   }
 
+  createProfile(uid: string) {
+    let textSearch: string;
+    textSearch =
+      `${this.registerForm.get(FormControlNames.NAME).value} ${this.registerForm.get(FormControlNames.LAST_NAME).value}`;
+    this.user = new ProfileModel; {
+      this.user.name = this.registerForm.get(FormControlNames.NAME).value;
+      this.user.lastName = this.registerForm.get(FormControlNames.LAST_NAME).value;
+      this.user.search = getFormatedSearch(textSearch.toLowerCase());
+    }
+    this.authService.createProfile(this.user, uid).then(
+      () => {
+        this.authService.sendActiveEmail();
+        this.router.navigate(['/not-active-user/not-active']);
+      }
+    );
+
+  }
 }

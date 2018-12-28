@@ -55,7 +55,7 @@ export class EmailActionComponent implements OnInit {
           .subscribe(translation => {
             this.alert.showNotification('success', translation);
           });
-          this.router.navigate(['/user']);
+          this.router.navigate(['/table-post/posts']);
        })
       .catch(
         () => {

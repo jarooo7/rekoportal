@@ -6,8 +6,9 @@ import { Observable } from 'rxjs';
 import { AuthModel, EmailModel, ResetPasswordModel } from '../models/auth.model';
 import { environment } from '../../../environments/environment';
 import { AngularFireObject, AngularFireDatabase } from 'angularfire2/database';
-import { UserModel, Status } from '../../user/models/profile.model';
+import { UserModel, Status, ProfileModel } from '../../user/models/profile.model';
 import { map } from 'rxjs/operators';
+import { getFormatedSearch } from '../../shared/functions/format-search-text';
 
 
 @Injectable({
@@ -58,6 +59,12 @@ export class AuthService {
     return this.myProfile.snapshotChanges();
   }
 
+  getMyProfile(uid: string) {
+    let  myProfile: AngularFireObject<ProfileModel> = null;
+    myProfile = this.dataBase.object(`profile/${uid}`);
+    return myProfile.snapshotChanges();
+  }
+
   facebookLogin() {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.FacebookAuthProvider();
@@ -70,6 +77,27 @@ export class AuthService {
         });
     }).then((fireBaseUser) => {
       this.authState.emit(fireBaseUser.user);
+      const sub = this.getMyProfile(fireBaseUser.user.uid).pipe(
+        map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
+        )
+      ).subscribe(p => {
+        if (!p.lastName) {
+          let user: ProfileModel;
+          const userName = fireBaseUser.user.displayName;
+          const name = userName.substring(0, userName.search(' '));
+          const lastName = userName.substring(userName.search(' ') + 1);
+          let textSearch: string;
+          textSearch =
+            `${name} ${lastName}`;
+          user = new ProfileModel; {
+            user.name = name;
+            user.lastName = lastName;
+            user.search = getFormatedSearch(textSearch.toLowerCase());
+          }
+          this.createProfile(user, fireBaseUser.user.uid);
+        }
+        sub.unsubscribe();
+      });
     }
     );
   }
@@ -85,7 +113,27 @@ export class AuthService {
         });
     }).then((fireBaseUser) => {
       this.authState.emit(fireBaseUser.user);
-      this.setUser();
+      const sub = this.getMyProfile(fireBaseUser.user.uid).pipe(
+        map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
+        )
+      ).subscribe(p => {
+        if (!p.lastName) {
+          let user: ProfileModel;
+          const userName = fireBaseUser.user.displayName;
+          const name = userName.substring(0, userName.search(' '));
+          const lastName = userName.substring(userName.search(' ') + 1);
+          let textSearch: string;
+          textSearch =
+            `${name} ${lastName}`;
+          user = new ProfileModel; {
+            user.name = name;
+            user.lastName = lastName;
+            user.search = getFormatedSearch(textSearch.toLowerCase());
+          }
+          this.createProfile(user, fireBaseUser.user.uid);
+        }
+        sub.unsubscribe();
+      });
     }
     );
   }
@@ -121,6 +169,13 @@ export class AuthService {
     return this.fireAuth.auth.currentUser.sendEmailVerification();
   }
 
+  createProfile(profile: ProfileModel, uid: string) {
+    let  regProfile: AngularFireObject<ProfileModel> = null;
+    regProfile = this.dataBase
+    .object(`profile/${uid}`);
+    return regProfile.set(profile);
+  }
+
   activeEmail(code: string) {
     return this.fireAuth.auth.applyActionCode(code);
   }
@@ -136,15 +191,6 @@ export class AuthService {
   removeUser() {
     localStorage.getItem(environment.userId);
     localStorage.getItem(environment.displayName);
-  }
-
-  setUser() {
-    this.authState$.subscribe(user => {
-      if (user) {
-        user.getIdToken().then(u => localStorage.setItem(environment.userId, u));
-      }
-    }
-    );
   }
 
   getUser() {

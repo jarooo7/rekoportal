@@ -48,91 +48,98 @@ export class LoginComponent implements OnInit {
   public onSubmit() {
     this.auth = this.loginForm.value;
     this.authService
-    .login(this.auth)
-    .then(
-      () => {
+      .login(this.auth)
+      .then(
+        () => {
+          this.translate
+            .get('alert.success.welcom')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(translation => {
+              this.alert.showNotification('success', translation);
+            });
+          // this.authService.setUser(this.authService.fireAuth.auth.currentUser.)
+          if (!this.authService.isEmailVerification()) {
+            this.router.navigate(['/not-active-user/not-active']);
+          } else {
+            this.router.navigate(['/table-post/posts']);
+          }
+        })
+      .catch(
+        error => {
+          switch (error.code) {
+            case this.errorCode.UserNotFound: {
+              this.translate
+                .get('alert.error.userNotFound')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.WrongPassword: {
+              this.translate
+                .get('alert.error.wrongPassword')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            case this.errorCode.InvalidEmail: {
+              this.translate
+                .get('alert.error.invalidEmail')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+            default: {
+              this.translate
+                .get('alert.error.notConect')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(translation => {
+                  this.alert.showNotification('error', translation);
+                });
+              break;
+            }
+          }
+        }
+      );
+  }
+
+  public loginFb() {
+    this.authService.facebookLogin()
+      .then(() => {
         this.translate
           .get('alert.success.welcom')
           .pipe(takeUntil(this.destroy$))
           .subscribe(translation => {
             this.alert.showNotification('success', translation);
           });
-          // this.authService.setUser(this.authService.fireAuth.auth.currentUser.)
-          if (!this.authService.isEmailVerification()) {
-            this.router.navigate(['/not-active-user/not-active']);
-          } else {
-            this.router.navigate(['/user']);
-          }
-      })
-      .catch(
-      error => {
-        switch (error.code) {
-          case this.errorCode.UserNotFound : {
-            this.translate
-            .get('alert.error.userNotFound')
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(translation => {
-              this.alert.showNotification('error', translation);
-            });
-          break;
-          }
-          case this.errorCode.WrongPassword : {
-            this.translate
-            .get('alert.error.wrongPassword')
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(translation => {
-              this.alert.showNotification('error', translation);
-            });
-          break;
-          }
-          case this.errorCode.InvalidEmail : {
-            this.translate
-            .get('alert.error.invalidEmail')
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(translation => {
-              this.alert.showNotification('error', translation);
-            });
-          break;
-          }
-          default: {
-            this.translate
-            .get('alert.error.notConect')
-            .pipe(takeUntil(this.destroy$))
-            .subscribe(translation => {
-              this.alert.showNotification('error', translation);
-            });
-            break;
-          }
-        }
+        this.router.navigate(['/table-post/posts']);
       }
-    );
+      )
+      .catch(
+        error => console.log(error)
+      );
   }
 
-public loginFb() {
-  this.authService.facebookLogin()
-  .then(() =>
-      this.router.navigate(['/user'])
-  )
-  .catch(
-    error => console.log(error)
-  );
-}
-
-public loginGoogle() {
-  this.authService.googleLogin()
-  .then(
-    () => {
-      this.translate
-        .get('alert.success.welcom')
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(translation => {
-          this.alert.showNotification('success', translation);
-        });
-          this.router.navigate(['/user']);
-    })
-  .catch(
-    error => console.log(error)
-  );
-}
+  public loginGoogle() {
+    this.authService.googleLogin()
+      .then(
+        () => {
+          this.translate
+            .get('alert.success.welcom')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(translation => {
+              this.alert.showNotification('success', translation);
+            });
+            this.router.navigate(['/table-post/posts']);
+        })
+      .catch(
+        error => console.log(error)
+      );
+  }
 
 }

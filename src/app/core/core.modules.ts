@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreRoutingModule } from './core-routing.module';
 import { NotifierOptions, NotifierModule } from 'angular-notifier';
 import { InvitListComponent } from './components/invit-list/invit-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -59,6 +60,7 @@ const customNotifierOptions: NotifierOptions = {
   imports: [
     SharedModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     CoreRoutingModule,
     TranslateModule.forRoot({
       loader: {

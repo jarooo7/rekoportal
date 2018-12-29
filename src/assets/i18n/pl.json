@@ -2,6 +2,7 @@
     "global": {
         "language": "Język",
         "or": "Lub",
+        "preview": "Podglad",
         "send": "Wyślij",
         "save": "Zapisz",
         "name": "Imię",
@@ -15,7 +16,9 @@
         "searchResult": "Wynik wyszukiwania",
         "myProfile": "Mój profil",
         "contacts": "Kontakty",
-        "refresh": "Odśwież"
+        "refresh": "Odśwież",
+        "cancel": "Anuluj",
+        "remove": "Usuń"
     },
     "auth": {
         "log": "Logowanie",
@@ -103,14 +106,14 @@
             "custom": "Inne"
         }
     },
-    "msg":{
+    "msg": {
         "writeMsg": "Napisz wiadomość"
     },
     "com": {
-        "writeCom":"Napisz komentarz ...",
+        "writeCom": "Napisz komentarz ...",
         "addCom": "Dodaj komentarz"
     },
-    "admin":{
+    "admin": {
         "listUser": "Lista użytkowników",
         "listGrup": "Lista grup",
         "suggestGrup": "Propozycje grup",
@@ -119,7 +122,30 @@
         "delAdmin": "Usuń uprawnienia administartora",
         "panelAdmin": "Panel administratora"
     },
-    "group":{
-        "group-list": "Lista grup"
+    "group": {
+        "group-list": "Lista grup rekonstrukcyjnych",
+        "add-group": "Dodaj grupę rekonstrukcyjną",
+        "name-group": "Nazwa grupy",
+        "description": "Opis",
+        "epochs": "Epoka/Epoki",
+        "standart": "Standardowe",
+        "added": "Dodane",
+        "other": "Inne"
+    },
+    "epochs": {
+        "add": "Dodaj nową epokę",
+        "presentDay": "Współczesność",
+        "warsaw44": "Waszawa 44",
+        "1939": "1939",
+        "polishBolshevik": "Wojan polsko-bolszewicka",
+        "WWI": "I Wojna Światowa",
+        "WWII": "II Wojna Światowa",
+        "civilWar": "Wojna secesyjna",
+        "january": "Powstanie styczniowe",
+        "november": "Powstanie listopadowe",
+        "napoleon": "Wojny napoleońskie",
+        "IRP": "I Rzeczpospolita Polska",
+        "middleAges": "Średniowiecze",
+        "antiquity": "Starożytność"
     }
 }

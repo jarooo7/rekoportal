@@ -1,0 +1,18 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">{{'group.name-group'|translate}}</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let g of group">
+        <td>
+          {{g.name}}
+        </td>
+        <td class="text-right">
+          <button class="btn btn-primary" (click)="openDialog(g)">{{'global.preview'|translate}}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

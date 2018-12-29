@@ -31,6 +31,7 @@
     position: fixed;
     left: -300px;
     bottom: 0px;
+    z-index: 4;
     transition: left 1s linear 0.3s;
 }
 .chat:hover {

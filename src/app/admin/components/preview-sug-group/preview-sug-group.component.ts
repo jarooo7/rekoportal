@@ -74,7 +74,8 @@ export class PreviewSugGroupComponent implements OnInit {
     group = new GroupModel(); {
       group.name = this.sug.name;
       group.description = this.sug.description;
-      group.epochs = this.selectSubmitEpochs();
+      group.epochs = this.selectStandartEpochs();
+      group.otherEpochs = this.selectOtherEpochs();
       group.admins = [];
       group.admins.push(this.sug.userId);
     }
@@ -86,10 +87,9 @@ export class PreviewSugGroupComponent implements OnInit {
       }
     );
     this.remSug();
-    this.onNoClick();
   }
 
-  selectSubmitEpochs(): string[] {
+  selectStandartEpochs(): string[] {
     const epochs: string[] = [];
     this.standartLoadEpoches.forEach(
       e => {
@@ -98,6 +98,10 @@ export class PreviewSugGroupComponent implements OnInit {
         }
       }
     );
+    return epochs;
+  }
+  selectOtherEpochs(): string[] {
+    const epochs: string[] = [];
     this.newEpoches.forEach(
       e => {
         if (e.isChecked) {
@@ -118,5 +122,6 @@ export class PreviewSugGroupComponent implements OnInit {
 
   remSug() {
     this.adminService.removeSuggestionGroup(this.sug.key);
+    this.onNoClick();
   }
 }

@@ -31,17 +31,23 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
 import { FilterUserPipe } from './pipe/filter-user.pipe';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatBadgeModule} from '@angular/material/badge';
+import { GroupResComponent } from '../group/components/group-res/group-res.component';
 
 const MODULES = [
   MatInputModule,
   PickerModule,
   CommonModule,
   FormsModule,
+  MatIconModule,
   ReactiveFormsModule,
   TranslateModule,
   NotifierModule,
   MatButtonModule,
   MatTabsModule,
+  MatBadgeModule,
   MatCheckboxModule,
   AngularFirestoreModule,
   AngularFireAuthModule,
@@ -49,6 +55,7 @@ const MODULES = [
   AngularFontAwesomeModule,
   AngularFireStorageModule,
   MatDialogModule,
+  MatMenuModule,
   Ng2ImgToolsModule,
   InfiniteScrollModule
 ];
@@ -61,6 +68,7 @@ const DIRECTIVES = [
 
 
 const COMPONENTS = [
+  GroupResComponent,
   UserResultComponent,
   FriendsListComponent,
   ContactsComponent,

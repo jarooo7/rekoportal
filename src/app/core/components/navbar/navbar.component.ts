@@ -29,14 +29,13 @@ export class NavbarComponent implements OnInit {
   formControlNames = FormControlNames;
   view = true;
   invit: UserId[] = [];
-  menu = false;
   isAdmin: boolean;
   invitFlag = false;
   avatar: AvatarModel;
+  uid: string;
   user: Observable<firebase.User>;
   result: UserModel[] = [];
   private conectUser: any;
-  languageDropdown = 'dropdown-close';
   languageList = [
     {
       name: 'en',
@@ -79,6 +78,7 @@ export class NavbarComponent implements OnInit {
     this.user.subscribe(u => {
       if (u) {
         if (u.uid) {
+          this.uid = u.uid;
           this.loadUser();
           this.loadInvit();
         }
@@ -105,19 +105,20 @@ export class NavbarComponent implements OnInit {
     localStorage.setItem(environment.language, language);
     this.language = language;
     this.countryFlag = `../../../../assets/language/${this.language}.svg`;
-    this.buttonLanguage();
   }
 
   invitOpen() {
     this.invitFlag = !this.invitFlag;
   }
 
-  buttonLanguage() {
-    if (this.languageDropdown === 'dropdown-close') {
-      this.languageDropdown = 'dropdown-open';
-    } else {
-      this.languageDropdown = 'dropdown-close';
+  isInvit(): string {
+    if (this.invit) {
+      if (this.invit.length === 0) {
+        return 'true';
+      }
+      return 'false';
     }
+    return 'true';
   }
 
   isLogin() {
@@ -158,6 +159,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([`search/result-search/${getFormatedSearch(text.toLocaleLowerCase())}`]);
   }
 
+  goToMyProfile() {
+    this.router.navigate([`user/profile/${this.uid}`]);
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin/admin-panel']);
+  }
+
   searchNow(event) {
     this.view = true;
     const textSearch = getFormatedSearch(event.toLocaleLowerCase());
@@ -177,10 +186,6 @@ export class NavbarComponent implements OnInit {
 
   hidesearch() {
     this.view = false;
-  }
-
-  clickMenu() {
-    this.menu = !this.menu;
   }
 
 }

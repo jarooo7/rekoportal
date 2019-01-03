@@ -1,5 +1,6 @@
 {
     "global": {
+        "news": "Aktualności",
         "language": "Język",
         "or": "Lub",
         "preview": "Podglad",
@@ -114,6 +115,8 @@
         "addCom": "Dodaj komentarz"
     },
     "admin": {
+        "admin": "Administrator",
+        "admins": "Administratorzy",
         "listUser": "Lista użytkowników",
         "listGrup": "Lista grup",
         "suggestGrup": "Propozycje grup",

@@ -7,8 +7,7 @@ import { SugGroupsListComponent } from './components/sug-groups-list/sug-groups-
 import { UserResComponent } from './components/user-res/user-res.component';
 import { PreviewSugGroupComponent } from './components/preview-sug-group/preview-sug-group.component';
 import { GroupsListComponent } from './components/groups-list/groups-list.component';
-
-
+import { PreviewGroupComponent } from './components/preview-group/preview-group.component';
 
 @NgModule({
   imports: [
@@ -21,9 +20,11 @@ import { GroupsListComponent } from './components/groups-list/groups-list.compon
   SugGroupsListComponent,
   UserResComponent,
   PreviewSugGroupComponent,
-  GroupsListComponent],
+  GroupsListComponent,
+  PreviewGroupComponent],
   entryComponents: [
-    PreviewSugGroupComponent
+    PreviewSugGroupComponent,
+    PreviewGroupComponent
   ]
 })
 export class AdminModule { }

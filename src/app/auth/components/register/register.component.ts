@@ -117,6 +117,7 @@ export class RegisterComponent implements OnInit {
       this.user.name = this.registerForm.get(FormControlNames.NAME).value;
       this.user.lastName = this.registerForm.get(FormControlNames.LAST_NAME).value;
       this.user.search = getFormatedSearch(textSearch.toLowerCase());
+      this.user.platform = 'email';
     }
     this.authService.createProfile(this.user, uid).then(
       () => {

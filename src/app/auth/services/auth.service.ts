@@ -93,8 +93,11 @@ export class AuthService {
             user.name = name;
             user.lastName = lastName;
             user.search = getFormatedSearch(textSearch.toLowerCase());
+            user.platform = 'fb';
           }
-          this.createProfile(user, fireBaseUser.user.uid);
+          this.createProfile(user, fireBaseUser.user.uid).then(() =>
+          this.fireAuth.auth.currentUser.reload()
+        );
         }
         sub.unsubscribe();
       });
@@ -129,6 +132,7 @@ export class AuthService {
             user.name = name;
             user.lastName = lastName;
             user.search = getFormatedSearch(textSearch.toLowerCase());
+            user.platform = 'google';
           }
           this.createProfile(user, fireBaseUser.user.uid);
         }
@@ -182,15 +186,6 @@ export class AuthService {
 
   isEmailVerification() {
     return this.fireAuth.auth.currentUser.emailVerified;
-  }
-
-  getUserId() {
-    return localStorage.getItem(environment.userId);
-  }
-
-  removeUser() {
-    localStorage.getItem(environment.userId);
-    localStorage.getItem(environment.displayName);
   }
 
   getUser() {

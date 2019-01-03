@@ -2,6 +2,7 @@ export class ProfileModel {
     name: string;
     lastName: string;
     search?: string;
+    platform?: string;
 }
 
 export class UserId {

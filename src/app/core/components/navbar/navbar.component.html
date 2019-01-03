@@ -1,44 +1,33 @@
 <nav class="navbar navbar-expand-lg none-select navbar-dark bg-dark " (click)="hidesearch()">
-  <a class="navbar-brand">
+  <a class="navbar-brand" href="#">
     <img class="logo" src="../../../../assets/logo.png">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home
-          <span class="sr-only">(current)</span>
+  <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto  mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/group/posts']">{{'global.news'|translate}}
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
     </ul>
-    <form [formGroup]="searchForm" class="form-inline w-100 my-2 mx-3 my-lg-0">
+    <form [formGroup]="searchForm" class="form-inline col-md-5 my-2 mx-3 my-lg-0">
       <fa class="search mx-3" name="search" (click)="search()"></fa>
       <input [formControlName]="formControlNames.SEARCH" (keyup)="searchNow($event.target.value)" (keydown.enter)="search()" class="form-control w-100 pl-5 mr-sm-2"
         type="search" placeholder="{{'global.searchText'|translate}}">
       <div>
         <div class="search" *ngIf="view">
           <div *ngFor="let r of result">
-            <app-user-result [user]="r" [isClick]="true"  [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
+            <app-user-result [user]="r" [isClick]="true" [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
           </div>
         </div>
       </div>
     </form>
-    <div class="px-3">
+    <div  *ngIf="isLogin()" class="px-2  ml-auto">
       <div (click)="invitOpen()">
-        <div style="position: absolute;" class="px-2" *ngIf="invit.length !== 0">
-          <div class="rounded-circle bg-danger number text-light text-center">{{invit.length}}</div>
-        </div>
-        <fa name="users" class="h4 my-auto mx-3 text-light"></fa>
+        <fa matBadge="{{invit.length}}"  [matBadgeHidden]="isInvit()" matBadgeColor="warn" name="users" class="h4 my-auto mx-3 text-light"></fa>
       </div>
       <div *ngIf="invitFlag">
         <div class="search mt-3">
@@ -48,37 +37,33 @@
         </div>
       </div>
     </div>
-    <div class="dropdown">
-      <button (click)="buttonLanguage()" class="btn btn-dark my-2 my-sm-0">{{'global.language'|translate}} : {{language|uppercase}}
+    <div>
+      <button mat-button [matMenuTriggerFor]="lang" class="btn btn-dark my-2 my-sm-0">{{'global.language'|translate}} : {{language|uppercase}}
         <img class="flag" [src]="countryFlag">
       </button>
-      <div class="dropdown-menu bg-dark text-center" [ngClass]="languageDropdown">
-        <button *ngFor="let lang of languageList" class=" btn btn-dark btn-block." (click)="useLanguage(lang.name)">{{lang.name|uppercase}}
+      <mat-menu e #lang="matMenu" class="bg-dark">
+        <button mat-menu-item class="btn btn-dark btn-block" *ngFor="let lang of languageList" (click)="useLanguage(lang.name)">{{lang.name|uppercase}}
           <img class="flag" [src]="lang.src">
         </button>
-      </div>
+      </mat-menu>
     </div>
     <div class="log">
       <button *ngIf="!isLogin()" class="btn btn-dark my-2 my-sm-0" [routerLink]="['/auth/login']">{{'auth.login'|translate}}</button>
-      <div *ngIf="isLogin()" (click)="clickMenu()" class="pb-40 profil-btn">
+      <div *ngIf="isLogin()" class="pb-40">
         <div>
           <div>
-            <img *ngIf="avatar" src="{{avatar.url||'../../../../assets/profile.png'}}" class="mx-4 rounded-circle border-white avatar">
-            <img *ngIf="!avatar" src="{{'../../../../assets/profile.png'}}" class="mx-4 rounded-circle border-white avatar">
-          </div>
-          <div *ngIf="menu" class="menu-profile bg-dark py-4 ">
-            <div>
-              <a class="btn btn-dark btn-block my-2 px-4 my-sm-0" *ngIf="isAdmin" [routerLink]="['/admin/admin-panel']">{{'admin.panelAdmin'|translate}}</a>
-            </div>
-            <div>
-              <a class="btn btn-dark btn-block my-2 px-4 my-sm-0" [routerLink]="['/user/profile']">{{'global.myProfile'|translate}}</a>
-            </div>
-            <div>
-              <button *ngIf="isLogin()" class="btn-block px-4 btn btn-dark my-2 my-sm-0" (click)="logout()">{{'auth.logout'|translate}}</button>
-            </div>
+            <img *ngIf="avatar" src="{{avatar.url||'../../../../assets/profile.png'}}" class="mx-4 rounded-circle border-white avatar "
+              mat-icon-button [matMenuTriggerFor]="menu">
+            <img *ngIf="!avatar" src="{{'../../../../assets/profile.png'}}" class="mx-4 rounded-circle border-white avatar " mat-icon-button
+              [matMenuTriggerFor]="menu">
           </div>
         </div>
       </div>
     </div>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="isAdmin" (click)="goToAdmin()">{{'admin.panelAdmin'|translate}}</button>
+      <button mat-menu-item (click)="goToMyProfile()">{{'global.myProfile'|translate}}</button>
+      <button mat-menu-item *ngIf="isLogin()" (click)="logout()">{{'auth.logout'|translate}}</button>
+    </mat-menu>
   </div>
 </nav>

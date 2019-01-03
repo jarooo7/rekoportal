@@ -75,4 +75,13 @@ export class AdminService {
     const gr: AngularFireList<SugGroupModel> = this.dataBase.list(`sugGroup/${key}`);
     return gr.remove();
   }
+
+  removeGroup(key: string) {
+    const gr: AngularFireList<SugGroupModel> = this.dataBase.list(`group/${key}`);
+    return gr.remove();
+  }
+  removeAdminGroup(key: string, id: string) {
+    const gr: AngularFireList<SugGroupModel> = this.dataBase.list(`group/${key}/admins`, ref => ref.startAt(id).endAt(id));
+    return gr.remove();
+  }
 }

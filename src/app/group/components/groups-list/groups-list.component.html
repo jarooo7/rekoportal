@@ -1,10 +1,16 @@
-<div class="container pt-5" >
+<div class="container pt-5">
   <div class="row pt-5">
     <div class="col-md-8 mx-auto">
-       <p class="display-4">
-         {{'group.group-list'| translate}}
-        </p>
-        <button (click)="openDialog()" class="btn btn-primary mr-auto">{{'group.add-group'| translate}}</button>
+      <p class="display-4">
+        {{'group.group-list'| translate}}
+      </p>
+      <button (click)="openDialog()" class="btn btn-primary mr-auto">{{'group.add-group'| translate}}</button>
+    </div>
+    <div class="col-md-8 mx-auto">
+      <div *ngFor="let r of result">
+        <app-group-res [group]="r" [isClick]="true" [imgClass]="'profile'" [textClass]="'h3'" [divClass]="'p-4 my-3 bg-search'"
+          [groupId]="r.key"></app-group-res>
       </div>
+    </div>
   </div>
 </div>

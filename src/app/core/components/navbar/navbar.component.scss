@@ -4,12 +4,6 @@
 .flag{
     height: 20px;
 }
-.dropdown-open{
-    display: block;
-}
-.dropdown-close{
-    display: none;
-}
 .link-lang{
     width: 100%;
 }
@@ -32,7 +26,7 @@
   }
   
   .log{
-      width: 250px;
+      width: 150px;
   }
 
   .avatar{
@@ -47,13 +41,6 @@
       padding-bottom: 40px;
   }
 
-  .menu-profile{
-      position: absolute;
-      top:70px;
-      width: 200px;
-      margin-left: -70px;
-  }
-
   .number{
     font-size: 13px;
     min-width: 18px;
@@ -61,4 +48,3 @@
   .none-select {
     user-select: none;
   }
- 

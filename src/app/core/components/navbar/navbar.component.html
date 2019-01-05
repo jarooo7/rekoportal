@@ -9,8 +9,12 @@
   <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto  mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/group/posts']">{{'global.news'|translate}}
-        </a>
+        <button class="nav-link btn btn-link" [matMenuTriggerFor]="group">{{'group.group'|translate}}</button>
+        <mat-menu #group="matMenu">
+          <a mat-menu-item [routerLink]="['/group/posts']">{{'global.news'|translate}}</a>
+          <a mat-menu-item [routerLink]="['/group/groups-list']">{{'group.group-list'|translate}}</a>
+          <a mat-menu-item [routerLink]="['/group/posts']">{{'epochs.epochs'| translate}}</a>
+        </mat-menu>
       </li>
     </ul>
     <form [formGroup]="searchForm" class="form-inline col-md-5 my-2 mx-3 my-lg-0">
@@ -25,9 +29,9 @@
         </div>
       </div>
     </form>
-    <div  *ngIf="isLogin()" class="px-2  ml-auto">
+    <div *ngIf="isLogin()" class="px-2  ml-auto">
       <div (click)="invitOpen()">
-        <fa matBadge="{{invit.length}}"  [matBadgeHidden]="isInvit()" matBadgeColor="warn" name="users" class="h4 my-auto mx-3 text-light"></fa>
+        <fa matBadge="{{invit.length}}" [matBadgeHidden]="isInvit()" matBadgeColor="warn" name="users" class="h4 my-auto mx-3 text-light"></fa>
       </div>
       <div *ngIf="invitFlag">
         <div class="search mt-3">

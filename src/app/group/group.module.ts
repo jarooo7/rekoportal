@@ -9,6 +9,7 @@ import { GroupProfileComponent } from './components/group-profile/group-profile.
 import { AddArticleComponent } from './components/add-article/add-article.component';
 import { GroupInfoComponent } from './components/group-info/group-info.component';
 import { ArticleComponent } from './components/article/article.component';
+import { GroupNavComponent } from './components/group-nav/group-nav.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { ArticleComponent } from './components/article/article.component';
     GroupProfileComponent,
     AddArticleComponent,
     GroupInfoComponent,
-    ArticleComponent
+    ArticleComponent,
+    GroupNavComponent
   ],
   entryComponents: [
     AddGroupComponent,

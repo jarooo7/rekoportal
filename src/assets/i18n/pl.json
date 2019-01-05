@@ -137,9 +137,11 @@
         "epochs": "Epoka/Epoki",
         "standart": "Standardowe",
         "added": "Dodane",
-        "other": "Inne"
+        "other": "Inne",
+        "group": "Grupy"
     },
     "epochs": {
+        "epochs": "Epoki",
         "add": "Dodaj nową epokę",
         "presentDay": "Współczesność",
         "warsaw44": "Waszawa 44",

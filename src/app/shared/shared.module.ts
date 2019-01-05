@@ -15,7 +15,7 @@ import { FileDropDirective } from './directives/file-drop.directive';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { MatButtonModule, MatCheckboxModule, MatDialogModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { UserResultComponent } from '../search/components/user-result/user-result.component';
 import { FriendsListComponent } from '../chat/components/friends-list/friends-list.component';
@@ -47,6 +47,7 @@ const MODULES = [
   NotifierModule,
   MatButtonModule,
   MatTabsModule,
+  MatExpansionModule,
   MatBadgeModule,
   MatCheckboxModule,
   AngularFirestoreModule,

@@ -125,6 +125,10 @@
         "delAdmin": "Usuń uprawnienia administartora",
         "panelAdmin": "Panel administratora"
     },
+    "article":{
+        "newArticle": "Nowy Artykuł",
+        "title": "Tytuł"
+    },
     "group": {
         "group-list": "Lista grup rekonstrukcyjnych",
         "add-group": "Dodaj grupę rekonstrukcyjną",

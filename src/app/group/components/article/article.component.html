@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-10 text-center mx-auto" *ngIf="group.name">
+    <img *ngIf="group.avatar" src="{{group.avatar.url||'../../../../assets/group.png'}}" class="rounded-circle border-white profile-p ">
+    <img *ngIf="!group.avatar" src="{{'../../../../assets/group.png'}}" class="rounded-circle border-white profile-p ">
+    <h2 class="mt-3">{{group.name}}</h2>
+    <p class="mt-2">
+      <small>{{article.timestamp | date: 'yyyy-MM-dd HH:mm'}}</small>
+    </p>
+    <p class="mb-3">{{article.text}} </p>
+  </div>
+  <div class="col-md-7 mx-auto" *ngIf="group.name">
+    <app-gallery *ngIf="article.photos" [image]="article.photos"></app-gallery>
+    <app-like [postKey]="articleId" [userId]="group.key"></app-like>
+  </div>
+  <div class="col-md-7 mx-auto" *ngIf="group.name">
+    <app-view-comment [keyPost]="articleId" [userId]="group.key"></app-view-comment>
+    <app-add-comment [key]="articleId" [userId]="group.key"></app-add-comment>
+  </div>
+</div>

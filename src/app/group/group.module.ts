@@ -5,6 +5,10 @@ import { PostsComponent } from './components/posts/posts.component';
 import { GroupRouting } from './group-routing.module';
 import { GroupsListComponent } from './components/groups-list/groups-list.component';
 import { AddGroupComponent } from './components/add-group/add-group.component';
+import { GroupProfileComponent } from './components/group-profile/group-profile.component';
+import { AddArticleComponent } from './components/add-article/add-article.component';
+import { GroupInfoComponent } from './components/group-info/group-info.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
   imports: [
@@ -15,10 +19,15 @@ import { AddGroupComponent } from './components/add-group/add-group.component';
   declarations: [
     PostsComponent,
     GroupsListComponent,
-    AddGroupComponent
+    AddGroupComponent,
+    GroupProfileComponent,
+    AddArticleComponent,
+    GroupInfoComponent,
+    ArticleComponent
   ],
   entryComponents: [
-    AddGroupComponent
+    AddGroupComponent,
+    AddArticleComponent
   ]
 })
 export class GroupModule { }

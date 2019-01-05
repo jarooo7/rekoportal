@@ -1,0 +1,84 @@
+<div *ngIf="group">
+  <div [ngStyle]="{'background-image': 'url('+backgroundUrl+')'}">
+    <div class="gradient  pt-5 pb-4">
+      <div class="container pt-5 pb-4">
+        <div class="row">
+          <div class="col-md-9 text-white">
+            <p class="display-4 pt-4">{{group.name}}</p>
+          </div>
+          <div class="col-md-3 text-white pt-2">
+            <img *ngIf="group.avatar" src="{{group.avatar.url||'../../../../assets/group.png'}}" class="rounded-circle border-white profile ">
+            <img *ngIf="!group.avatar" src="{{'../../../../assets/group.png'}}" class="rounded-circle border-white profile ">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 py-4b ">
+      </div>
+      <div class="col-md-3 py-4b">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{'group.description'| translate}}
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>{{group.description}}</p>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{'group.epochs'| translate}}
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <h6>{{'group.standart'| translate}}:</h6>
+            <div *ngFor="let e of group.epochs">
+              <p class="btn-link btn">{{'epochs.' + e| translate}}</p>
+            </div>
+            <h6>{{'group.other'| translate}}:</h6>
+            <div *ngFor="let e of group.otherEpochs">
+              <p class="btn-link btn">{{e}}</p>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="col-md-6 text-right">
+        <button class="btn btn-primary px-4" (click)="openDialog()">
+          <fa name="plus"></fa> {{'article.newArticle'| translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pb-5" *ngFor="let a of article | async">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 text-center mx-auto">
+          <hr class="mb-5">
+        </div>
+      </div>
+      <div>
+        <app-article [group]="group" [id]="a.idArticle"></app-article>
+      </div>
+    </div>
+  </div>
+  
+  <div infiniteScroll [infiniteScrollDistance]="4" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
+  </div>
+
+
+

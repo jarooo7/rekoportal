@@ -38,7 +38,7 @@ export class PostListComponent  {
   constructor(
     private userService: UserService
   ) { }
-  onScroll () {
+    onScroll () {
     this.getPost();
   }
 

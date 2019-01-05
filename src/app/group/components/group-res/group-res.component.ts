@@ -20,8 +20,8 @@ export class GroupResComponent  {
   ) { }
 
   goToUser() {
-    // if (this.isClick) {
-    //   this.router.navigate([`user/profile/${this.userId}`]);
-    // }
+     if (this.isClick) {
+      this.router.navigate([`group/group/${this.groupId}`]);
+    }
   }
 }

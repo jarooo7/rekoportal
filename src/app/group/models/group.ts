@@ -5,6 +5,7 @@ export class GroupModel {
     description: string;
     admins: string[];
     key?: string;
+    search?: string;
     epochs: string[];
     otherEpochs: string[];
     avatar?: AvatarModel;

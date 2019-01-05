@@ -4,6 +4,7 @@ import { SugGroupModel } from '../../../group/models/suggestionGroup';
 import { EpochModel } from '../../../group/models/epoch';
 import { AdminService } from '../../services/admin.service';
 import { GroupModel} from '../../../group/models/group';
+import { getFormatedSearch } from '../../../shared/functions/format-search-text';
 
 @Component({
   selector: 'app-preview-sug-group',
@@ -77,6 +78,7 @@ export class PreviewSugGroupComponent implements OnInit {
       group.epochs = this.selectStandartEpochs();
       group.otherEpochs = this.selectOtherEpochs();
       group.admins = [];
+      group.search = getFormatedSearch(this.sug.name.toLowerCase());
       group.admins.push(this.sug.userId);
     }
     this.adminService.addNewGroup(group).then(

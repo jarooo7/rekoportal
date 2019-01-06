@@ -17,7 +17,6 @@ export class PreviewSugGroupComponent implements OnInit {
     {name: 'WWI' },
     {name: 'WWII' },
     {name: 'polishBolshevik' },
-    {name: '1939' },
     {name: 'antiquity' },
     {name: 'middleAges' },
     {name: 'IRP' },

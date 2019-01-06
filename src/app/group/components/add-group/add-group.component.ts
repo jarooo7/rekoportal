@@ -29,7 +29,6 @@ export class AddGroupComponent implements OnInit {
     {name: 'WWI' },
     {name: 'WWII' },
     {name: 'polishBolshevik' },
-    {name: '1939' },
     {name: 'antiquity' },
     {name: 'middleAges' },
     {name: 'IRP' },

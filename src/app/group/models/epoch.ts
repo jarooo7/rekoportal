@@ -9,12 +9,10 @@ export class EpochGrupModel {
     isChecked?: boolean;
 }
 
-export let standartEpoch: EpochModel[] = [] ;
-standartEpoch = [
+export const standartEpoch: EpochModel[] = [
     {name: 'WWI' },
     {name: 'WWII' },
     {name: 'polishBolshevik' },
-    {name: '1939' },
     {name: 'antiquity' },
     {name: 'middleAges' },
     {name: 'IRP' },
@@ -24,4 +22,4 @@ standartEpoch = [
     {name: 'civilWar' },
     {name: 'warsaw44' },
     {name: 'presentDay' }
-];
+  ];

@@ -9,7 +9,7 @@ import { GroupProfileComponent } from './components/group-profile/group-profile.
 import { AddArticleComponent } from './components/add-article/add-article.component';
 import { GroupInfoComponent } from './components/group-info/group-info.component';
 import { ArticleComponent } from './components/article/article.component';
-import { GroupNavComponent } from './components/group-nav/group-nav.component';
+import { EpochsListComponent } from './components/epochs-list/epochs-list.component';
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ import { GroupNavComponent } from './components/group-nav/group-nav.component';
     AddArticleComponent,
     GroupInfoComponent,
     ArticleComponent,
-    GroupNavComponent
+    EpochsListComponent
   ],
   entryComponents: [
     AddGroupComponent,

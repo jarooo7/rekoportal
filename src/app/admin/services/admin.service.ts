@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { UserModel } from '../../user/models/profile.model';
 import { SugGroupModel } from '../../group/models/suggestionGroup';
-import { EpochModel } from '../../group/models/epoch';
+import { ArmyModel } from '../../group/models/army';
 import { GroupModel, KeyGroupnModel } from '../../group/models/group';
 
 @Injectable({
@@ -56,9 +56,9 @@ export class AdminService {
     return sug.snapshotChanges();
   }
 
-  addNewEpoch(epoch: EpochModel) {
-    const e: AngularFireList<EpochModel> = this.dataBase.list('otherEpochs');
-    return e.push(epoch);
+  addNewArmy(army: ArmyModel) {
+    const e: AngularFireList<ArmyModel> = this.dataBase.list('otherArmies');
+    return e.push(army);
   }
 
   addNewGroup(group: GroupModel) {
@@ -66,8 +66,8 @@ export class AdminService {
     return gr.push(group);
   }
 
-  groupInEpoch(key: string, epoch: string) {
-    const gr: AngularFireList<KeyGroupnModel> = this.dataBase.list(`epoch/${epoch}`);
+  groupInArmy(key: string, army: string) {
+    const gr: AngularFireList<KeyGroupnModel> = this.dataBase.list(`army/${army}`);
     return gr.push({id: key});
   }
 

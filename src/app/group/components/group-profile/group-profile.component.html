@@ -39,17 +39,17 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{'group.epochs'| translate}}
+                {{'group.armies'| translate}}
               </mat-panel-title>
               <mat-panel-description>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <h6>{{'group.standart'| translate}}:</h6>
-            <div *ngFor="let e of group.epochs">
-              <p class="btn-link btn">{{'epochs.' + e| translate}}</p>
+            <div *ngFor="let e of group.armies">
+              <p class="btn-link btn">{{'armies.' + e| translate}}</p>
             </div>
             <h6>{{'group.other'| translate}}:</h6>
-            <div *ngFor="let e of group.otherEpochs">
+            <div *ngFor="let e of group.otherArmies">
               <p class="btn-link btn">{{e}}</p>
             </div>
           </mat-expansion-panel>

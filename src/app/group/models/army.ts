@@ -1,15 +1,15 @@
 
-export class EpochModel {
+export class ArmyModel {
     name: string;
     isChecked?: boolean;
 }
 
-export class EpochGrupModel {
+export class ArmyGrupModel {
     name: string;
     isChecked?: boolean;
 }
 
-export const standartEpoch: EpochModel[] = [
+export const standartArmy: ArmyModel[] = [
     {name: 'WWI' },
     {name: 'WWII' },
     {name: 'polishBolshevik' },

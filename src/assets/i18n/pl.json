@@ -134,15 +134,15 @@
         "add-group": "Dodaj grupę rekonstrukcyjną",
         "name-group": "Nazwa grupy",
         "description": "Opis",
-        "epochs": "Epoka/Epoki",
+        "armies": "Armia/Armie",
         "standart": "Standardowe",
         "added": "Dodane",
         "other": "Inne",
         "group": "Grupy"
     },
-    "epochs": {
-        "epochs": "Epoki",
-        "add": "Dodaj nową epokę",
+    "armies": {
+        "armies": "Armie",
+        "add": "Dodaj nową armię",
         "presentDay": "Współczesność",
         "warsaw44": "Waszawa 44",
         "polishBolshevik": "Wojan polsko-bolszewicka",

@@ -2,15 +2,15 @@
 <div mat-dialog-content>
   <h5>{{'group.description'| translate}}</h5>
   <p>{{group.description}}</p>
-  <h5>{{'group.epochs'| translate}}</h5>
+  <h5>{{'group.armies'| translate}}</h5>
   
   <h6>{{'group.standart'| translate}}:</h6>
   <div>
-    <span *ngFor="let e of group.epochs" >{{'epochs.' + e| translate}}, </span>
+    <span *ngFor="let e of group.armies" >{{'armies.' + e| translate}}, </span>
   </div>
   <h6>{{'group.other'| translate}}:</h6>
   <div>
-    <span  *ngFor="let e of group.otherEpochs" >{{e}}, </span>
+    <span  *ngFor="let e of group.otherArmies" >{{e}}, </span>
   </div>
 
   <h5>{{'admin.admins'| translate}}:</h5>

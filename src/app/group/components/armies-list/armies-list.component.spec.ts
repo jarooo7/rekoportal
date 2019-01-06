@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EpochsListComponent } from './epochs-list.component';
+import { ArmiesListComponent } from './armies-list.component';
 
-describe('EpochsListComponent', () => {
-  let component: EpochsListComponent;
-  let fixture: ComponentFixture<EpochsListComponent>;
+describe('ArmiesListComponent', () => {
+  let component: ArmiesListComponent;
+  let fixture: ComponentFixture<ArmiesListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EpochsListComponent ]
+      declarations: [ ArmiesListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EpochsListComponent);
+    fixture = TestBed.createComponent(ArmiesListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

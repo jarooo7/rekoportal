@@ -6,8 +6,8 @@ export class GroupModel {
     admins: string[];
     key?: string;
     search?: string;
-    epochs: string[];
-    otherEpochs: string[];
+    armies: string[];
+    otherArmies: string[];
     avatar?: AvatarModel;
 }
 export class KeyGroupnModel {

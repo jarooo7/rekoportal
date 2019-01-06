@@ -2,6 +2,6 @@ export class SugGroupModel {
     name: string;
     description: string;
     userId: string;
-    epochs: string[];
+    armies: string[];
     key?: string;
 }

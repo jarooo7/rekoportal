@@ -26,9 +26,9 @@
           </mat-option>
         </mat-optgroup>
         <mat-optgroup [label]="'group.other'| translate">
-          <!-- <mat-option *ngFor="let e of newArmies" [value]="e.name">
-              {{e.name}}
-            </mat-option> -->
+          <mat-option *ngFor="let e of result" [value]="e.name">
+            {{e.name}}
+          </mat-option>
         </mat-optgroup>
       </mat-select>
     </mat-form-field>

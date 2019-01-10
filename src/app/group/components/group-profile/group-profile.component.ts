@@ -65,6 +65,10 @@ export class GroupProfileComponent implements OnInit {
     }
   }
 
+  goToArmy(name: string) {
+    this.router.navigate(['/group/selected-groups/' + name]);
+  }
+
   loadGroup() {
     this.groupService.getGroup(this.groupId).pipe(
       map(group => ({ key: group.payload.key, ...group.payload.val() })

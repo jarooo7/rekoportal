@@ -46,11 +46,11 @@
             </mat-expansion-panel-header>
             <h6>{{'group.standart'| translate}}:</h6>
             <div *ngFor="let e of group.armies">
-              <p class="btn-link btn">{{'armies.' + e| translate}}</p>
+              <p (click)="goToArmy(e)" class="btn-link btn">{{'armies.' + e| translate}}</p>
             </div>
             <h6>{{'group.other'| translate}}:</h6>
             <div *ngFor="let e of group.otherArmies">
-              <p class="btn-link btn">{{e}}</p>
+              <p (click)="goToArmy(e)" class="btn-link btn">{{e}}</p>
             </div>
           </mat-expansion-panel>
         </mat-accordion>

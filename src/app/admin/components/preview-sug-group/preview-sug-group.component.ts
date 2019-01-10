@@ -5,6 +5,8 @@ import { ArmyModel } from '../../../group/models/army';
 import { AdminService } from '../../services/admin.service';
 import { GroupModel} from '../../../group/models/group';
 import { getFormatedSearch } from '../../../shared/functions/format-search-text';
+import { GropuService } from '../../../group/services/gropu.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-preview-sug-group',
@@ -14,31 +16,39 @@ import { getFormatedSearch } from '../../../shared/functions/format-search-text'
 export class PreviewSugGroupComponent implements OnInit {
 
   standartArmy: ArmyModel[] = [
-    {name: 'WWI' },
-    {name: 'WWII' },
-    {name: 'polishBolshevik' },
-    {name: 'antiquity' },
-    {name: 'middleAges' },
-    {name: 'IRP' },
-    {name: 'napoleon' },
-    {name: 'november' },
-    {name: 'january' },
-    {name: 'civilWar' },
-    {name: 'warsaw44' },
-    {name: 'presentDay' }
+    {name: 'rusEmpire'},
+    {name: 'ausHung'},
+    {name: 'prussian'},
+    {name: 'hussars'},
+    {name: 'redArmy'},
+    {name: 'wehrmacht'},
+    {name: 'bolsheviks'},
+    {name: 'january'},
+    {name: 'november'},
+    {name: 'greatArmy'},
+    {name: 'knighthood'},
+    {name: 'greek'},
+    {name: 'roman'},
+    {name: 'templar'},
+    {name: 'teutonic'},
+    {name: 'polLegions'}
   ];
+  armies: string[] = [];
+  result: ArmyModel[] = [];
   standartLoadArmies: ArmyModel[] = [];
   newArmies: ArmyModel[] = [];
+  otherArmies: ArmyModel[] = [];
 
 
   constructor(
+    private groupService: GropuService,
     private adminService: AdminService,
     public dialogRef: MatDialogRef<PreviewSugGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public sug: SugGroupModel) {}
 
 
   ngOnInit() {
-    this.selectArmies();
+    this.getOtherArmies();
   }
 
   onNoClick(): void {
@@ -47,18 +57,40 @@ export class PreviewSugGroupComponent implements OnInit {
 
   selectArmies() {
     let flag: boolean;
+    let flag2: boolean;
     this.sug.armies.forEach(e => {
       flag = false;
+      flag2 = false;
       this.standartArmy.forEach(s => {
         if (e === s.name) {
           flag = true;
         }
       });
+      this.result.forEach(s => {
+        if (e === s.name) {
+          flag2 = true;
+        }
+      });
       if (flag) {
         this.standartLoadArmies.push({name: e, isChecked: true});
-      } else {
+      }
+      if (flag2) {
+        this.otherArmies.push({name: e, isChecked: true});
+      }
+      if (!flag && !flag2) {
         this.newArmies.push({name: e, isChecked: true});
       }
+    });
+  }
+
+  getOtherArmies() {
+    this.groupService.getOtherArmies().pipe(
+      map(sug =>
+        sug.map(u => ({ key: u.payload.key, ...u.payload.val() }))
+      )
+    ).subscribe(result => {
+      this.result = result;
+      this.selectArmies();
     });
   }
 
@@ -82,7 +114,7 @@ export class PreviewSugGroupComponent implements OnInit {
     }
     this.adminService.addNewGroup(group).then(
       a => {
-        this.sug.armies.forEach(e => {
+        this.armies.forEach(e => {
           this.addArmies(a.key, e);
         });
       }
@@ -99,6 +131,7 @@ export class PreviewSugGroupComponent implements OnInit {
         }
       }
     );
+    this.armies = this.armies.concat(armies);
     return armies;
   }
   selectOtherArmies(): string[] {
@@ -110,6 +143,15 @@ export class PreviewSugGroupComponent implements OnInit {
         }
       }
     );
+    this.armies = this.armies.concat(armies);
+    this.otherArmies.forEach(
+      e => {
+        if (e.isChecked) {
+          armies.push(e.name);
+        }
+      }
+    );
+    this.armies = this.armies.concat(armies);
     return armies;
   }
 

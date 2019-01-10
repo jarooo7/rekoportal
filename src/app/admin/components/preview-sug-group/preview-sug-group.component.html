@@ -11,6 +11,10 @@
   <div *ngFor="let s of standartLoadArmies">
     <mat-checkbox color="primary" [(ngModel)]="s.isChecked">{{'armies.' + s.name| translate}}</mat-checkbox>
   </div>
+  <h6>{{'group.other'| translate}}</h6>
+  <div *ngFor="let s of otherArmies">
+    <mat-checkbox color="primary" [(ngModel)]="s.isChecked">{{s.name}}</mat-checkbox>
+  </div>
 </div>
 <div mat-dialog-actions class="w-100 mb-2">
     <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>

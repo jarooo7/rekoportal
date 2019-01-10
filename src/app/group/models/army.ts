@@ -10,16 +10,20 @@ export class ArmyGrupModel {
 }
 
 export const standartArmy: ArmyModel[] = [
-    {name: 'WWI' },
-    {name: 'WWII' },
-    {name: 'polishBolshevik' },
-    {name: 'antiquity' },
-    {name: 'middleAges' },
-    {name: 'IRP' },
-    {name: 'napoleon' },
-    {name: 'november' },
-    {name: 'january' },
-    {name: 'civilWar' },
-    {name: 'warsaw44' },
-    {name: 'presentDay' }
+    {name: 'rusEmpire'},
+    {name: 'ausHung'},
+    {name: 'prussian'},
+    {name: 'hussars'},
+    {name: 'redArmy'},
+    {name: 'wehrmacht'},
+    {name: 'bolsheviks'},
+    {name: 'january'},
+    {name: 'november'},
+    {name: 'greatArmy'},
+    {name: 'knighthood'},
+    {name: 'greek'},
+    {name: 'roman'},
+    {name: 'templar'},
+    {name: 'teutonic'},
+    {name: 'polLegions'}
   ];

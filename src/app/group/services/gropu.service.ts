@@ -5,6 +5,7 @@ import { SugGroupModel } from '../models/suggestionGroup';
 import { GroupModel } from '../models/group';
 import { AngularFireStorageReference, AngularFireUploadTask, AngularFireStorage } from 'angularfire2/storage';
 import { ArticleModel, ArticleLocationModel } from '../models/article';
+import { ArmyModel } from '../models/army';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ export class GropuService {
     getGroup(id) {
       const gr: AngularFireObject<GroupModel> = this.dataBase.object(`group/${id}`);
       return gr.snapshotChanges();
+    }
+
+    getGroups(army: string) {
+      const sug: AngularFireList<GroupModel> = this.dataBase.list(`army/${army}`);
+      return sug.snapshotChanges();
     }
 
     getArticle(id: string, batch: number, lastKey?: string) {
@@ -80,5 +86,10 @@ export class GropuService {
         }
         location.push(loc);
       });
+    }
+
+    getOtherArmies() {
+      const a: AngularFireList<ArmyModel> = this.dataBase.list('otherArmies');
+      return a.snapshotChanges();
     }
 }

@@ -5,6 +5,7 @@ import { ArmyModel, standartArmy } from '../../models/army';
 import { GropuService } from '../../services/gropu.service';
 import { SugGroupModel } from '../../models/suggestionGroup';
 import { GroupModule } from '../../group.module';
+import { map } from 'rxjs/operators';
 
 enum FormControlNames {
   DESCRIPTION = 'description',
@@ -25,25 +26,31 @@ export class AddGroupComponent implements OnInit {
   sugGroup: SugGroupModel;
   formControlNames = FormControlNames;
   newArmies: ArmyModel[] = [];
+  result: ArmyModel[] = [];
   standartArmy: ArmyModel[] = [
-    {name: 'WWI' },
-    {name: 'WWII' },
-    {name: 'polishBolshevik' },
-    {name: 'antiquity' },
-    {name: 'middleAges' },
-    {name: 'IRP' },
-    {name: 'napoleon' },
-    {name: 'november' },
-    {name: 'january' },
-    {name: 'civilWar' },
-    {name: 'warsaw44' },
-    {name: 'presentDay' }
+    {name: 'rusEmpire'},
+    {name: 'ausHung'},
+    {name: 'prussian'},
+    {name: 'hussars'},
+    {name: 'redArmy'},
+    {name: 'wehrmacht'},
+    {name: 'bolsheviks'},
+    {name: 'january'},
+    {name: 'november'},
+    {name: 'greatArmy'},
+    {name: 'knighthood'},
+    {name: 'greek'},
+    {name: 'roman'},
+    {name: 'templar'},
+    {name: 'teutonic'},
+    {name: 'polLegions'}
 ];
   constructor(
-    private grupService: GropuService,
+    private groupService: GropuService,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddGroupComponent>) {}
   ngOnInit() {
+    this.getOtherArmies();
     this.groupForm = this.formBuilder.group({
       [FormControlNames.NAME]: ['', [Validators.required]],
       [FormControlNames.DESCRIPTION]: ['', [Validators.required]],
@@ -56,12 +63,12 @@ export class AddGroupComponent implements OnInit {
   }
   onSubmit() {
     this.sugGroup = new SugGroupModel(); {
-      this.sugGroup.userId = this.grupService.userId;
+      this.sugGroup.userId = this.groupService.userId;
       this.sugGroup.name = this.groupForm.value[FormControlNames.NAME];
       this.sugGroup.description = this.groupForm.value[FormControlNames.DESCRIPTION];
       this.sugGroup.armies = this.groupForm.value[FormControlNames.ARMIES] as string[];
     }
-    this.grupService.addSuggestionGroup(this.sugGroup).then(() => {
+    this.groupService.addSuggestionGroup(this.sugGroup).then(() => {
       this.onNoClick();
     });
   }
@@ -71,5 +78,15 @@ export class AddGroupComponent implements OnInit {
       e.name = this.addArmy.value;
     }
     this.newArmies.push(e);
+    this.addArmy = new FormControl ();
+  }
+  getOtherArmies() {
+    this.groupService.getOtherArmies().pipe(
+      map(sug =>
+        sug.map(u => ({ key: u.payload.key, ...u.payload.val() }))
+      )
+    ).subscribe(result => {
+      this.result = result;
+    });
   }
 }

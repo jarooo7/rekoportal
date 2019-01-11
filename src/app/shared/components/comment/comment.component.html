@@ -13,6 +13,12 @@
                     {{commant.text}}
                 </div>
             </div>
+            <div>
+                <fa *ngIf="isAdmin || your" mat-icon-button [matMenuTriggerFor]="com" class="text-primary" name="cog"></fa>
+                <mat-menu #com="matMenu">
+                    <button mat-menu-item (click)="remove()">{{'global.remove'|translate}}</button>
+                </mat-menu>
+            </div>
         </div>
     </div>
 </div>

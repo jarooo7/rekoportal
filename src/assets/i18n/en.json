@@ -18,13 +18,16 @@
         "contacts": " Contacts ",
         "refresh": "Refresh",
         "cancel": "Cancel ",
-        "remove": "Remove "
+        "remove": "Remove ",
+        "edit": "Edit"
     },
     "auth": {
         "log": "Login",
         "register": "Sign Up",
         "login": "Sign in",
         "password": "Password",
+        "newPassword": "New password",
+        "currentPassword": "Current password",
         "email": "Email",
         "registerText": "***************Jeśli nie posiadasz jeszcze konta",
         "signUp": "Sign Up",
@@ -72,7 +75,6 @@
         "send": "***************Wyślij ponownie email aktywacyjny"
     },
     "profile": {
-        "settingsUser": "***************Ustawienia użytkownika",
         "editProfile": "***************Edytuj profil",
         "addPhoto": "***************Dodaj zdjęcie profilowe",
         "editPhoto": "***************Edytyj zdjęcie profilowe",

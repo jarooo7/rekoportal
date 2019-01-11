@@ -33,6 +33,15 @@ export class ViewCommentComponent implements  OnDestroy {
 
   constructor(private userService: UserService) { }
 
+  remove() {
+    this.newComments = [];
+    this.lastKey = null;
+    this.comments = new BehaviorSubject([]);
+    this.batch = 2;
+    this.startId = null;
+    this.finish = false;
+  }
+
   private getCom() {
     if (this.finish) { return; }
     let lastKey: string;

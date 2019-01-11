@@ -3,6 +3,8 @@ import { SharedModule } from '../shared/shared.module';
 import { UserRouting } from './user-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 
 
@@ -13,7 +15,11 @@ import { PostListComponent } from './components/post-list/post-list.component';
   ],
   declarations: [
     ProfileComponent,
-    PostListComponent
-  ]
+    PostListComponent,
+    EditProfileComponent,
+    ChangePasswordComponent
+  ],
+  entryComponents: [EditProfileComponent,
+    ChangePasswordComponent]
 })
 export class UserModule { }

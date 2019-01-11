@@ -191,4 +191,23 @@ export class AuthService {
   getUser() {
     return this.fireAuth.authState;
   }
+
+  changePasswordUser( password: string) {
+    return this.fireAuth.auth.currentUser.updatePassword(password);
+  }
+
+  reauthenticate(currentPassword) {
+    const user = firebase.auth().currentUser;
+    const cred = firebase.auth.EmailAuthProvider.credential(
+        user.email, currentPassword);
+    return user.reauthenticateWithCredential(cred);
+  }
+
+  // changePassword = (currentPassword, newPassword) => {
+  //   this.reauthenticate(currentPassword).then(() => {
+  //     const user = firebase.auth().currentUser;
+  //     user.updatePassword(newPassword).then(() => {
+  //     }).catch((error) => { console.log(error); });
+  //   }).catch((error) => { console.log(error); });
+  // }
 }

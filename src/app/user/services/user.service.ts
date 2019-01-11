@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { PostModel, LikeModel, ComModel} from '../../shared/models/post.model';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class UserService {
   post: AngularFireList<PostModel> = null;
   avatar: AngularFireObject<AvatarModel> = null;
   userId: string;
-
+  user: Observable<firebase.User>;
 
   constructor(
     private ng2ImgToolsService: Ng2ImgToolsService,
@@ -26,6 +27,7 @@ export class UserService {
     private authService: AuthService,
     private afStorage: AngularFireStorage
   ) {
+    this.user = authService.authState$;
     this.authService.authState$.subscribe(user => {
       if (user) {
         this.myProfile = dataBase.object(`profile/${user.uid}`);
@@ -48,6 +50,7 @@ export class UserService {
     this.profile = this.dataBase.object(`profile/${userId}`);
     return this.profile.snapshotChanges();
   }
+
   getStat(userId) {
     const stat: AngularFireObject<Status> = this.dataBase.object(`status/${userId}`);
     return stat.snapshotChanges();
@@ -162,6 +165,11 @@ export class UserService {
     invit.remove();
   }
 
+  removeCom(key: string, id: string) {
+    const com =  this.dataBase.object(`comment/${key}/${id}`);
+    com.remove();
+  }
+
   addFriends(userId: string , key: string) {
     this.removeinvitFriends(userId, key);
     const invit: AngularFireList<UserId> =  this.dataBase.list(`friends/${this.userId}`);
@@ -206,5 +214,10 @@ export class UserService {
     let com: AngularFireList<ComModel> =  null;
     com = this.dataBase.list(`comment/${userId}/${key}`, ref => ref.orderByChild('timestamp').startAt(startKey));
     return com.snapshotChanges();
+  }
+
+  editUser(uid: string, name: string, lastName: string, search: string) {
+    const group: AngularFireObject<ProfileModel> = this.dataBase.object(`profile/${uid}`);
+    group.update({name: name, lastName: lastName, search: search});
   }
 }

@@ -3,6 +3,7 @@ export class LikeModel {
 }
 
 export class ComModel {
+    key?: string;
     userKey: string;
     text: string;
     timestamp: any;

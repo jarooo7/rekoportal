@@ -20,13 +20,16 @@
         "contacts": "Kontakty",
         "refresh": "Odśwież",
         "cancel": "Anuluj",
-        "remove": "Usuń"
+        "remove": "Usuń",
+        "edit": "Edytuj"
     },
     "auth": {
         "log": "Logowanie",
         "register": "Rejestracja",
         "login": "Zaloguj się",
         "password": "Hasło",
+        "newPassword": "Nowe hasło",
+        "currentPassword": "Obecne hasło",
         "email": "Email",
         "registerText": "Jeśli nie posiadasz jeszcze konta",
         "signUp": "Zarejestruj się",
@@ -51,7 +54,7 @@
         "success": {
             "welcom": "Witamy w RekoPortal",
             "register": "Rejestracja powiodłą się",
-            "resetPassword": "Hasło zostało zresetowane",
+            "resetPassword": "Hasło zostało zmienione",
             "sendResetPassword": "Mail do resetu hasła został wysłąny",
             "active": "Użytkownik został pomyślnie aktywowany",
             "sendActiveEmail": "Email aktywacyjny został wysłany",
@@ -77,7 +80,6 @@
         "send": "Wyślij ponownie email aktywacyjny"
     },
     "profile": {
-        "settingsUser": "Ustawienia użytkownika",
         "editProfile": "Edytuj profil",
         "addPhoto": "Dodaj zdjęcie profilowe",
         "editPhoto": "Edytyj zdjęcie profilowe",

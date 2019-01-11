@@ -7,6 +7,9 @@ import { UserService } from '../../services/user.service';
 import { UserModel, AvatarModel } from '../../models/profile.model';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
 import { getFormatedDate } from '../../../shared/functions/format-date';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-profile',
@@ -29,6 +32,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
     private auth: AuthService,
     private userServise: UserService
   ) {
@@ -153,12 +157,7 @@ export class ProfileComponent implements OnInit {
       map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
       )
     ).subscribe(p => {
-      this.user = new UserModel(); {
-        this.user.name = p.name;
-        this.user.lastName = p.lastName;
-        this.user.dateBirth = p.dateBirth;
-        this.user.avatar = p.avatar;
-      }
+      this.user = p;
       this.operation();
     });
   }
@@ -199,5 +198,19 @@ export class ProfileComponent implements OnInit {
     this.uploadAvatar(event);
   }
 
+  editUser() {
+    const dialogRef = this.dialog.open(EditProfileComponent, {
+      minWidth: '300px',
+      maxWidth: '600px',
+      data: this.user
+    });
+  }
+
+  changePasswordUser() {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      minWidth: '300px',
+      maxWidth: '600px'
+    });
+  }
 
 }

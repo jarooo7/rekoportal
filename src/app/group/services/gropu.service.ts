@@ -6,6 +6,8 @@ import { GroupModel } from '../models/group';
 import { AngularFireStorageReference, AngularFireUploadTask, AngularFireStorage } from 'angularfire2/storage';
 import { ArticleModel, ArticleLocationModel } from '../models/article';
 import { ArmyModel } from '../models/army';
+import { Ng2ImgToolsService } from 'ng2-img-tools';
+import { AvatarModel } from '../../user/models/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class GropuService {
   constructor(
     private dataBase: AngularFireDatabase,
     private authService: AuthService,
+    private ng2ImgToolsService: Ng2ImgToolsService,
     private afStorage: AngularFireStorage
   ) {
       this.authService.authState$.subscribe(user => {
@@ -91,5 +94,44 @@ export class GropuService {
     getOtherArmies() {
       const a: AngularFireList<ArmyModel> = this.dataBase.list('otherArmies');
       return a.snapshotChanges();
+    }
+
+    resizeAvatar(file: File) {
+      return this.ng2ImgToolsService.resizeExactCrop([file], 180, 180);
+    }
+
+    upload2Avatar(file: File, name: string, id: string, groupId: string) {
+      let storageRef: AngularFireStorageReference;
+      let uploadTask: AngularFireUploadTask;
+      storageRef = this.afStorage.ref(`group`);
+      uploadTask = storageRef.child(
+        `${groupId}/${name}/${id}` ).put(file);
+      return uploadTask;
+    }
+
+    addAvatar(a: AvatarModel, groupId: string) {
+      const avatar: AngularFireObject<AvatarModel> = this.dataBase.object(`group/${groupId}/avatar`);
+      return avatar.set(a);
+    }
+
+    deleteAvatar(gid: string, url: string) {
+      let storageRef: AngularFireStorageReference;
+      let uploadTask: AngularFireUploadTask;
+      storageRef = this.afStorage.ref(`group/${gid}`);
+      uploadTask = storageRef.child(url).delete();
+    }
+
+    editGroup(groupId: string, name: string, description: string) {
+      const group: AngularFireObject<GroupModel> = this.dataBase.object(`group/${groupId}`);
+      group.update({name: name, description: description});
+    }
+
+    updateAdminsGroup(groupId: string, admins: string[]) {
+      const group: AngularFireObject<GroupModel> = this.dataBase.object(`group/${groupId}`);
+      group.update({admins: admins});
+    }
+    setAdminsGroup(groupId: string, admins: string[]) {
+      const group: AngularFireObject<string[]> = this.dataBase.object(`group/${groupId}/admins`);
+      group.update(admins);
     }
 }

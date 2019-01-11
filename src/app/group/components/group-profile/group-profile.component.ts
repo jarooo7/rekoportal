@@ -3,10 +3,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GropuService } from '../../services/gropu.service';
 import { takeUntil, map } from 'rxjs/operators';
 import { GroupModel } from '../../models/group';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material';
 import { AddArticleComponent } from '../add-article/add-article.component';
+import { AuthService } from '../../../auth/services/auth.service';
+import { getFormatedDate } from '../../../shared/functions/format-date';
+import { AvatarModel } from '../../../user/models/profile.model';
+import { EditGroupComponent } from '../edit-group/edit-group.component';
+import { AdminGroupComponent } from '../admin-group/admin-group.component';
 
 @Component({
   selector: 'app-group-profile',
@@ -22,14 +27,27 @@ export class GroupProfileComponent implements OnInit {
   article = new BehaviorSubject([]);
   batch = 2;
   lastKey: string;
+  user: Observable<firebase.User>;
   finish: boolean;
+  userId: string;
+  isAdmin = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private groupService: GropuService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private authService:  AuthService
+  ) {
+    this.user = authService.authState$;
+    this.user.subscribe(u => {
+      if (u) {
+        if (u.uid) {
+          this.userId = u.uid;
+        }
+      }
+    });
+   }
 
   ngOnInit() {
     this.readRouting();
@@ -75,6 +93,12 @@ export class GroupProfileComponent implements OnInit {
       )
     ).subscribe(res => {
       this.group = res;
+      this.isAdmin = false;
+      res.admins.forEach(r => {
+        if (r === this.userId) {
+          this.isAdmin = true;
+        }
+      });
     });
   }
 
@@ -105,6 +129,49 @@ export class GroupProfileComponent implements OnInit {
       const currentArticle = this.article.getValue();
       this.article.next( _.concat(currentArticle, newArticle) );
       sub.unsubscribe();
+    });
+  }
+
+
+  uploadAvatar(event) {
+    if (!event) { return; }
+    let avatar: AvatarModel;
+    const type = event.target.files[0].type;
+    const date = getFormatedDate(new Date());
+    const id = Math.random().toString(36).substring(2);
+    this.groupService.resizeAvatar(event.target.files[0]).subscribe(result => {
+      this.groupService.upload2Avatar(
+        new File([result], 'photo', { type: type, lastModified: Date.now()}),
+        date, id, this.groupId).then(p => {
+          p.ref.getDownloadURL().then(
+            url => {
+              avatar = new AvatarModel; {
+                avatar.url = url;
+                avatar.location = `${date}/${id}`;
+              }
+              this.groupService.addAvatar(avatar, this.groupId);
+            });
+          });
+    });
+  }
+  editAvatar(event) {
+    this.groupService.deleteAvatar(this.groupId, this.group.avatar.location);
+    this.uploadAvatar(event);
+  }
+
+  editGroup() {
+    const dialogRef = this.dialog.open(EditGroupComponent, {
+      minWidth: '300px',
+      maxWidth: '600px',
+      data: this.group
+    });
+  }
+
+  adminGroup() {
+    const dialogRef = this.dialog.open(AdminGroupComponent, {
+      minWidth: '300px',
+      maxWidth: '600px',
+      data: this.group.key
     });
   }
 

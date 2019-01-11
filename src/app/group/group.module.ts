@@ -11,6 +11,8 @@ import { GroupInfoComponent } from './components/group-info/group-info.component
 import { ArticleComponent } from './components/article/article.component';
 import { ArmiesListComponent } from './components/armies-list/armies-list.component';
 import { SelectedGroupsComponent } from './components/selected-groups/selected-groups.component';
+import { EditGroupComponent } from './components/edit-group/edit-group.component';
+
 
 @NgModule({
   imports: [
@@ -27,11 +29,13 @@ import { SelectedGroupsComponent } from './components/selected-groups/selected-g
     GroupInfoComponent,
     ArticleComponent,
     ArmiesListComponent,
-    SelectedGroupsComponent
+    SelectedGroupsComponent,
+    EditGroupComponent
   ],
   entryComponents: [
     AddGroupComponent,
-    AddArticleComponent
+    AddArticleComponent,
+    EditGroupComponent
   ]
 })
 export class GroupModule { }

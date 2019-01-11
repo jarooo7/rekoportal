@@ -55,30 +55,54 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-      <div class="col-md-6 text-right">
-        <button class="btn btn-primary px-4" (click)="openDialog()">
-          <fa name="plus"></fa> {{'article.newArticle'| translate}}
-        </button>
+      <div *ngIf="isAdmin" class="col-md-6 text-right">
+        <label>
+          <button class="btn btn-primary px-4" (click)="openDialog()">
+            <fa name="plus"></fa> {{'article.newArticle'| translate}}
+          </button>
+        </label>
+        <br>
+        <label (click)="editGroup()" class="btn btn-link m-0 p-0">
+            <h6>
+              <fa name="edit"></fa> {{'group.edit'|translate}}
+            </h6>
+        </label>
+        <br>
+        <label *ngIf="!group.avatar" class="btn btn-link m-0 p-0">
+          <h6>
+            <fa name="camera"></fa> {{'group.addPhoto'|translate}}
+            <input type="file" (change)="uploadAvatar($event)" style="display: none;" accept=".png,.jpg" />
+          </h6>
+        </label>
+        <label *ngIf="group.avatar" class="btn btn-link m-0 p-0">
+          <h6>
+            <fa name="camera"></fa> {{'group.editPhoto'|translate}}
+            <input type="file" (change)="editAvatar($event)" style="display: none;" accept=".png,.jpg" />
+          </h6>
+        </label>
+        <br>
+        <label (click)="adminGroup()"  class="btn btn-link m-0 p-0">
+            <h6>
+              <fa name="cogs"></fa> {{'group.settings'|translate}}
+           </h6>
+        </label>
       </div>
     </div>
   </div>
 </div>
 
 <div class="pb-5" *ngFor="let a of article | async">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 text-center mx-auto">
-          <hr class="mb-5">
-        </div>
-      </div>
-      <div>
-        <app-article [group]="group" [id]="a.idArticle"></app-article>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center mx-auto">
+        <hr class="mb-5">
       </div>
     </div>
+    <div>
+      <app-article [group]="group" [id]="a.idArticle"></app-article>
+    </div>
   </div>
-  
-  <div infiniteScroll [infiniteScrollDistance]="4" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
-  </div>
+</div>
 
-
-
+<div infiniteScroll [infiniteScrollDistance]="4" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
+</div>

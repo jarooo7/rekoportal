@@ -1,12 +1,164 @@
 {
-    "global":{
-        "language":"Language"
+    "global": {
+        "news": "News",
+        "language": "Language",
+        "or": "or",
+        "preview": "Preview",
+        "send": "Send",
+        "save": "Save",
+        "name": "First name",
+        "lastName": "Last name",
+        "search": "Search",
+        "like": "Like!",
+        "next": "Load more...",
+        "searchText": "Search user or group",
+        "searchUser": "Search user",
+        "searchResult": " Search results",
+        "myProfile": "My profile",
+        "contacts": " Contacts ",
+        "refresh": "Refresh",
+        "cancel": "Cancel ",
+        "remove": "Remove "
     },
-    "auth":{
-        "log": "Sign in",
-        "register": "Rejestracja",
+    "auth": {
+        "log": "Login",
+        "register": "Sign Up",
         "login": "Sign in",
         "password": "Password",
-        "email": "Email"
+        "email": "Email",
+        "registerText": "***************Jeśli nie posiadasz jeszcze konta",
+        "signUp": "Sign Up",
+        "surname": "Last name",
+        "name": "First name",
+        "fb": "Sign in with Facebook",
+        "google": "Sign in with Google",
+        "forgotPassword": "Forgot your password?",
+        "logout": "Log Out",
+        "textResetPassword": "***************Wprowadź adres email by zresetować hasło",
+        "changePassword": "Change password"
+    },
+    "validationError": {
+        "email": "***************Wprowadź adres email",
+        "required": "This field is required ",
+        "smallTextSearch": "***************Zbyt krótki tekst wyszukiwania"
+    },
+    "alert": {
+        "success": {
+            "welcom": "Welcome to RekoPortal",
+            "register": "***************Rejestracja powiodłą się",
+            "resetPassword": "***************Hasło zostało zresetowane",
+            "sendResetPassword": "***************Mail do resetu hasła został wysłąny",
+            "active": "***************Użytkownik został pomyślnie aktywowany",
+            "sendActiveEmail": "***************Email aktywacyjny został wysłany",
+            "addPost": "***************Post został dodany"
+        },
+        "error": {
+            "notConect": "***************Problem z połaczeniem",
+            "userNotFound": "***************Użytkownik o podanym adresie email nie istnieje",
+            "wrongPassword": "***************Błędne hasło",
+            "invalidEmail": "***************Błędny adres email",
+            "isEmail": "***************Użytkownik o podanym adresie email już istnieje",
+            "invalidCode": "***************Token wygasł wyślij maila ponownie",
+            "emailAlreadyInUse": "***************Adres e-mail jest już używany przez inne konto",
+            "notActive": "***************Wystąpił problem z aktywacją użytkownika",
+            "errorSendActiveEmail": "***************Wystąpił błąd przy wysyłaniu maila aktywacyjnego. Spróbuj jescze raz!",
+            "addPost": "***************Dodanie postu nie powieodło się!",
+            "accountExists": "***************Email jest użyty przy innym sposobie logowania"
+        }
+    },
+    "not-active": {
+        "title": "***************Aktywuj konto",
+        "info-text": "***************Aktywuj konto by móc korzystać w pełni z wszystkich funkcji. Na twój adres email został wysłany kod aktywacyjny dzięki któremu aktywujesz konto. Jeśli nie otrzymałeś maila aktywacyjnego wciśnij przycisk ponirzej.",
+        "send": "***************Wyślij ponownie email aktywacyjny"
+    },
+    "profile": {
+        "settingsUser": "***************Ustawienia użytkownika",
+        "editProfile": "***************Edytuj profil",
+        "addPhoto": "***************Dodaj zdjęcie profilowe",
+        "editPhoto": "***************Edytyj zdjęcie profilowe",
+        "addFriends": "***************Dodaj do znajomych",
+        "akceptInvitation": "***************Akceptuj zaproszenie",
+        "rejectInvitation": "***************Odrzuć zaproszenie"
+    },
+    "post": {
+        "addPost": "Add Post",
+        "newPost": "New Post",
+        "dropPhoto": "Drop photo ...",
+        "orSelectPhoto": "... or select.",
+        "placeholder": "What’s up?"
+    },
+    "emoji": {
+        "notfound": "No Emoji Found",
+        "categories": {
+            "search": "Search Results",
+            "recent": "Frequently Used",
+            "people": "Smileys & People",
+            "nature": "Animals & Nature",
+            "foods": "Food & Drink",
+            "activity": "Activity",
+            "places": "Travel & Places",
+            "objects": "Objects",
+            "symbols": "Symbols",
+            "flags": "Flags",
+            "custom": "Custom"
+        }
+    },
+    "msg": {
+        "writeMsg": "Type a message "
+    },
+    "com": {
+        "writeCom": "Write a comment ...",
+        "addCom": "Add comment "
+    },
+    "admin": {
+        "admin": "Admin",
+        "admins": "Admins",
+        "listUser": "List of users",
+        "listGrup": "List of groups",
+        "suggestGrup": "List of new groups",
+        "users": "Users",
+        "addAdminGroup": "******************Dodaj administartora",
+        "addAdmin": "*******************Dodaj uprawnienia administartora",
+        "delAdmin": "***************Usuń uprawnienia administartora",
+        "panelAdmin": "***********Panel administratora"
+    },
+    "article": {
+        "newArticle": "New Article",
+        "title": "Title"
+    },
+    "group": {
+        "group-list": "***********Lista grup rekonstrukcyjnych",
+        "add-group": "***********Dodaj grupę rekonstrukcyjną",
+        "name-group": "Name group",
+        "description": "Description ",
+        "armies": "Army/Armies",
+        "standart": " Standard",
+        "added": "Added",
+        "other": "Other ",
+        "group": "Groups",
+        "edit": "Edit group",
+        "editPhoto": "***********Edytuj zdjęcie grupy",
+        "addPhoto": "***********Dodaj zdjęcie grupy",
+        "settings": " Settings group"
+    },
+    "armies": {
+        "armies": "Armies",
+        "add": "Add new army",
+        "rusEmpire": " Russian Empire army 1914-1918",
+        "ausHung": " Austro-Hungarian army 1914-1918",
+        "prussian": "German Empire army 1914-1918",
+        "hussars": " Polish hussars",
+        "redArmy": "Red Army",
+        "wehrmacht": "Wehrmacht",
+        "bolsheviks": "Bolshevik army",
+        "january": " January Uprising ",
+        "november": "November Uprising",
+        "greatArmy": "Great Army",
+        "knighthood": "Knighthood",
+        "greek": " Greek hoplites",
+        "roman": "Roman hoplites",
+        "polLegions": "Polish Legions",
+        "templar": "Knights Templar",
+        "teutonic": "Teutonic Order"
     }
 }

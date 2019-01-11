@@ -35,6 +35,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { GroupResComponent } from '../group/components/group-res/group-res.component';
+import { UserResComponent } from '../admin/components/user-res/user-res.component';
+import { AdminGroupComponent } from '../group/components/admin-group/admin-group.component';
 
 const MODULES = [
   MatInputModule,
@@ -70,6 +72,7 @@ const DIRECTIVES = [
 
 const COMPONENTS = [
   GroupResComponent,
+  AdminGroupComponent,
   UserResultComponent,
   FriendsListComponent,
   ContactsComponent,
@@ -80,7 +83,8 @@ const COMPONENTS = [
   LikeComponent,
   ViewCommentComponent,
   CommentComponent,
-  AddCommentComponent
+  AddCommentComponent,
+  UserResComponent
 ];
 
 @NgModule({
@@ -97,6 +101,7 @@ const COMPONENTS = [
     ...MODULES,
     ...DIRECTIVES,
     ...COMPONENTS
-  ]
+  ],
+  entryComponents: [AdminGroupComponent]
 })
 export class SharedModule { }

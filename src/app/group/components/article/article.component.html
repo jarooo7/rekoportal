@@ -1,4 +1,4 @@
-<div class="row">
+<div *ngIf="article" class="row">
   <div class="col-md-10 text-center mx-auto" *ngIf="group.name">
     <img *ngIf="group.avatar" src="{{group.avatar.url||'../../../../assets/group.png'}}" class="rounded-circle border-white profile-p ">
     <img *ngIf="!group.avatar" src="{{'../../../../assets/group.png'}}" class="rounded-circle border-white profile-p ">

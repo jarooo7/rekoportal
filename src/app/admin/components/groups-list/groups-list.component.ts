@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AdminService } from '../../services/admin.service';
 import { map } from 'rxjs/operators';
 import { GroupModel } from '../../../group/models/group';
-import { PreviewGroupComponent } from '../preview-group/preview-group.component';
+import { AdminGroupComponent } from '../../../group/components/admin-group/admin-group.component';
 
 @Component({
   selector: 'app-groups-list',
@@ -22,10 +22,10 @@ export class GroupsListComponent implements OnInit {
     }
 
     openDialog(group: GroupModel): void {
-      this.dialog.open(PreviewGroupComponent, {
-        maxWidth: '600px',
-        minWidth: '400px',
-        data: group
+      const dialogRef = this.dialog.open(AdminGroupComponent, {
+      minWidth: '300px',
+      maxWidth: '600px',
+      data: group.key
       });
     }
 

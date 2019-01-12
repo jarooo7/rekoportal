@@ -44,8 +44,8 @@ export class AddArticleComponent implements OnInit {
     ngOnInit() {
       this.openEmoji = false;
       this.articleForm = this.formBuilder.group({
-        [FormControlNames.ARTICLE]: ['', [Validators.required]],
-        [FormControlNames.TITLE]: ['', [Validators.required]]
+        [FormControlNames.ARTICLE]: ['', [Validators.required, Validators.maxLength(100)]],
+        [FormControlNames.TITLE]: ['', [Validators.required, Validators.maxLength(1500)]]
       });
     }
 

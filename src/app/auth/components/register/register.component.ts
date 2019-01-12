@@ -43,9 +43,9 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       [FormControlNames.EMAIL_ADDRESS]: ['',
         [Validators.required, Validators.email]],
-      [FormControlNames.PASSWORD]: ['', [Validators.required]],
-      [FormControlNames.NAME]: ['', [Validators.required]],
-      [FormControlNames.LAST_NAME]: ['', [Validators.required]],
+      [FormControlNames.PASSWORD]: ['', [Validators.required, Validators.minLength(6)]],
+      [FormControlNames.NAME]: ['', [Validators.required, Validators.maxLength(100)]],
+      [FormControlNames.LAST_NAME]: ['', [Validators.required, Validators.maxLength(100)]],
     });
   }
   public onSubmit() {

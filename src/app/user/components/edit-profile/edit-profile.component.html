@@ -2,14 +2,14 @@
 <div mat-dialog-content>
   <form [formGroup]="profileForm">
     <mat-form-field class="w-100">
-      <input type="text" appErrorDirective matInput [placeholder]="'global.name'|translate" [formControlName]="formControlNames.NAME">
+      <input type="text" appErrorDirective errorKeyParent="validationError.name" matInput [placeholder]="'global.name'|translate" [formControlName]="formControlNames.NAME">
     </mat-form-field>
     <mat-form-field class="w-100">
-      <input type="text" appErrorDirective matInput [placeholder]="'global.lastName'|translate" [formControlName]="formControlNames.LAST_NAME">
+      <input type="text" appErrorDirective errorKeyParent="validationError.name" matInput [placeholder]="'global.lastName'|translate" [formControlName]="formControlNames.LAST_NAME">
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions class="w-100 mb-2">
   <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
-  <button class="btn-primary btn" (click)="onSubmit()">{{'global.save'| translate}}</button>
+  <button  [disabled]="!profileForm.valid" class="btn-primary btn" (click)="onSubmit()">{{'global.save'| translate}}</button>
 </div>

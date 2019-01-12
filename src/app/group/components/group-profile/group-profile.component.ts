@@ -68,7 +68,12 @@ export class GroupProfileComponent implements OnInit {
     });
   }
 
-  refresh() {}
+  refresh() {
+    this.article = new BehaviorSubject([]);
+    this.lastKey = null;
+    this.finish = false;
+    this.getPost();
+  }
 
   readRouting() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {

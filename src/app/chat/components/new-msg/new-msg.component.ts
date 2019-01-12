@@ -29,7 +29,7 @@ export class NewMsgComponent implements OnInit {
   ngOnInit() {
     this.openEmoji = false;
     this.msgForm = this.formBuilder.group({
-      [FormControlNames.MSG]: ['', [Validators.required]]
+      [FormControlNames.MSG]: ['', [Validators.required, Validators.maxLength(1500)]]
     });
   }
   addEmoji($event) {

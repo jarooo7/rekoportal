@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { GropuService } from '../../services/gropu.service';
 import { map } from 'rxjs/operators';
 import { ArticleModel } from '../../models/article';
@@ -24,6 +24,7 @@ export class ArticleComponent  {
   @Input() set uid(uid: string) {
     this.loadYorProfileUser(uid);
   }
+  @Output() removeEmit = new EventEmitter();
   @Input() locId: string;
   article: ArticleModel;
   isAdminService = false;
@@ -56,6 +57,9 @@ export class ArticleComponent  {
     const dialogRef = this.dialog.open(RemoveArticleComponent, {
       width: '400px',
       data: {groupId: this.group.key, id: id, photos: this.article.photoLoc, locId: this.locId, date:  this.article.date}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.removeEmit.emit();
     });
   }
 

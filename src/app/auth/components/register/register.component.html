@@ -12,7 +12,7 @@
               </div>
               <div class="form-group">
                 <label>{{'auth.password'|translate}}</label>
-                <input type="password" appErrorDirective class="form-control" [placeholder]="'auth.password' | translate" [formControlName]="formControlNames.PASSWORD">
+                <input type="password" appErrorDirective class="form-control" errorKeyParent="validationError.password" [placeholder]="'auth.password' | translate" [formControlName]="formControlNames.PASSWORD">
               </div>
               <!-- <div class="form-group">
               <input type="checkbox" appErrorDirective [formControlName]="formControlNames.AKCEPT"> {{'auth.akcept'|translate}}
@@ -22,11 +22,11 @@
             </div> -->
               <div class="form-group">
                 <label>{{'global.name'|translate}}</label>
-                <input type="email" appErrorDirective class="form-control" [placeholder]="'global.name' | translate" [formControlName]="formControlNames.NAME">
+                <input type="text" appErrorDirective class="form-control" errorKeyParent="validationError.name" [placeholder]="'global.name' | translate" [formControlName]="formControlNames.NAME">
               </div>
               <div class="form-group">
                 <label>{{'global.lastName'|translate}}</label>
-                <input type="text" appErrorDirective class="form-control" [placeholder]="'global.lastName' | translate" [formControlName]="formControlNames.LAST_NAME">
+                <input type="text" appErrorDirective class="form-control" errorKeyParent="validationError.name" [placeholder]="'global.lastName' | translate" [formControlName]="formControlNames.LAST_NAME">
               </div>
               <button [disabled]="!registerForm.valid" type="submit" class="btn button btn-primary btn-block">{{'auth.signUp'|translate}}</button>
             </form>

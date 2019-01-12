@@ -71,7 +71,7 @@ export class EmailActionComponent implements OnInit {
       this.viewForm = true;
     }
     this.resetPasswordForm = this.formBuilder.group({
-      [FormControlNames.PASSWORD]: ['', [Validators.required]]
+      [FormControlNames.PASSWORD]: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 

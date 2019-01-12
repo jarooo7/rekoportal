@@ -46,6 +46,18 @@
         "changePassword": "Zmień hasło"
     },
     "validationError": {
+        "name":{
+            "required": "Uzupełnij pole",
+            "maxlength": "Maksymalna ilość znaków: 100 znaków"
+        },
+        "text":{
+            "required": "Uzupełnij pole",
+            "maxlength": "Maksymalna ilość znaków: 1500"
+        },
+        "password":{
+            "required": "Uzupełnij pole",
+            "minlength": "Minimalna ilość znaków: 6"
+        },
         "email": "Wprowadź adres email",
         "required": "Uzupełnij pole",
         "smallTextSearch": "Zbyt krótki tekst wyszukiwania"

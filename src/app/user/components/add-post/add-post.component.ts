@@ -42,7 +42,7 @@ export class AddPostComponent implements OnInit {
   ngOnInit() {
     this.openEmoji = false;
     this.postForm = this.formBuilder.group({
-      [FormControlNames.POST]: ['', [Validators.required]]
+      [FormControlNames.POST]: ['', [Validators.required, Validators.maxLength(1500)]]
     });
   }
 

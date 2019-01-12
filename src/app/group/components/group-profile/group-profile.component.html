@@ -99,7 +99,7 @@
       </div>
     </div>
     <div>
-      <app-article [group]="group" [isAdmin]="isAdmin" [locId]="a.key" [uid]="userId" [id]="a.idArticle"></app-article>
+      <app-article [group]="group" (removeEmit)="refresh()" [isAdmin]="isAdmin" [locId]="a.key" [uid]="userId" [id]="a.idArticle"></app-article>
     </div>
   </div>
 </div>

@@ -52,8 +52,8 @@ export class AddGroupComponent implements OnInit {
   ngOnInit() {
     this.getOtherArmies();
     this.groupForm = this.formBuilder.group({
-      [FormControlNames.NAME]: ['', [Validators.required]],
-      [FormControlNames.DESCRIPTION]: ['', [Validators.required]],
+      [FormControlNames.NAME]: ['', [Validators.required, Validators.maxLength(100)]],
+      [FormControlNames.DESCRIPTION]: ['', [Validators.required, Validators.maxLength(1500)]],
       [FormControlNames.ARMIES]: [''],
     });
   }

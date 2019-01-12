@@ -28,8 +28,8 @@ export class EditProfileComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
-      [FormControlNames.NAME]: ['', [Validators.required]],
-      [FormControlNames.LAST_NAME]: ['', [Validators.required]]
+      [FormControlNames.NAME]: ['', [Validators.required, Validators.maxLength(100)]],
+      [FormControlNames.LAST_NAME]: ['', [Validators.required, Validators.maxLength(100)]]
     });
     this.setFormValue();
   }

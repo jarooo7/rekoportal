@@ -109,6 +109,7 @@ export class AddArticleComponent implements OnInit {
     onSubmit() {
       if (!this.articleForm.valid) { return; }
       const urlList: string[] = [];
+      const photoUrl: string[] = [];
       const timestamp = this.userService.time();
       let index = 0;
       let index2 = 0;
@@ -119,6 +120,7 @@ export class AddArticleComponent implements OnInit {
         this.photos.forEach(
           file => {
             id = Math.random().toString(36).substring(2);
+            photoUrl.push(`${index}-${id}`);
             this.groupService.uploadPhoto(
               today,
               `${index}-${id}`, file, this.groupId).then(p => {
@@ -132,6 +134,8 @@ export class AddArticleComponent implements OnInit {
                         article.title = this.articleForm.get(FormControlNames.TITLE).value;
                         article.groupId = this.groupId;
                         article.photos = urlList;
+                        article.date = today;
+                        article.photoLoc = photoUrl;
                       }
                       this.groupService.addArticle(article).then(() => {
                         this.translate

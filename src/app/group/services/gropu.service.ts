@@ -7,7 +7,7 @@ import { AngularFireStorageReference, AngularFireUploadTask, AngularFireStorage 
 import { ArticleModel, ArticleLocationModel } from '../models/article';
 import { ArmyModel } from '../models/army';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
-import { AvatarModel } from '../../user/models/profile.model';
+import { AvatarModel, UserModel } from '../../user/models/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,12 @@ export class GropuService {
           this.userId = user.uid;
         }
       });
+    }
+
+    getProfile(uid: string) {
+      let  myProfile: AngularFireObject<UserModel> = null;
+      myProfile = this.dataBase.object(`profile/${uid}`);
+      return myProfile.snapshotChanges();
     }
 
     addSuggestionGroup(sug: SugGroupModel) {
@@ -133,5 +139,32 @@ export class GropuService {
     setAdminsGroup(groupId: string, admins: string[]) {
       const group: AngularFireObject<string[]> = this.dataBase.object(`group/${groupId}/admins`);
       group.update(admins);
+    }
+
+    removeArticle(id: string) {
+      const rv =  this.dataBase.object(`article/${id}`);
+      return rv.remove();
+    }
+
+    removeArticleLocation(key: string, id: string) {
+      const rv =  this.dataBase.object(`articleLocation/${key}/${id}`);
+      return rv.remove();
+    }
+
+    removeCom(key: string, id: string) {
+      const rv =  this.dataBase.object(`comment/${key}/${id}`);
+      return rv.remove();
+    }
+
+    removeLike(key: string, id: string) {
+      const rv =  this.dataBase.object(`like/${key}/${id}`);
+      return rv.remove();
+    }
+
+    removePhoto(gid: string, d: string, nazwa: string) {
+      let storageRef: AngularFireStorageReference;
+      let uploadTask: AngularFireUploadTask;
+      storageRef = this.afStorage.ref(`photo/${gid}/${d}`);
+      uploadTask = storageRef.child(nazwa).delete();
     }
 }

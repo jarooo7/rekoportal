@@ -1,3 +1,12 @@
+<div class="row">
+    <div class="col-md-6 mx-auto text-right">
+      <fa *ngIf="isAdmin || isAdminService" mat-icon-button [matMenuTriggerFor]="art" class="text-primary" name="cog"></fa>
+      <mat-menu #art="matMenu">
+        <button (click)="remove(article.key)" mat-menu-item>{{'global.remove'|translate}}</button>
+        <button mat-menu-item>{{'global.edit'|translate}}</button>
+      </mat-menu>
+    </div>
+  </div>
 <div *ngIf="article" class="row">
   <div class="col-md-10 text-center mx-auto" *ngIf="group.name">
     <img *ngIf="group.avatar" src="{{group.avatar.url||'../../../../assets/group.png'}}" class="rounded-circle border-white profile-p ">

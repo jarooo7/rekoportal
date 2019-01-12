@@ -12,6 +12,7 @@ import { ArticleComponent } from './components/article/article.component';
 import { ArmiesListComponent } from './components/armies-list/armies-list.component';
 import { SelectedGroupsComponent } from './components/selected-groups/selected-groups.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
+import { RemoveArticleComponent } from './components/remove-article/remove-article.component';
 
 
 @NgModule({
@@ -30,12 +31,14 @@ import { EditGroupComponent } from './components/edit-group/edit-group.component
     ArticleComponent,
     ArmiesListComponent,
     SelectedGroupsComponent,
-    EditGroupComponent
+    EditGroupComponent,
+    RemoveArticleComponent
   ],
   entryComponents: [
     AddGroupComponent,
     AddArticleComponent,
-    EditGroupComponent
+    EditGroupComponent,
+    RemoveArticleComponent
   ]
 })
 export class GroupModule { }

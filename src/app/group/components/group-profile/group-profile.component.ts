@@ -59,6 +59,13 @@ export class GroupProfileComponent implements OnInit {
       maxWidth: '800px',
       data: this.group.key
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.article = new BehaviorSubject([]);
+      this.lastKey = null;
+      this.finish = false;
+      this.getPost();
+    });
   }
 
   refresh() {}
@@ -174,5 +181,7 @@ export class GroupProfileComponent implements OnInit {
       data: this.group.key
     });
   }
+
+
 
 }

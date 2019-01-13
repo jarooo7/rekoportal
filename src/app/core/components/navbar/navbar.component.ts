@@ -10,6 +10,7 @@ import { SearchResultsService } from '../../../search/services/search-results.se
 import { UserModel, AvatarModel, UserId } from '../../../user/models/profile.model';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { SubModel } from '../../../group/models/group';
 
 enum FormControlNames {
   SEARCH = 'search'
@@ -28,9 +29,12 @@ export class NavbarComponent implements OnInit {
   searchForm: FormGroup;
   formControlNames = FormControlNames;
   view = true;
+  howSub = 0;
+  sub: SubModel[];
   invit: UserId[] = [];
   isAdmin: boolean;
   invitFlag = false;
+  subFlag = false;
   avatar: AvatarModel;
   uid: string;
   user: Observable<firebase.User>;
@@ -78,6 +82,7 @@ export class NavbarComponent implements OnInit {
     this.user.subscribe(u => {
       if (u) {
         if (u.uid) {
+          this.isSub(u.uid);
           this.uid = u.uid;
           this.loadUser();
           this.loadInvit();
@@ -109,6 +114,10 @@ export class NavbarComponent implements OnInit {
 
   invitOpen() {
     this.invitFlag = !this.invitFlag;
+  }
+
+  subOpen() {
+    this.subFlag = !this.subFlag;
   }
 
   isInvit(): string {
@@ -187,5 +196,20 @@ export class NavbarComponent implements OnInit {
   hidesearch() {
     this.view = false;
   }
+
+  isSub(userId: string) {
+    this.userService.isSub(userId).pipe(
+      map(sug =>
+      sug.map(u => ({ key: u.payload.doc.id, ...u.payload.doc.data() }))))
+      .subscribe(p => {
+        this.sub = p;
+        this.howSub = 0;
+        p.forEach(u => {
+          if (!u.read) {
+            this.howSub++;
+          }
+        });
+      });
+      }
 
 }

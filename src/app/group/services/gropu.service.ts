@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { AuthService } from '../../auth/services/auth.service';
 import { SugGroupModel } from '../models/suggestionGroup';
@@ -17,6 +18,7 @@ export class GropuService {
   userId: string;
 
   constructor(
+    public afs: AngularFirestore,
     private dataBase: AngularFireDatabase,
     private authService: AuthService,
     private ng2ImgToolsService: Ng2ImgToolsService,
@@ -170,5 +172,20 @@ export class GropuService {
       let uploadTask: AngularFireUploadTask;
       storageRef = this.afStorage.ref(`photo/${gid}/${d}`);
       uploadTask = storageRef.child(nazwa).delete();
+    }
+
+    subscrib(groupId: string, id: string) {
+      const ref = this.afs.collection('sub');
+      return ref.doc('group').collection(groupId).doc(id).set({userId: id});
+    }
+
+    unSubscrib(groupId: string, id: string) {
+      const ref = this.afs.collection('sub');
+      return ref.doc('group').collection(groupId).doc(id).delete();
+    }
+
+    isSub(groupId: string) {
+      const ref = this.afs.collection('sub');
+      return ref.doc('group').collection(groupId).snapshotChanges();
     }
 }

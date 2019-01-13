@@ -29,6 +29,8 @@ export class GroupProfileComponent implements OnInit {
   lastKey: string;
   user: Observable<firebase.User>;
   finish: boolean;
+  isSubscribe = false;
+  howSub = 0;
   userId: string;
   isAdmin = false;
 
@@ -100,6 +102,7 @@ export class GroupProfileComponent implements OnInit {
   }
 
   loadGroup() {
+    this.isSub();
     this.groupService.getGroup(this.groupId).pipe(
       map(group => ({ key: group.payload.key, ...group.payload.val() })
       )
@@ -187,6 +190,28 @@ export class GroupProfileComponent implements OnInit {
     });
   }
 
+  subscrib() {
+    this.groupService.subscrib(this.groupId, this.userId);
+  }
+
+  unSubscrib() {
+    this.groupService.unSubscrib(this.groupId, this.userId);
+  }
+
+  isSub() {
+    this.groupService.isSub(this.groupId).pipe(
+      map(sug =>
+      sug.map(u => ({ key: u.payload.doc.id, ...u.payload.doc.data() }))))
+      .subscribe(p => {
+        this.isSubscribe = false;
+        this.howSub = p.length;
+        p.forEach(u => {
+          if (u.key === this.userId) {
+            this.isSubscribe = true;
+          }
+        });
+      });
+      }
 
 
 }

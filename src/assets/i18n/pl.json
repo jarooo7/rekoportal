@@ -146,6 +146,7 @@
         "title": "Tytuł"
     },
     "group": {
+        "sub": "Subskrybuj",
         "group-list": "Lista grup rekonstrukcyjnych",
         "add-group": "Dodaj grupę rekonstrukcyjną",
         "name-group": "Nazwa grupy",

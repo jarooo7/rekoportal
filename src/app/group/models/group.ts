@@ -13,3 +13,10 @@ export class GroupModel {
 export class KeyGroupnModel {
     id: string;
 }
+
+export class SubModel {
+    read: boolean;
+    idArticle:  string;
+    timestamp: any;
+    groupId: string;
+}

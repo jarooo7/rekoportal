@@ -29,9 +29,21 @@
         </div>
       </div>
     </form>
-    <div *ngIf="isLogin()" class="px-2  ml-auto">
+    <div *ngIf="isLogin()" class="px-1  ml-auto">
+        <div (click)="subOpen()">
+          <fa matBadge="{{howSub}}" matBadgeColor="warn" name="bell" class="h4 my-auto mx-2 text-light"></fa>
+        </div>
+        <div *ngIf="subFlag">
+          <div class="search mt-3">
+            <div *ngFor="let r of sub">
+              {{r.idArticle}}
+            </div>
+          </div>
+        </div>
+      </div>
+    <div *ngIf="isLogin()" class="px-1 ">
       <div (click)="invitOpen()">
-        <fa matBadge="{{invit.length}}" [matBadgeHidden]="isInvit()" matBadgeColor="warn" name="users" class="h4 my-auto mx-3 text-light"></fa>
+        <fa matBadge="{{invit.length}}" [matBadgeHidden]="isInvit()" matBadgeColor="warn" name="users" class="h4 my-auto mx-2 text-light"></fa>
       </div>
       <div *ngIf="invitFlag">
         <div class="search mt-3">

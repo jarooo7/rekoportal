@@ -55,7 +55,18 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-      <div *ngIf="isAdmin" class="col-md-6 text-right">
+      <div  class="col-md-6 text-right">
+        <div *ngIf="userId">
+        <label>
+          <button *ngIf="!isSubscribe" class="btn btn-success px-4" (click)="subscrib()">
+              {{howSub}}  <fa name="bell"></fa> {{'group.sub'| translate}}
+          </button>
+          <button *ngIf="isSubscribe" class="btn btn-light px-4" (click)="unSubscrib()">
+              {{howSub}}  <fa name="bell"></fa> {{'group.sub'| translate}}
+            </button>
+        </label>
+      </div>
+        <div *ngIf="isAdmin" >
         <label>
           <button class="btn btn-primary px-4" (click)="openDialog()">
             <fa name="plus"></fa> {{'article.newArticle'| translate}}
@@ -87,6 +98,7 @@
            </h6>
         </label>
       </div>
+    </div>
     </div>
   </div>
 </div>

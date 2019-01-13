@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { ProfileModel, AvatarModel, UserId, Status } from '../models/profile.model';
 import { AuthService } from '../../auth/services/auth.service';
@@ -9,6 +10,7 @@ import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { PostModel, LikeModel, ComModel} from '../../shared/models/post.model';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
+import { SubModel } from '../../group/models/group';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,7 @@ export class UserService {
     private ng2ImgToolsService: Ng2ImgToolsService,
     private dataBase: AngularFireDatabase,
     private authService: AuthService,
+    public afs: AngularFirestore,
     private afStorage: AngularFireStorage
   ) {
     this.user = authService.authState$;
@@ -254,5 +257,10 @@ export class UserService {
   editPost(art: PostModel, uid: string) {
     const article: AngularFireObject<PostModel> = this.dataBase.object(`post/${uid}/${art.key}`);
     return article.update({text: art.text, date: art.date, photoLoc: art.photoLoc, photos: art.photos});
+  }
+
+  isSub(uid: string) {
+    const ref = this.afs.collection('sub');
+    return ref.doc('user').collection<SubModel>(uid).snapshotChanges();
   }
 }

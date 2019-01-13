@@ -17,7 +17,6 @@ export class ArticleComponent  {
 
   @Input() set id(id: string) {
     this.articleId = id;
-    console.log(id);
     this.loadArticle(id);
   }
   @Input() group: GroupModel;
@@ -40,7 +39,6 @@ export class ArticleComponent  {
       map(article => ({ key: article.payload.key, ...article.payload.val() })
       )
     ).subscribe(res => {
-      console.log(res);
       this.article = res;
     });
   }

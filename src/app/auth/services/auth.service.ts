@@ -203,11 +203,4 @@ export class AuthService {
     return user.reauthenticateWithCredential(cred);
   }
 
-  // changePassword = (currentPassword, newPassword) => {
-  //   this.reauthenticate(currentPassword).then(() => {
-  //     const user = firebase.auth().currentUser;
-  //     user.updatePassword(newPassword).then(() => {
-  //     }).catch((error) => { console.log(error); });
-  //   }).catch((error) => { console.log(error); });
-  // }
 }

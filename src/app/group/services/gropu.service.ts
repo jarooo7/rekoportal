@@ -87,7 +87,6 @@ export class GropuService {
       const article: AngularFireList<ArticleModel> = this.dataBase.list(`article`);
       const location: AngularFireList<ArticleLocationModel> = this.dataBase.list(`articleLocation/${art.groupId}`);
       return article.push(art).then(k => {
-        console.log(k);
          let loc: ArticleLocationModel;
          loc = new ArticleLocationModel(); {
          loc.timestamp = art.timestamp;

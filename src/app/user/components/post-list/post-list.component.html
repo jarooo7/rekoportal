@@ -3,15 +3,22 @@
     <div class="row">
       <div class="col-md-6 text-center mx-auto">
         <hr class="mb-5">
+        <div *ngIf="isYour || isAdmin" class="text-right w-100">
+          <fa mat-icon-button [matMenuTriggerFor]="postm" class="text-primary" name="cog"></fa>
+          <mat-menu #postm="matMenu">
+            <button (click)="remove(post)" mat-menu-item>{{'global.remove'|translate}}</button>
+            <button (click)="edit(post)" mat-menu-item>{{'global.edit'|translate}}</button>
+          </mat-menu>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-10 text-center mx-auto" *ngIf="user.name">
-        <img *ngIf ="user.avatar" src="{{user.avatar.url||'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
-        <img *ngIf ="!user.avatar" src="{{'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
+        <img *ngIf="user.avatar" src="{{user.avatar.url||'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
+        <img *ngIf="!user.avatar" src="{{'../../../../assets/profile.png'}}" class="rounded-circle border-white profile ">
         <h2 class="mt-3">{{user.name}} {{user.lastName}}</h2>
         <p class="mt-2">
-          <small>{{post.timestamp | date: 'yyyy-MM-dd  HH:mm'}}</small>
+          <small>{{post.timestamp | date: 'yyyy-MM-dd HH:mm'}}</small>
         </p>
         <p class="mb-3">{{post.text}} </p>
       </div>
@@ -20,9 +27,9 @@
         <app-like [postKey]="post.key" [userId]="userId"></app-like>
       </div>
       <div class="col-md-7 mx-auto" *ngIf="user.name">
-        <app-view-comment [keyPost]="post.key" [userId]="userId"></app-view-comment>  
+        <app-view-comment [keyPost]="post.key" [userId]="userId"></app-view-comment>
         <app-add-comment [key]="post.key" [userId]="userId"></app-add-comment>
-      </div>      
+      </div>
     </div>
   </div>
 </div>

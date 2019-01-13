@@ -4,6 +4,11 @@ import { UserService } from '../../services/user.service';
 import * as _ from 'lodash';
 import { map, tap } from 'rxjs/operators';
 import { UserModel } from '../../models/profile.model';
+import { Observable } from 'rxjs';
+import { PostModel } from '../../../shared/models/post.model';
+import { RemovePostComponent } from '../remove-post/remove-post.component';
+import { MatDialog } from '@angular/material/dialog';
+import { EditPostComponent } from '../edit-post/edit-post.component';
 
 @Component({
   selector: 'app-post-list',
@@ -14,8 +19,14 @@ export class PostListComponent  {
   @Input() set getUser(userId: string) {
     this.posts = new BehaviorSubject([]);
     this.userId = userId;
+    this.isYour = false;
     this.lastKey = null;
     this.finish = false;
+    if (this.yorUserId) {
+      if (this.yorUserId === userId) {
+        this.isYour = true;
+      }
+    }
     this.getPost();
   }
 
@@ -33,11 +44,32 @@ export class PostListComponent  {
   posts = new BehaviorSubject([]);
   batch = 4;
   lastKey: string;
+  isYour = false;
+  isAdmin = false;
   finish: boolean;
+  yorUserId: string;
+  userSub: Observable<firebase.User>;
 
   constructor(
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    public dialog: MatDialog
+  ) {
+    this.userSub = userService.user;
+    this.userSub.subscribe(u => {
+      if (u) {
+        if (u.uid) {
+          this.isYour = false;
+          this.yorUserId = u.uid;
+          this.getProfile(u.uid);
+          if (this.userId) {
+            if (u.uid === this.userId) {
+              this.isYour = true;
+            }
+          }
+        }
+      }
+    });
+  }
     onScroll () {
     this.getPost();
   }
@@ -67,4 +99,41 @@ export class PostListComponent  {
       sub.unsubscribe();
     });
   }
+
+  getProfile(id: string) {
+    this.userService.getProfile(id).pipe(
+      map(profile => ({ key: profile.payload.key, ...profile.payload.val() })
+      )
+    ).subscribe(p => {
+      this.isAdmin = p.isAdmin;
+    });
+  }
+
+  remove(post: PostModel) {
+    const dialogRef = this.dialog.open(RemovePostComponent, {
+      width: '400px',
+      data: {userId: this.user.key, id: post.key, photos: post.photoLoc, date:  post.date}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.posts = new BehaviorSubject([]);
+      this.lastKey = null;
+      this.finish = false;
+      this.getPost();
+    });
+  }
+
+  edit(post: PostModel) {
+    const dialogRef = this.dialog.open(EditPostComponent, {
+      minWidth: '60vw',
+      maxWidth: '800px',
+      data: {userId: this.user.key, post: post}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.posts = new BehaviorSubject([]);
+      this.lastKey = null;
+      this.finish = false;
+      this.getPost();
+    });
+  }
+
 }

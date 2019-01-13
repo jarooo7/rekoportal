@@ -14,6 +14,22 @@ export class PostModel {
     date: string;
     userId: string;
     timestamp: any;
+    key?: string;
+    photos?: string[];
+    photoLoc?: string[];
+}
+
+export class PostIdModel {
+    id: string;
+    userId: string;
+    locId: string;
+    date?: string;
     photos?: string[];
 }
+
+export class EditPosteModel {
+    userId: string;
+    post: PostModel;
+}
+
 

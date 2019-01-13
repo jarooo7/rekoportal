@@ -98,6 +98,14 @@ export class UserService {
     return uploadTask;
   }
 
+  uploadPhoto2(url: string, name: string, file: File, uid: string) {
+    let storageRef: AngularFireStorageReference;
+    let uploadTask: AngularFireUploadTask;
+    storageRef = this.afStorage.ref(`photo/${uid}/${url}`);
+    uploadTask = storageRef.child(name).put(file);
+    return uploadTask;
+  }
+
   resize(file: File) {
    return this.ng2ImgToolsService.resize([file], 800, 800);
   }
@@ -219,5 +227,32 @@ export class UserService {
   editUser(uid: string, name: string, lastName: string, search: string) {
     const group: AngularFireObject<ProfileModel> = this.dataBase.object(`profile/${uid}`);
     group.update({name: name, lastName: lastName, search: search});
+  }
+
+  removePost(uid: string, id: string) {
+    const rv =  this.dataBase.object(`post/${uid}/${id}`);
+    return rv.remove();
+  }
+
+  removeComPost(key: string, id: string) {
+    const rv =  this.dataBase.object(`comment/${key}/${id}`);
+    return rv.remove();
+  }
+
+  removeLike(key: string, id: string) {
+    const rv =  this.dataBase.object(`like/${key}/${id}`);
+    return rv.remove();
+  }
+
+  removePhoto(uid: string, d: string, nazwa: string) {
+    let storageRef: AngularFireStorageReference;
+    let uploadTask: AngularFireUploadTask;
+    storageRef = this.afStorage.ref(`photo/${uid}/${d}`);
+    uploadTask = storageRef.child(nazwa).delete();
+  }
+
+  editPost(art: PostModel, uid: string) {
+    const article: AngularFireObject<PostModel> = this.dataBase.object(`post/${uid}/${art.key}`);
+    return article.update({text: art.text, date: art.date, photoLoc: art.photoLoc, photos: art.photos});
   }
 }

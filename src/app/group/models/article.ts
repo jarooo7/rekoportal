@@ -23,3 +23,8 @@ export class ArticleIdModel {
     photos?: string[];
 }
 
+export class EditArticleModel {
+    groupId: string;
+    article: ArticleModel;
+}
+

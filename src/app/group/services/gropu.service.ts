@@ -97,6 +97,11 @@ export class GropuService {
       });
     }
 
+    editArticle(art: ArticleModel) {
+      const article: AngularFireObject<ArticleModel> = this.dataBase.object(`article/${art.key}`);
+      return article.update({text: art.text, date: art.date, title: art.title, photoLoc: art.photoLoc, photos: art.photos});
+    }
+
     getOtherArmies() {
       const a: AngularFireList<ArmyModel> = this.dataBase.list('otherArmies');
       return a.snapshotChanges();

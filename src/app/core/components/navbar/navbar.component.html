@@ -17,7 +17,7 @@
         </mat-menu>
       </li>
     </ul>
-    <form [formGroup]="searchForm" class="form-inline col-md-5 my-2 mx-3 my-lg-0">
+    <form *ngIf="isLogin()" [formGroup]="searchForm" class="form-inline col-md-5 my-2 mx-3 my-lg-0">
       <fa class="search mx-3" name="search" (click)="search()"></fa>
       <input [formControlName]="formControlNames.SEARCH" (keyup)="searchNow($event.target.value)" (keydown.enter)="search()" class="form-control w-100 pl-5 mr-sm-2"
         type="search" placeholder="{{'global.searchText'|translate}}">

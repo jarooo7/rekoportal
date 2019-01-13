@@ -3,7 +3,7 @@
       <fa *ngIf="isAdmin || isAdminService" mat-icon-button [matMenuTriggerFor]="art" class="text-primary" name="cog"></fa>
       <mat-menu #art="matMenu">
         <button (click)="remove(article.key)" mat-menu-item>{{'global.remove'|translate}}</button>
-        <button mat-menu-item>{{'global.edit'|translate}}</button>
+        <button  (click)="edit()"mat-menu-item>{{'global.edit'|translate}}</button>
       </mat-menu>
     </div>
   </div>

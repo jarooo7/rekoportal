@@ -6,6 +6,7 @@ import { group } from '@angular/animations';
 import { GroupModel } from '../../models/group';
 import { RemoveArticleComponent } from '../remove-article/remove-article.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EditArticleComponent } from '../edit-article/edit-article.component';
 
 @Component({
   selector: 'app-article',
@@ -57,6 +58,17 @@ export class ArticleComponent  {
     const dialogRef = this.dialog.open(RemoveArticleComponent, {
       width: '400px',
       data: {groupId: this.group.key, id: id, photos: this.article.photoLoc, locId: this.locId, date:  this.article.date}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.removeEmit.emit();
+    });
+  }
+
+  edit() {
+    const dialogRef = this.dialog.open(EditArticleComponent, {
+      minWidth: '60vw',
+      maxWidth: '800px',
+      data: {groupId: this.group.key, article: this.article}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.removeEmit.emit();

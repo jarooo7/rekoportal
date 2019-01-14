@@ -3,7 +3,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { AuthService } from '../../auth/services/auth.service';
 import { SugGroupModel } from '../models/suggestionGroup';
-import { GroupModel } from '../models/group';
+import { GroupModel, SubModel } from '../models/group';
 import { AngularFireStorageReference, AngularFireUploadTask, AngularFireStorage } from 'angularfire2/storage';
 import { ArticleModel, ArticleLocationModel } from '../models/article';
 import { ArmyModel } from '../models/army';
@@ -187,5 +187,10 @@ export class GropuService {
     isSub(groupId: string) {
       const ref = this.afs.collection('sub');
       return ref.doc('group').collection(groupId).snapshotChanges();
+    }
+
+    readSub(artId: string) {
+      const ref = this.afs.collection('sub');
+      return ref.doc('user').collection<SubModel>(this.userId).doc(artId).update({read: true});
     }
 }

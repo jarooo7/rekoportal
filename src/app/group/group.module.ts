@@ -8,7 +8,6 @@ import { AddGroupComponent } from './components/add-group/add-group.component';
 import { GroupProfileComponent } from './components/group-profile/group-profile.component';
 import { AddArticleComponent } from './components/add-article/add-article.component';
 import { GroupInfoComponent } from './components/group-info/group-info.component';
-import { ArticleComponent } from './components/article/article.component';
 import { ArmiesListComponent } from './components/armies-list/armies-list.component';
 import { SelectedGroupsComponent } from './components/selected-groups/selected-groups.component';
 import { EditGroupComponent } from './components/edit-group/edit-group.component';
@@ -29,7 +28,6 @@ import { EditArticleComponent } from './components/edit-article/edit-article.com
     GroupProfileComponent,
     AddArticleComponent,
     GroupInfoComponent,
-    ArticleComponent,
     ArmiesListComponent,
     SelectedGroupsComponent,
     EditGroupComponent,

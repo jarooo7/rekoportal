@@ -1,3 +1,5 @@
+import { GroupModel } from './group';
+
 export class ArticleModel {
     text: string;
     title: string;
@@ -26,5 +28,10 @@ export class ArticleIdModel {
 export class EditArticleModel {
     groupId: string;
     article: ArticleModel;
+}
+
+export class SubArticleModel {
+    group: GroupModel;
+    article: string;
 }
 

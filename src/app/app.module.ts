@@ -5,8 +5,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './core/components/app/app.component';
 import { CoreModule } from './core/core.modules';
 
+
 @NgModule({
-  declarations: [],
+
   imports: [
     BrowserModule,
     CoreModule.forRoot(),

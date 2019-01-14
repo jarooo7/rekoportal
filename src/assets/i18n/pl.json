@@ -159,7 +159,9 @@
         "edit": "Edytuj gruprę",
         "editPhoto": "Edytuj zdjęcie grupy",
         "addPhoto": "Dodaj zdjęcie grupy",
-        "settings": "Ustawienia grupy"
+        "settings": "Ustawienia grupy",
+        "gr": "Grupa",
+        "addedNewArticle": "opublikowała artykuł"
     },
     "armies": {
         "armies": "Armie",

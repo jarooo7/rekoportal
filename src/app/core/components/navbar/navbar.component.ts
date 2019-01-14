@@ -130,6 +130,13 @@ export class NavbarComponent implements OnInit {
     return 'true';
   }
 
+  isSubs(): string {
+      if (this.howSub === 0) {
+        return 'true';
+      }
+      return 'false';
+  }
+
   isLogin() {
     if (this.authService.fireAuth.auth.currentUser === null) {
       return false;
@@ -202,7 +209,7 @@ export class NavbarComponent implements OnInit {
       map(sug =>
       sug.map(u => ({ key: u.payload.doc.id, ...u.payload.doc.data() }))))
       .subscribe(p => {
-        this.sub = p;
+        this.sub = p.reverse();
         this.howSub = 0;
         p.forEach(u => {
           if (!u.read) {

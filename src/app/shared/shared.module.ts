@@ -37,6 +37,9 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { GroupResComponent } from '../group/components/group-res/group-res.component';
 import { UserResComponent } from '../admin/components/user-res/user-res.component';
 import { AdminGroupComponent } from '../group/components/admin-group/admin-group.component';
+import { SubResComponent } from '../core/components/sub-res/sub-res.component';
+import { ThisArticleComponent } from './components/this-article/this-article.component';
+import { ArticleComponent } from '../group/components/article/article.component';
 
 const MODULES = [
   MatInputModule,
@@ -76,8 +79,10 @@ const COMPONENTS = [
   UserResultComponent,
   FriendsListComponent,
   ContactsComponent,
+  ArticleComponent,
   WindowChatComponent,
   AddPostComponent,
+  SubResComponent,
   NewMsgComponent,
   GalleryComponent,
   LikeComponent,
@@ -95,13 +100,15 @@ const COMPONENTS = [
   declarations: [
     ...DIRECTIVES,
     ...COMPONENTS,
-    FileDropDirective
+    FileDropDirective,
+    ThisArticleComponent
   ],
   exports: [
     ...MODULES,
     ...DIRECTIVES,
     ...COMPONENTS
   ],
-  entryComponents: [AdminGroupComponent]
+  entryComponents: [AdminGroupComponent,
+    ThisArticleComponent]
 })
 export class SharedModule { }

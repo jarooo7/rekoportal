@@ -24,6 +24,12 @@ export class SearchResultsService {
     return com.snapshotChanges();
   }
 
+  get3Group(start, end) {
+    let com: AngularFireList<GroupModel> =  null;
+    com = this.dataBase.list('group', ref => ref.orderByChild('search').startAt(start).limitToFirst(3).endAt(end));
+    return com.snapshotChanges();
+  }
+
   get3User(start, end) {
     let com: AngularFireList<UserModel> =  null;
     com = this.dataBase.list('profile', ref => ref.orderByChild('search').startAt(start).limitToFirst(3).endAt(end));

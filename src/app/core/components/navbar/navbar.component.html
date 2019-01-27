@@ -22,9 +22,14 @@
       <input [formControlName]="formControlNames.SEARCH" (keyup)="searchNow($event.target.value)" (keydown.enter)="search()" class="form-control w-100 pl-5 mr-sm-2"
         type="search" placeholder="{{'global.searchText'|translate}}">
       <div>
-        <div class="search" *ngIf="view">
+        <div  class="search" *ngIf="view">
+          <div><b>{{'admin.users'|translate}}</b></div>
           <div *ngFor="let r of result">
             <app-user-result [user]="r" [isClick]="true" [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
+          </div>
+          <div><b>{{'group.group'|translate}}</b></div>
+          <div class="p-2" *ngFor="let g of gResult">
+              <app-group-res  [group]="g" [isClick]="true" [imgClass]="'mini2'" [textClass]="'h6'" [divClass]="'pl-4'" [groupId]="g.key"> </app-group-res>
           </div>
         </div>
       </div>

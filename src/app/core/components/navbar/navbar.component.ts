@@ -10,7 +10,7 @@ import { SearchResultsService } from '../../../search/services/search-results.se
 import { UserModel, AvatarModel, UserId } from '../../../user/models/profile.model';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-import { SubModel } from '../../../group/models/group';
+import { SubModel, GroupModel } from '../../../group/models/group';
 
 enum FormControlNames {
   SEARCH = 'search'
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   searchText: string;
   searchForm: FormGroup;
   formControlNames = FormControlNames;
-  view = true;
+  view = false;
   howSub = 0;
   sub: SubModel[];
   invit: UserId[] = [];
@@ -39,6 +39,7 @@ export class NavbarComponent implements OnInit {
   uid: string;
   user: Observable<firebase.User>;
   result: UserModel[] = [];
+  gResult: GroupModel[] = [];
   private conectUser: any;
   languageList = [
     {
@@ -52,22 +53,6 @@ export class NavbarComponent implements OnInit {
     {
       name: 'ru',
       src: '../../../../assets/language/ru.svg'
-    },
-    {
-      name: 'lt',
-      src: '../../../../assets/language/lt.svg'
-    },
-    {
-      name: 'fr',
-      src: '../../../../assets/language/fr.svg'
-    },
-    {
-      name: 'sk',
-      src: '../../../../assets/language/sk.svg'
-    },
-    {
-      name: 'de',
-      src: '../../../../assets/language/de.svg'
     }
   ];
   constructor(
@@ -167,7 +152,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.logout().then(() =>
-    this.router.navigate(['/auth/login']));
+    this.router.navigate(['/group/posts']));
   }
   search() {
     this.view = false;
@@ -184,12 +169,12 @@ export class NavbarComponent implements OnInit {
   }
 
   searchNow(event) {
-    this.view = true;
     const textSearch = getFormatedSearch(event.toLocaleLowerCase());
     if (textSearch.length < 3) {
       this.result = [];
       return;
     }
+    this.view = true;
     this.searchService.get3User(textSearch, textSearch + '\uf8ff')
       .pipe(
         map(like =>
@@ -197,6 +182,14 @@ export class NavbarComponent implements OnInit {
         ))
       .subscribe(u => {
         this.result = u;
+      });
+      this.searchService.get3Group(textSearch, textSearch + '\uf8ff')
+      .pipe(
+        map(like =>
+          like.map(l => ({ key: l.payload.key, ...l.payload.val() }))
+        ))
+      .subscribe(u => {
+        this.gResult = u;
       });
   }
 

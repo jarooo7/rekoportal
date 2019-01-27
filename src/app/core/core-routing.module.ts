@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IsNotAuthGuard } from './guard/is-not-auth.guard';
 import { IsNotVerificationGuard } from './guard/is-not-verification.guard';
+import { IsVerificationGuard } from './guard/is-verification.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'table-post',
-    loadChildren: './../table-post/table-post.module#TablePostModule'
+    loadChildren: './../table-post/table-post.module#TablePostModule',
+    canActivate: [IsVerificationGuard]
   },
   {
     path: 'email-action',
@@ -24,7 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: './../user/user.module#UserModule'
+    loadChildren: './../user/user.module#UserModule',
+    canActivate: [IsVerificationGuard]
   },
   {
     path: 'group',
@@ -32,15 +35,22 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: './../admin/admin.module#AdminModule'
+    loadChildren: './../admin/admin.module#AdminModule',
+    canActivate: [IsVerificationGuard]
   },
   {
     path: 'search',
-    loadChildren: './../search/search.module#SearchModule'
+    loadChildren: './../search/search.module#SearchModule',
+    canActivate: [IsVerificationGuard]
   },
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'group',
+    pathMatch: 'full'
+  },
+  {
+    path: '*',
+    redirectTo: 'group',
     pathMatch: 'full'
   }
 ];

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../user/services/user.service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 enum FormControlNames {
   COM = 'com'
@@ -19,11 +20,18 @@ export class AddCommentComponent implements OnInit {
   comForm: FormGroup;
   formControlNames = FormControlNames;
   openEmoji: boolean;
+  isUser: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private authService: AuthService
+  ) {
+    authService.authState$.subscribe(user => {
+      if (user) {
+        this.isUser = true;
+      }});
+   }
 
   ngOnInit() {
     this.openEmoji = false;

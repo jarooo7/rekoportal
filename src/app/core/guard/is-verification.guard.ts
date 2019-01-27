@@ -15,12 +15,18 @@ export class IsVerificationGuard implements CanActivate {
 
   }
   canActivate(): Observable<boolean> {
-      return this.authService.authState$.pipe(map(state => {
-        if (state !== null) { return true; }
-        this.router.navigate(['/auth/login']);
-        return false;
+    return this.authService.authState$.pipe(map(state => {
+      if (state !== null) {
+        if (!this.authService.isEmailVerification()) {
+          this.router.navigate(['/not-active-user/not-active']);
+          return false;
         }
-      )
-    );
+          return true;
+        }
+      this.router.navigate(['/auth/login']);
+      return false;
+      }
+    )
+  );
   }
 }

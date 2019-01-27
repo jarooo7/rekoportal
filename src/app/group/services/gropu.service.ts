@@ -9,6 +9,7 @@ import { ArticleModel, ArticleLocationModel } from '../models/article';
 import { ArmyModel } from '../models/army';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { AvatarModel, UserModel } from '../../user/models/profile.model';
+import { getFormatedSearch } from '../../shared/functions/format-search-text';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,9 @@ export class GropuService {
     }
 
     getProfile(uid: string) {
-      let  myProfile: AngularFireObject<UserModel> = null;
-      myProfile = this.dataBase.object(`profile/${uid}`);
-      return myProfile.snapshotChanges();
+      let  profile: AngularFireObject<UserModel> = null;
+      profile = this.dataBase.object(`profile/${uid}`);
+      return profile.snapshotChanges();
     }
 
     addSuggestionGroup(sug: SugGroupModel) {
@@ -134,8 +135,9 @@ export class GropuService {
     }
 
     editGroup(groupId: string, name: string, description: string) {
+      const search: string = getFormatedSearch(name.toLowerCase());
       const group: AngularFireObject<GroupModel> = this.dataBase.object(`group/${groupId}`);
-      group.update({name: name, description: description});
+      group.update({name: name, description: description, search: search});
     }
 
     updateAdminsGroup(groupId: string, admins: string[]) {

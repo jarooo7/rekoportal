@@ -41,9 +41,21 @@
         "changePassword": "Change password"
     },
     "validationError": {
-        "email": "***************Wprowadź adres email",
-        "required": "This field is required ",
-        "smallTextSearch": "***************Zbyt krótki tekst wyszukiwania"
+        "name": {
+            "required": "This field is required",
+            "maxlength": "The maximum number of characters: 100"
+        },
+        "text": {
+            "required": "This field is required",
+            "maxlength": "The maximum number of characters: 1500"
+        },
+        "password": {
+            "required": "This field is required",
+            "minlength": "The minimum number of charactersв: 6"
+        },
+        "email": "***************Введите электронную почту",
+        "required": "This field is required",
+        "smallTextSearch": "**************Текст слишком короткий"
     },
     "alert": {
         "success": {
@@ -58,7 +70,7 @@
         "error": {
             "notConect": "***************Problem z połaczeniem",
             "userNotFound": "***************Użytkownik o podanym adresie email nie istnieje",
-            "wrongPassword": "***************Błędne hasło",
+            "wrongPassword": "Wrong password",
             "invalidEmail": "***************Błędny adres email",
             "isEmail": "***************Użytkownik o podanym adresie email już istnieje",
             "invalidCode": "***************Token wygasł wyślij maila ponownie",
@@ -75,12 +87,12 @@
         "send": "***************Wyślij ponownie email aktywacyjny"
     },
     "profile": {
-        "editProfile": "***************Edytuj profil",
-        "addPhoto": "***************Dodaj zdjęcie profilowe",
-        "editPhoto": "***************Edytyj zdjęcie profilowe",
-        "addFriends": "***************Dodaj do znajomych",
-        "akceptInvitation": "***************Akceptuj zaproszenie",
-        "rejectInvitation": "***************Odrzuć zaproszenie"
+        "editProfile": "Edit profile",
+        "addPhoto": "Add profile photo",
+        "editPhoto": "Update profile photo",
+        "addFriends": "Add friend",
+        "akceptInvitation": "Respond to friend request",
+        "rejectInvitation": "Delete request"
     },
     "post": {
         "addPost": "Add Post",
@@ -119,29 +131,32 @@
         "listGrup": "List of groups",
         "suggestGrup": "List of new groups",
         "users": "Users",
-        "addAdminGroup": "******************Dodaj administartora",
-        "addAdmin": "*******************Dodaj uprawnienia administartora",
+        "addAdminGroup": "Make group admin",
+        "addAdmin": "Make admin",
         "delAdmin": "***************Usuń uprawnienia administartora",
-        "panelAdmin": "***********Panel administratora"
+        "panelAdmin": "Admin panel"
     },
     "article": {
         "newArticle": "New Article",
         "title": "Title"
     },
     "group": {
-        "group-list": "***********Lista grup rekonstrukcyjnych",
-        "add-group": "***********Dodaj grupę rekonstrukcyjną",
+        "sub": "Subscribe",
+        "group-list": "List of reenactment groups",
+        "add-group": "Add reenactment group",
         "name-group": "Name group",
-        "description": "Description ",
+        "description": "Description",
         "armies": "Army/Armies",
         "standart": " Standard",
         "added": "Added",
         "other": "Other ",
         "group": "Groups",
         "edit": "Edit group",
-        "editPhoto": "***********Edytuj zdjęcie grupy",
-        "addPhoto": "***********Dodaj zdjęcie grupy",
-        "settings": " Settings group"
+        "editPhoto": "Update group photo",
+        "addPhoto": "Add group photo",
+        "settings": " Settings group",
+        "gr": "Group",
+        "addedNewArticle": "has published an article"
     },
     "armies": {
         "armies": "Armies",

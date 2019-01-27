@@ -40,22 +40,6 @@ export class AppComponent {
           translateService.setDefaultLang('ru');
           break;
         }
-        case 'de': {
-          translateService.setDefaultLang('de');
-          break;
-        }
-        case 'sk': {
-          translateService.setDefaultLang('sk');
-          break;
-        }
-        case 'lt': {
-          translateService.setDefaultLang('lt');
-          break;
-        }
-        case 'fr': {
-          translateService.setDefaultLang('fr');
-          break;
-        }
         default: {
           translateService.setDefaultLang('pl');
         }

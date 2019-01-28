@@ -2,11 +2,11 @@
   <a class="navbar-brand" href="#">
     <img class="logo" src="../../../../assets/logo.png">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
+  <button class="navbar-toggler" type="button" (click)="toggle()" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse " id="navbarTogglerDemo02">
+  <div class="navbar-collapse " [ngClass]='collapse'>
     <ul class="navbar-nav mr-auto  mt-2 mt-lg-0">
       <li class="nav-item">
         <button class="nav-link btn btn-link" [matMenuTriggerFor]="group">{{'group.group'|translate}}</button>
@@ -15,6 +15,9 @@
           <a mat-menu-item [routerLink]="['/group/groups-list']">{{'group.group-list'|translate}}</a>
           <a mat-menu-item [routerLink]="['/group/armies']">{{'armies.armies'| translate}}</a>
         </mat-menu>
+      </li>
+      <li *ngIf="isLogin()" class="mr-auto nav-item">
+        <a class="nav-link btn btn-link" [routerLink]="['/table-post/posts']">{{'global.news'|translate}}</a>
       </li>
     </ul>
     <form *ngIf="isLogin()" [formGroup]="searchForm" class="form-inline col-md-5 my-2 mx-3 my-lg-0">

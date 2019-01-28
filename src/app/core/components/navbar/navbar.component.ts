@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
   searchForm: FormGroup;
   formControlNames = FormControlNames;
   view = false;
+  collapse: string;
   howSub = 0;
   sub: SubModel[];
   invit: UserId[] = [];
@@ -81,6 +82,7 @@ export class NavbarComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       [FormControlNames.SEARCH]: ['']
     });
+    this.collapse = 'nodisplay';
   }
   loadLanguage() {
     if (localStorage.getItem(environment.language)) {
@@ -162,6 +164,14 @@ export class NavbarComponent implements OnInit {
 
   goToMyProfile() {
     this.router.navigate([`user/profile/${this.uid}`]);
+  }
+
+  toggle() {
+    if (this.collapse === 'nodisplay') {
+      this.collapse = 'display';
+    } else {
+      this.collapse = 'nodisplay';
+    }
   }
 
   goToAdmin() {

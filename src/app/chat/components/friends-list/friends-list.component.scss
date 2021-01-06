@@ -1,0 +1,63 @@
+.icon{
+    // position: fixed;
+    // left: 0;
+    // bottom: 20px;
+    font-size: 30px;
+    width: 50px;
+    background-color: rgba(36, 100, 196, 0.63);
+    color: rgba(255, 255, 255, 0.562);
+    transition: background-color 0.2s linear 0.3s,
+                width 0.4s linear,
+                font-size 0.4s linear;
+}
+// .icon:hover {
+//     background-color: rgb(36, 100, 196);
+//     color: rgb(255, 255, 255);
+//     width: 70px;
+//     transition: background-color 0.3s linear 0.2s,
+//                 width 0.4s linear;
+// }
+
+.list{
+    height: 100vh;
+    width: 300px;
+}
+.list-friends{
+    height: 100vh;
+    width: 300px;
+    position: absolute;
+}
+.chat{
+    position: fixed;
+    left: -300px;
+    bottom: 0px;
+    z-index: 4;
+    transition: left 1s linear 0.3s;
+}
+.chat:hover {
+    left: 0px;
+    transition: left 0.3s linear 0.2s;
+    .icon {
+        background-color: rgb(36, 100, 196);
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        width: 40px;
+        transition: background-color 0.3s linear 0.2s,
+                    width 0.4s linear,
+                    font-size 0.4s linear
+                    ;
+    }
+}
+.scroll-y {
+    height: 90%;
+    overflow-y: auto;
+    }
+
+.win-h{
+    height: 100%;
+}
+
+.number{
+    font-size: 13px;
+    min-width: 18px;
+  }

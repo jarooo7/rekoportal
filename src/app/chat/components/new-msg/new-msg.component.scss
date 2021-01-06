@@ -1,0 +1,16 @@
+.tex{
+    height: 65px;
+    border-radius: 15px; 
+    padding-left: 60px;
+}
+.emoji{
+    z-index: 5;
+    position: fixed;
+    bottom: 50px;
+    right: 200px;
+}
+.emoji-button{
+    height: 30px;
+    position: absolute;
+    top:2px;
+}

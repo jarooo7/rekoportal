@@ -1,0 +1,22 @@
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">{{'admin.users'|translate}}</th>
+        <th scope="col">{{'group.name-group'|translate}}</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of sug">
+        <td scope="row">
+            <app-user-res [userId]="s.userId"></app-user-res>
+        </td>
+        <td>
+          {{s.name}}
+        </td>
+        <td class="text-right">
+          <button class="btn btn-primary" (click)="openDialog(s)">{{'global.preview'|translate}}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

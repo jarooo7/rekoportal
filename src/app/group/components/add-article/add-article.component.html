@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>{{'article.newArticle'| translate}}</h1>
+<div mat-dialog-content>
+  <div class="container py-2">
+    <div class="row">
+      <div class="col-md-12">
+        <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <div>
+              <mat-form-field class="w-100">
+                <input errorKeyParent="validationError.name" [placeholder]="'article.title' | translate" matInput appErrorDirective [formControlName]="formControlNames.TITLE">
+              </mat-form-field>
+            </div>
+            <div class="dropzone" appFileDrop (hovered)="toggleHover($event)" (dropped)="addPhoto($event)" [class.hovering]="isHovering">
+              <div class="m-1">
+                <img class="m-2 emoji-button" src="../../../../assets/smile.svg" (click)="openEmojiPopup()">
+                <emoji-mart *ngIf="openEmoji" set="emojione" totalFrequentLines="1" sheetSize="16" [showPreview]="false" [i18n]="{
+                search: ('global.search'|translate),
+                notfound: ('emoji.notfound'|translate),
+                categories: {
+                    search: ('emoji.categories.search'|translate),
+                    recent: ('emoji.categories.recent'|translate),
+                    people: ('emoji.categories.people'|translate),
+                    nature: ('emoji.categories.nature'|translate),
+                    foods: ('emoji.categories.foods'|translate),
+                    activity: ('emoji.categories.activity'|translate),
+                    places: ('emoji.categories.places'|translate),
+                    objects: ('emoji.categories.objects'|translate),
+                    symbols: ('emoji.categories.symbols'|translate),
+                    flags: ('emoji.categories.flags'|translate),
+                    custom: ('emoji.categories.custom'|translate)
+                  }
+                }" class="emoji" (emojiClick)="addEmoji($event)">
+                </emoji-mart>
+                <textarea errorKeyParent="validationError.text" [placeholder]="'post.placeholder' | translate" class="form-control tex" appErrorDirective rows="4" [formControlName]="formControlNames.ARTICLE"
+                  (click)="closeEmojiPopup()"></textarea>
+              </div>
+              <div class="row px-5 py-3">
+                <div class="col-md-12 text-center">
+                  <h6>{{'post.dropPhoto'| translate}}</h6>
+                  <label class="btn btn-dark">
+                    <input style="display: none;" type="file" accept=".png,.jpg" (change)="addPhoto($event.target.files)">
+                    <span>
+                      <i class="fa fa-upload"></i>
+                      {{'post.orSelectPhoto'| translate}}
+                    </span>
+                  </label>
+                </div>
+                <div class="row">
+                  <div *ngFor="let img of imageSrc; let i = index" class="p-2">
+                    <div (click)="removePhoto(i);" class="x">
+                      <i class="fa fa-times fa-2x text-danger"></i>
+                    </div>
+                    <img class="min" [src]="img">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="w-100 mb-2">
+  <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
+  <button  [disabled]="!articleForm.valid" class="btn-primary btn" (click)="onSubmit()">{{'global.save'| translate}}</button>
+</div>

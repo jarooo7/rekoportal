@@ -1,0 +1,46 @@
+<div (click)="readOut()" class="messager bg-light" *ngIf="uid">
+  <div class="modal-header" [ngClass]="classBar">
+    <h6 class="modal-title text-light" (click)="goToUser()">
+      <fa class="text-success mr-2" *ngIf="isOnline()" name="circle"></fa>
+      <fa class="text-danger mr-2" *ngIf="!isOnline()" name="circle"></fa>
+      {{friend.name}} {{friend.lastName}}
+    </h6>
+    <div>
+      <div class="close">
+        <span aria-hidden="true" class=" text-light" (click)="removeChat()">&times;</span>
+      </div>
+      <div class="close" *ngIf="isOpen" (click)="minimize()">
+        <span aria-hidden="true" class=" text-light">_</span>
+      </div>
+      <div class="close" *ngIf="!isOpen" (click)="maximize()">
+        <span aria-hidden="true" class="h6 text-light">
+          <fa name="window-maximize"></fa>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isOpen">
+    <div #scrollMsg class="chat scroll-y">
+      <button *ngIf="!finish" class="btn btn-link text-center" (click)="next()">{{'global.next'|translate}}</button>
+      <div *ngFor="let msg of msgs | async">
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd  HH:mm'}}" *ngIf="isMyMsg(msg.userId)" class="my-msg text-right my-2 mr-2 ml-5 py-2 px-3">
+          {{msg.text}}
+        </div>
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd HH:mm'}}" *ngIf="!isMyMsg(msg.userId)" class="f-msg bg-dark text-light text-left my-2 ml-2 mr-5 px-3 py-2">
+          {{msg.text}}
+        </div>
+      </div>
+      <div *ngFor="let msg of newMsgList">
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd  HH:mm'}}" *ngIf="isMyMsg(msg.userId)" class="my-msg text-right my-2 mr-2 ml-5 py-2 px-3">
+          {{msg.text}}
+        </div>
+        <div title="{{msg.timestamp | date: 'yyyy-MM-dd HH:mm'}}" *ngIf="!isMyMsg(msg.userId)" class="f-msg bg-dark text-light text-left my-2 ml-2 mr-5 px-3 py-2">
+          {{msg.text}}
+        </div>
+      </div>
+    </div>
+    <div class="msg">
+      <app-new-msg [userId]="uid" [msgId]="msgId" name="{{friend.name}} {{friend.lastName}}" ></app-new-msg>
+    </div>
+  </div>
+</div>

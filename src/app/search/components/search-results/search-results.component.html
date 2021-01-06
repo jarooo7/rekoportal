@@ -1,0 +1,18 @@
+<div class="container py-5">
+    <div class="row py-5">
+        <div class="col-md-8 mx-auto">
+            <div class="display-4" *ngIf="!isSmall">
+                {{'global.searchResult'|translate}}:
+            </div>
+            <div *ngFor="let r of result">
+                <app-user-result [user]="r" [isClick]="true"  [imgClass]="'profile'" [textClass]="'h3'" [divClass]="'p-4 my-3 bg-search'" [userId]="r.key"></app-user-result>
+            </div>
+            <div *ngFor="let r of resGroup">
+                <app-group-res [group]="r" [isClick]="true"  [imgClass]="'profile'" [textClass]="'h3'" [divClass]="'p-4 my-3 bg-search'" [groupId]="r.key"></app-group-res>
+            </div>
+            <div class="alert alert-warning" *ngIf="isSmall" role="alert">
+                {{'validationError.smallTextSearch'|translate}}
+            </div>
+        </div>
+    </div>
+</div>

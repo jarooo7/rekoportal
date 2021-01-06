@@ -1,0 +1,38 @@
+.messager{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 350px;
+    z-index: 2;
+}
+.chat{
+    width: 350px;
+    height:  300px;
+}
+.msg{
+    width: 350px;
+    height: 70px;
+}
+.f-r{
+    float: right;
+}
+.scroll-y {
+    overflow-y: auto;
+    }
+.my-msg{
+   background-color: rgb(218, 214, 214);
+   border-radius: 20px;
+}
+.f-msg{
+    border-radius: 20px;
+}
+
+.notRead {
+    animation: animationBarNotRead 2s infinite;
+  }
+
+  @keyframes animationBarNotRead  {
+    0% { background-color:rgb(20, 20, 20); }
+    50% { background-color:rgb(150, 7, 7); }
+    100% { background-color:rgb(20, 20, 20);; }
+  }

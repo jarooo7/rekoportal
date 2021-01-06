@@ -1,0 +1,13 @@
+
+<div class="w-260" *ngIf="filter()">
+    <div class="d-flex flex-row">
+        <div class="w-230 align-self-center">
+                <fa class="notification" *ngIf="isRead" name="comment"></fa> 
+            <app-user-result [user]="friend" [isClick]="false" [imgClass]="'mini2'" [textClass]="'h6'" [divClass]="'pl-4'" [userId]="friendId.userId"></app-user-result>
+        </div>
+        <div class="w-30 align-self-center text-right">
+            <fa class="text-success ml-2 stat" *ngIf="isOnline()" name="circle"></fa>
+            <fa class="text-danger ml-2 stat" *ngIf="!isOnline()" name="circle"></fa>
+        </div>
+    </div>
+</div>

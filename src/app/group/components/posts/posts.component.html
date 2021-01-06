@@ -1,0 +1,37 @@
+<div class="container pt-5">
+  <div class="row pt-5">
+    <div class="col-md-12 ">
+    </div>
+    </div>
+  </div>
+<div class="pb-5" *ngFor="let a of article | async">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center mx-auto">
+        <hr class="mb-5">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10 text-center mx-auto">
+        <app-group-info [id]="a.groupId"></app-group-info>
+        <p class="mt-2">
+          <small>{{a.timestamp | date: 'yyyy-MM-dd  HH:mm'}}</small>
+        </p>
+        <h4 class="mb-3">{{a.title}} </h4>
+        <p class="mb-3">{{a.text}} </p>
+      </div>
+      <div class="col-md-7 mx-auto" >
+        <app-gallery *ngIf="a.photos" [image]="a.photos"></app-gallery>
+        <app-like [postKey]="a.key" [userId]="a.groupId"></app-like>
+      </div>
+      <div class="col-md-7 mx-auto">
+        <app-view-comment [keyPost]="a.key" [userId]="a.groupId"></app-view-comment>  
+        <app-add-comment [key]="a.key" [userId]="a.groupId"></app-add-comment>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<div infiniteScroll [infiniteScrollDistance]="4" [infiniteScrollThrottle]="1000" (scrolled)="onScroll()">
+</div>
+

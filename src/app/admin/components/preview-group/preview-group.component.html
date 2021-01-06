@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{group.name}}</h1>
+<div mat-dialog-content>
+  <h5>{{'group.description'| translate}}</h5>
+  <p>{{group.description}}</p>
+  <h5>{{'group.armies'| translate}}</h5>
+  
+  <h6>{{'group.standart'| translate}}:</h6>
+  <div>
+    <span *ngFor="let e of group.armies" >{{'armies.' + e| translate}}, </span>
+  </div>
+  <h6>{{'group.other'| translate}}:</h6>
+  <div>
+    <span  *ngFor="let e of group.otherArmies" >{{e}}, </span>
+  </div>
+
+  <h5>{{'admin.admins'| translate}}:</h5>
+  <div *ngFor="let a of group.admins">
+      <i class="fa fa-times fa-2x text-danger" (click)="removeAdmin(a)" style="float: left;"></i>
+    <app-user-res (click)="onNoClick()" [userId]="a"></app-user-res> 
+  </div>
+  
+</div>
+<div mat-dialog-actions class="w-100 mb-2">
+    <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
+</div>

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{'group.add-group'| translate}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="groupForm">
+    <mat-form-field class="w-100">
+      <input type="text" errorKeyParent="validationError.name" appErrorDirective matInput [placeholder]="'group.name-group'| translate" [formControlName]="formControlNames.NAME">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <textarea type="text" errorKeyParent="validationError.text" appErrorDirective matInput [placeholder]="'group.description'| translate" [formControlName]="formControlNames.DESCRIPTION"></textarea>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-select [placeholder]="'group.armies'| translate" [formControlName]="formControlNames.ARMIES" multiple>
+        <div class="m-2">
+          <input style="float: left;" class="form-control form-control-sm ml-3 w-75" type="text" [formControl]="addArmy" [placeholder]="'armies.add'| translate">
+          <button (click)="addNewArmy()" class="btn btn-primary btn-sm">
+            <fa name="plus"></fa>
+          </button>
+        </div>
+        <mat-optgroup [label]="'group.added'| translate">
+          <mat-option *ngFor="let e of newArmies" [value]="e.name">
+            {{e.name}}
+          </mat-option>
+        </mat-optgroup>
+        <mat-optgroup [label]="'group.standart'| translate">
+          <mat-option *ngFor="let e of standartArmy" [value]="e.name">
+            {{'armies.' + e.name| translate}}
+          </mat-option>
+        </mat-optgroup>
+        <mat-optgroup [label]="'group.other'| translate">
+          <mat-option *ngFor="let e of result" [value]="e.name">
+            {{e.name}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="w-100 mb-2">
+  <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
+  <button  [disabled]="!groupForm.valid" class="btn-primary btn" (click)="onSubmit()">{{'global.save'| translate}}</button>
+</div>

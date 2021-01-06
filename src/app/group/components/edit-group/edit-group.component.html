@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{'group.edit'| translate}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="groupForm">
+    <mat-form-field class="w-100">
+      <input type="text" errorKeyParent="validationError.name" appErrorDirective matInput [placeholder]="'group.name-group'| translate" [formControlName]="formControlNames.NAME">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <textarea type="text" errorKeyParent="validationError.text" appErrorDirective matInput [placeholder]="'group.description'| translate" [formControlName]="formControlNames.DESCRIPTION"></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="w-100 mb-2">
+  <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
+  <button class="btn-primary btn"  [disabled]="!groupForm.valid" (click)="onSubmit()">{{'global.save'| translate}}</button>
+</div>

@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{group.name}}</h1>
+<div *ngIf="group" mat-dialog-content>
+  <h5>{{'group.description'| translate}}</h5>
+  <p>{{group.description}}</p>
+  <h5>{{'group.armies'| translate}}</h5>
+  
+  <h6>{{'group.standart'| translate}}:</h6>
+  <div>
+    <span *ngFor="let e of group.armies" >{{'armies.' + e| translate}}, </span>
+  </div>
+  <h6>{{'group.other'| translate}}:</h6>
+  <div>
+    <span  *ngFor="let e of group.otherArmies" >{{e}}, </span>
+  </div>
+
+  <h5>{{'admin.admins'| translate}}:</h5>
+  <div *ngFor="let a of group.admins; let i = index">
+    <i class="fa fa-times fa-2x text-danger" (click)="removeAdmin(i)" style="float: left;"></i>
+    <app-user-res (click)="onNoClick()" [userId]="a"></app-user-res> 
+  </div>
+  <h5 class="my-3">{{'admin.addAdminGroup'| translate}}:</h5>
+  <form [formGroup]="searchForm" class="form-inline mx-2 w-100">
+    <input [formControlName]="formControlNames.SEARCH" (keyup)="searchNow($event.target.value)"  class="form-control w-100 mr-sm-2"
+        type="search" placeholder="{{'global.searchUser'|translate}}">
+  </form>
+  <div *ngFor="let r of result">
+    <i class="fa fa-plus py-3 fa-2x text-primary " (click)="addAdmin(r.key)" style="float: left;"></i>
+    <app-user-result [user]="r" [isClick]="true" [imgClass]="'mini'" [textClass]="'h6'" [divClass]="'py-2 px-4'" [userId]="r.key"></app-user-result>
+  </div>
+</div>
+<div mat-dialog-actions class="w-100 mb-2">
+    <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
+</div>

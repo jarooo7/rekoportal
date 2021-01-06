@@ -1,0 +1,6 @@
+<div mat-dialog-content>
+<app-article [group]="data.group" [id]="data.article"></app-article>
+</div>
+<div mat-dialog-actions class="w-100 mb-2">
+    <button class="btn-light btn mr-3" (click)="onNoClick()">{{'global.cancel'| translate}}</button>
+</div>

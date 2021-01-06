@@ -1,0 +1,26 @@
+.w-260{
+    width: 260px;
+}
+.w-230{
+    width: 230px;
+}
+.w-30{
+    width: 30px;
+}
+.stat{
+    font-size: 12px;
+}
+.notification{
+    font-size: 20px;
+    position: absolute;
+    z-index: 5;
+    left: 220px;
+    animation:animationNotRead 2s infinite;
+}
+
+  @keyframes animationNotRead
+  {
+    0% { color:rgb(206, 6, 6); }
+    50% { color:rgba(100, 100, 100, 0.479); }
+    100% { color:rgb(206, 6, 6); }
+  }
